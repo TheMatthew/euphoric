@@ -1,0 +1,13 @@
+{
+  "blacksmith": {
+	"start": {
+	  "text": "Welcome, traveler. Need weapons or a story?",
+	  "options": [
+		{"text":"Show me your wares.", "goto":"shop_blacksmith"},
+		{"text":"Any rumors?", "goto":"rumors"},
+		{"text":"Goodbye.", "goto":null}
+	  ]
+	},
+	"rumors": {"text":"They say dragons nest east of the mountains.", "options":[{"text":"Thanks","goto":null}]}
+  }
+}

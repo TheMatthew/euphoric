@@ -1,0 +1,9 @@
+{
+  "blacksmith": [
+	{"id":"sword", "name":"Short Sword", "price":50},
+	{"id":"shield", "name":"Wooden Shield", "price":30}
+  ],
+  "general_store": [
+	{"id":"potion", "name":"Healing Potion", "price":25}
+  ]
+}

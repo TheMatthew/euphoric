@@ -1,0 +1,16 @@
+{
+  "plains": {
+	"encounter_chance": 0.06,
+	"monsters": [
+	  {"id":"goblin", "weight":5},
+	  {"id":"wolf", "weight":3}
+	]
+  },
+  "mountains": {
+	"encounter_chance": 0.12,
+	"monsters": [
+	  {"id":"orc", "weight":4},
+	  {"id":"young_dragon", "weight":1}
+	]
+  }
+}
