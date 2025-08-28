@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://q7cg4gf80n2x"
+path="res://.godot/imported/shapes.png-505e1c5d73b48fbeb90f997b3699cd63.image"
+
+[deps]
+
+source_file="res://res/u4graphics-master/32x32x24/shapes.png"
+dest_files=["res://.godot/imported/shapes.png-505e1c5d73b48fbeb90f997b3699cd63.image"]
+
+[params]
+
