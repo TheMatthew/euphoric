@@ -1,7 +1,0 @@
-[gd_scene format=3 uid="Overworld"]
-[node name="Overworld" type="Node2D"]
-[node name="WorldMap" type="TileMap" parent="."]
-[node name="Player" type="CharacterBody2D" parent="."]
-script = ExtResource("res://scripts/Player.gd")
-[node name="EncounterManager" type="Node" parent="."]
-script = ExtResource("res://scripts/EncounterManager.gd")
