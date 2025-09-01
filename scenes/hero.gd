@@ -6,6 +6,7 @@ const inputs = {
 	"move_down": Vector2.DOWN,
 	"move_up": Vector2.UP
 }
+
 # Stores the grid size, which is 16 (same as one tile)
 var grid_size = 32
 
@@ -14,8 +15,6 @@ var grid_size = 32
 
 
 func _ready():
-	print("Hero global pos:", global_position)
-	print("TileMap global pos:", get_parent().get_node("TileMapLayer").global_position)
 	var tilemap = get_parent().get_node("TileMapLayer")
 
 	# Convert hero's global position to TileMap-local coordinates
@@ -45,6 +44,7 @@ func move(action):
 	var new_pos = global_position + destination
 	if not ray_cast_2d.is_colliding():
 		if  can_move_to(new_pos):
+			
 			global_position = new_pos
 
 
@@ -60,8 +60,6 @@ func can_move_to(world_pos: Vector2) -> bool:
 	# desired neighbor cell
 	
 	var tile_id = tilemap.get_cell_source_id(target_cell) # 0 = layer index
-	print("Hero global pos:", global_position)
-	print("Hero tgt pos:", world_pos)
 	if str(tile_id) in blocked_tiles: # <-- make sure both are strings
 		return false
 	return true
