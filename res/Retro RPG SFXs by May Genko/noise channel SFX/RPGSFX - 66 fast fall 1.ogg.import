@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bpdnclktkk8dl"
+path="res://.godot/imported/RPGSFX - 66 fast fall 1.ogg-d73ac929af0d4de657274ab8a396aeea.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/noise channel SFX/RPGSFX - 66 fast fall 1.ogg"
+dest_files=["res://.godot/imported/RPGSFX - 66 fast fall 1.ogg-d73ac929af0d4de657274ab8a396aeea.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

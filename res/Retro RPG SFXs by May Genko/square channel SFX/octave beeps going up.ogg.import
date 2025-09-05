@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://fac13b3h1kxw"
+path="res://.godot/imported/octave beeps going up.ogg-578093c42858be562497f65aad1896f1.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/octave beeps going up.ogg"
+dest_files=["res://.godot/imported/octave beeps going up.ogg-578093c42858be562497f65aad1896f1.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

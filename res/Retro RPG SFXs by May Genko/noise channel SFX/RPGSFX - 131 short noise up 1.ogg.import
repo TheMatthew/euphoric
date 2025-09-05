@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://qgq8ka54yic1"
+path="res://.godot/imported/RPGSFX - 131 short noise up 1.ogg-79fb26593fa7c36abd8ed2052c76807f.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/noise channel SFX/RPGSFX - 131 short noise up 1.ogg"
+dest_files=["res://.godot/imported/RPGSFX - 131 short noise up 1.ogg-79fb26593fa7c36abd8ed2052c76807f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

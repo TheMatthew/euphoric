@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ouqso3ooldsl"
+path="res://.godot/imported/small victory slide up short.ogg-eb7105e69664f277b1497dd218b00bdf.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/small victory slide up short.ogg"
+dest_files=["res://.godot/imported/small victory slide up short.ogg-eb7105e69664f277b1497dd218b00bdf.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

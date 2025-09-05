@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://hh3t4r3j6bs8"
+path="res://.godot/imported/1 2 3 triplets going down 2.ogg-4cbf49d3b8b34996cdc6864c19519b04.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/1 2 3 triplets going down 2.ogg"
+dest_files=["res://.godot/imported/1 2 3 triplets going down 2.ogg-4cbf49d3b8b34996cdc6864c19519b04.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

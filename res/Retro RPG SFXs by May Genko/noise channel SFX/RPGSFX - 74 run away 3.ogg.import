@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bdadxfftxktng"
+path="res://.godot/imported/RPGSFX - 74 run away 3.ogg-ce8e4e92daabd557200fbd4decefcaf6.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/noise channel SFX/RPGSFX - 74 run away 3.ogg"
+dest_files=["res://.godot/imported/RPGSFX - 74 run away 3.ogg-ce8e4e92daabd557200fbd4decefcaf6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

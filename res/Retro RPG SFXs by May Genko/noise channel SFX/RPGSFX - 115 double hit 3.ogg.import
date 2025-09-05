@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://d22oqdkcvrixv"
+path="res://.godot/imported/RPGSFX - 115 double hit 3.ogg-2ff939cbd40e8c790fb199d84cbe7c7a.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/noise channel SFX/RPGSFX - 115 double hit 3.ogg"
+dest_files=["res://.godot/imported/RPGSFX - 115 double hit 3.ogg-2ff939cbd40e8c790fb199d84cbe7c7a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bwgac3syoue86"
+path="res://.godot/imported/menu beep 2.ogg-b1638c96988c940598e8f270e2205777.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/menu beep 2.ogg"
+dest_files=["res://.godot/imported/menu beep 2.ogg-b1638c96988c940598e8f270e2205777.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

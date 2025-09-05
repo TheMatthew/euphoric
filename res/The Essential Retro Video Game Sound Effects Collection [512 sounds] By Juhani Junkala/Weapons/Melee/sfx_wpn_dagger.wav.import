@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cnm6rhmkd32mo"
+path="res://.godot/imported/sfx_wpn_dagger.wav-5c73ad9afb5a46a0936d8f6325a719d1.sample"
+
+[deps]
+
+source_file="res://res/The Essential Retro Video Game Sound Effects Collection [512 sounds] By Juhani Junkala/Weapons/Melee/sfx_wpn_dagger.wav"
+dest_files=["res://.godot/imported/sfx_wpn_dagger.wav-5c73ad9afb5a46a0936d8f6325a719d1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

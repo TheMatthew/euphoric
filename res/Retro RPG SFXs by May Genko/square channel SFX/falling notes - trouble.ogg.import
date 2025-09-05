@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://ci6ffa3f1c5t1"
+path="res://.godot/imported/falling notes - trouble.ogg-65412af1f48bcced1c92520cf178d322.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/falling notes - trouble.ogg"
+dest_files=["res://.godot/imported/falling notes - trouble.ogg-65412af1f48bcced1c92520cf178d322.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

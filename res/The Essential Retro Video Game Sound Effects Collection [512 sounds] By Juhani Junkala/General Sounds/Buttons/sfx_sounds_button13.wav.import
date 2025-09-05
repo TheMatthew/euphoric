@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dckg0swlw66qj"
+path="res://.godot/imported/sfx_sounds_button13.wav-de1b07d9a48ca12d01ee466853067031.sample"
+
+[deps]
+
+source_file="res://res/The Essential Retro Video Game Sound Effects Collection [512 sounds] By Juhani Junkala/General Sounds/Buttons/sfx_sounds_button13.wav"
+dest_files=["res://.godot/imported/sfx_sounds_button13.wav-de1b07d9a48ca12d01ee466853067031.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

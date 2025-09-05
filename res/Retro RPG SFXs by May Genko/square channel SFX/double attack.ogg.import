@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://mhhk7bdcsnb7"
+path="res://.godot/imported/double attack.ogg-de19c23e6e522d1e76844ba54009c343.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/double attack.ogg"
+dest_files=["res://.godot/imported/double attack.ogg-de19c23e6e522d1e76844ba54009c343.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

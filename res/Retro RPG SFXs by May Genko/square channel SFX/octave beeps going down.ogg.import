@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://l7ce5adibo2h"
+path="res://.godot/imported/octave beeps going down.ogg-c2eb898c976afc23941dce234d8117d7.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/octave beeps going down.ogg"
+dest_files=["res://.godot/imported/octave beeps going down.ogg-c2eb898c976afc23941dce234d8117d7.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

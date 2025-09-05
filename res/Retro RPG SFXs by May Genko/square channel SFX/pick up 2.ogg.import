@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://blgnklg1s72q8"
+path="res://.godot/imported/pick up 2.ogg-0dba4bdea78cacb6274734f7dd07139c.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/pick up 2.ogg"
+dest_files=["res://.godot/imported/pick up 2.ogg-0dba4bdea78cacb6274734f7dd07139c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

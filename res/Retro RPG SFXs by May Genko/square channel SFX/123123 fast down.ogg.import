@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://4kp55tlvpgod"
+path="res://.godot/imported/123123 fast down.ogg-a4db705b492ae9b8037de5ef88e5f5ca.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/123123 fast down.ogg"
+dest_files=["res://.godot/imported/123123 fast down.ogg-a4db705b492ae9b8037de5ef88e5f5ca.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

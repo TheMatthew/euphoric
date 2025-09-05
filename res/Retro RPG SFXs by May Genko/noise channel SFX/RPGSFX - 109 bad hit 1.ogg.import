@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://djmkhttveolqa"
+path="res://.godot/imported/RPGSFX - 109 bad hit 1.ogg-84a189fc20854a76efe761d590e0c915.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/noise channel SFX/RPGSFX - 109 bad hit 1.ogg"
+dest_files=["res://.godot/imported/RPGSFX - 109 bad hit 1.ogg-84a189fc20854a76efe761d590e0c915.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

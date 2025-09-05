@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bm3va2onkpyd5"
+path="res://.godot/imported/menu back 1.ogg-4f97fddbed00ddfa183e34f1a819477b.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/menu back 1.ogg"
+dest_files=["res://.godot/imported/menu back 1.ogg-4f97fddbed00ddfa183e34f1a819477b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

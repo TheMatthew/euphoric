@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dgu7w76xqsgbw"
+path="res://.godot/imported/low beep.ogg-47f736a895242adb270c1cdf5c3974e6.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/low beep.ogg"
+dest_files=["res://.godot/imported/low beep.ogg-47f736a895242adb270c1cdf5c3974e6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

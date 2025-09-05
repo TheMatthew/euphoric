@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://chgrb3kiy2xb6"
+path="res://.godot/imported/2 straight beeps 1.ogg-0c73e608f6ab9eda6ef8b235437ae91a.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/2 straight beeps 1.ogg"
+dest_files=["res://.godot/imported/2 straight beeps 1.ogg-0c73e608f6ab9eda6ef8b235437ae91a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

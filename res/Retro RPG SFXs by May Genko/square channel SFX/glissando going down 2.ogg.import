@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://3h7s3n5i7vha"
+path="res://.godot/imported/glissando going down 2.ogg-d4d3019cc8b48ccc01731191024b807b.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/glissando going down 2.ogg"
+dest_files=["res://.godot/imported/glissando going down 2.ogg-d4d3019cc8b48ccc01731191024b807b.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

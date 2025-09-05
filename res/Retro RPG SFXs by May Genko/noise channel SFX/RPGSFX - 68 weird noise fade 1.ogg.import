@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cx2nw1fbclaqo"
+path="res://.godot/imported/RPGSFX - 68 weird noise fade 1.ogg-3b730bc71fc14a1e10d55e654e408d46.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/noise channel SFX/RPGSFX - 68 weird noise fade 1.ogg"
+dest_files=["res://.godot/imported/RPGSFX - 68 weird noise fade 1.ogg-3b730bc71fc14a1e10d55e654e408d46.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

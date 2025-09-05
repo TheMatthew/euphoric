@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://kivkarovki63"
+path="res://.godot/imported/sfx_movement_dooropen4.wav-6b4fd1b19d9597fa1a3cc68703036bec.sample"
+
+[deps]
+
+source_file="res://res/The Essential Retro Video Game Sound Effects Collection [512 sounds] By Juhani Junkala/Movement/Opening Doors/sfx_movement_dooropen4.wav"
+dest_files=["res://.godot/imported/sfx_movement_dooropen4.wav-6b4fd1b19d9597fa1a3cc68703036bec.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cutaxmvnb5lut"
+path="res://.godot/imported/two note attack beep.ogg-02d1d4154ede4a2f33982c503630489a.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/two note attack beep.ogg"
+dest_files=["res://.godot/imported/two note attack beep.ogg-02d1d4154ede4a2f33982c503630489a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://di0358b7fay16"
+path="res://.godot/imported/sfx_movement_footsteps1b.wav-b0bab065f1ac9d1169fe08365c546fa0.sample"
+
+[deps]
+
+source_file="res://res/The Essential Retro Video Game Sound Effects Collection [512 sounds] By Juhani Junkala/Movement/Footsteps/sfx_movement_footsteps1b.wav"
+dest_files=["res://.godot/imported/sfx_movement_footsteps1b.wav-b0bab065f1ac9d1169fe08365c546fa0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

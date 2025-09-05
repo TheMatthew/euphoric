@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cw2rrhmy0cyrp"
+path="res://.godot/imported/sfx_exp_various7.wav-c17b17315dd75596346ff9a24fdcfc88.sample"
+
+[deps]
+
+source_file="res://res/The Essential Retro Video Game Sound Effects Collection [512 sounds] By Juhani Junkala/Explosions/Various/sfx_exp_various7.wav"
+dest_files=["res://.godot/imported/sfx_exp_various7.wav-c17b17315dd75596346ff9a24fdcfc88.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

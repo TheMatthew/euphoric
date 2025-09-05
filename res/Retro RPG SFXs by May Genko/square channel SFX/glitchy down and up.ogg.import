@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bpubuipfb4wm"
+path="res://.godot/imported/glitchy down and up.ogg-1685b905e8de3928121b286c00bf2c1e.oggvorbisstr"
+
+[deps]
+
+source_file="res://res/Retro RPG SFXs by May Genko/square channel SFX/glitchy down and up.ogg"
+dest_files=["res://.godot/imported/glitchy down and up.ogg-1685b905e8de3928121b286c00bf2c1e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
