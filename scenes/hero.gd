@@ -26,7 +26,6 @@ func _ready():
 	# Get tile id
 	var tile_id = tilemap.get_cell_source_id(cell)
 
-	print("Hero is on cell:", cell, "tile id:", tile_id)
 # Calls the move function with the appropriate input key
 # if any input map action is triggered
 func _unhandled_input(event):

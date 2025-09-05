@@ -1,16 +1,27 @@
-[gd_scene load_steps=13 format=4 uid="uid://75k4u5aie0cg"]
+[gd_scene load_steps=16 format=4 uid="uid://75k4u5aie0cg"]
 
 [ext_resource type="TileSet" uid="uid://br0h1p1uc07xg" path="res://res/euphoric.tres" id="1_c7s6e"]
 [ext_resource type="Script" uid="uid://bohugl1jyx784" path="res://scenes/hero.gd" id="2_gldc4"]
 [ext_resource type="Texture2D" uid="uid://cbcyl8dmaw752" path="res://res/u4graphics-master/32x32x24/shapes-assets/031_avatar.png" id="2_paxxb"]
 [ext_resource type="Shader" uid="uid://cds4ou4lu3ha3" path="res://scenes/map.gdshader" id="4_2klcf"]
 [ext_resource type="Script" uid="uid://dg725ju5055cv" path="res://scenes/dungeon_avarice.gd" id="5_2klcf"]
+[ext_resource type="FontFile" uid="uid://m42oyeki1a78" path="res://blackchancery.regular.ttf" id="5_be0no"]
 [ext_resource type="Script" uid="uid://cmbawnriq0y7m" path="res://scenes/dungeon_despair.gd" id="6_2lpho"]
 [ext_resource type="Script" uid="uid://5lq8e57fxan" path="res://scenes/village_valewind.gd" id="7_nakos"]
 [ext_resource type="Texture2D" uid="uid://dxfp3i01it67i" path="res://res/u4graphics-master/32x32x24/shapes-assets/012_village.png" id="8_jh32y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2lpho"]
 shader = ExtResource("4_2klcf")
+
+[sub_resource type="Theme" id="Theme_blm8a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlgqr"]
+bg_color = Color(0.535397, 0.636131, 0.489567, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.197478, 0.189561, 0.133436, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0cso3"]
 
@@ -38,6 +49,37 @@ texture = ExtResource("2_paxxb")
 [node name="Camera2D" type="Camera2D" parent="hero"]
 ignore_rotation = false
 zoom = Vector2(2, 2)
+
+[node name="MarginContainer" type="MarginContainer" parent="hero/Camera2D"]
+offset_left = -250.0
+offset_top = 60.0
+offset_right = 250.0
+offset_bottom = 140.0
+
+[node name="Panel" type="Panel" parent="hero/Camera2D/MarginContainer"]
+layout_mode = 2
+theme = SubResource("Theme_blm8a")
+theme_override_styles/panel = SubResource("StyleBoxFlat_mlgqr")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hero/Camera2D/MarginContainer"]
+layout_mode = 2
+
+[node name="header" type="Label" parent="hero/Camera2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_be0no")
+text = "char_name"
+
+[node name="body" type="Label" parent="hero/Camera2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("5_be0no")
+text = "This is the text I have to say"
+
+[node name="footer" type="Label" parent="hero/Camera2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("5_be0no")
+text = "> input"
 
 [node name="RayCast2D" type="RayCast2D" parent="hero"]
 target_position = Vector2(32, 0)
