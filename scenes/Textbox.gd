@@ -1,11 +1,12 @@
-extends CanvasLayer
+extends MarginContainer
 
 const CHAR_READ_RATE = 0.05
 
-@onready var textbox_container = $MapRoot/hero/MarginContainer
-@onready var start_symbol = $MapRoot/hero/Camera2D/MarginContainer/HBoxContainer/Start
-@onready var end_symbol = $MapRoot/hero/Camera2D/MarginContainer/HBoxContainer/End
-@onready var label = $MapRoot/hero/Camera2D/MarginContainer/HBoxContainer/body
+@onready var tween = Tween.new()
+@onready var textbox_container = self
+@onready var start_symbol = textbox_container.get_node("VBoxContainer").get_node("header")
+@onready var end_symbol = textbox_container.get_node("VBoxContainer").get_node("footer")
+@onready var label = textbox_container.get_node("VBoxContainer").get_node("body")
 
 enum State {
 	READY,
@@ -19,26 +20,26 @@ var text_queue = []
 func _ready():
 	print("Starting state: State.READY")
 	hide_textbox()
-	queue_text("Excuse me wanderer where can I find the bathroom?")
-	queue_text("Why do we not look like the others?")
-	queue_text("Because we are free assets from opengameart!")
-	queue_text("Thanks for watching!")
+	tween.connect("finished",_on_Tween_tween_completed)
 
 func _process(delta):
 	match current_state:
 		State.READY:
-			if !text_queue.empty():
+			if !text_queue.is_empty():
 				display_text()
+			else:
+				# Hide textbox when there's no text to display
+				if textbox_container.visible:
+					hide_textbox()
 		State.READING:
 			if Input.is_action_just_pressed("ui_accept"):
-				label.percent_visible = 1.0
-				$Tween.remove_all()
-				end_symbol.text = "v"
+				label.visible_ratio = 1.0
+				tween.stop()
+				end_symbol.text = "<enter>"
 				change_state(State.FINISHED)
 		State.FINISHED:
 			if Input.is_action_just_pressed("ui_accept"):
 				change_state(State.READY)
-				hide_textbox()
 
 func queue_text(next_text):
 	text_queue.push_back(next_text)
@@ -50,17 +51,18 @@ func hide_textbox():
 	textbox_container.hide()
 
 func show_textbox():
-	start_symbol.text = "*"
+	print("Showing text: ", label.text)
 	textbox_container.show()
+	label.add_theme_color_override("default_color", Color.BLACK)
+	label.show()
 
 func display_text():
 	var next_text = text_queue.pop_front()
 	label.text = next_text
-	label.percent_visible = 0.0
+	label.visible_ratio = 1.0
 	change_state(State.READING)
 	show_textbox()
-	$Tween.interpolate_property(label, "percent_visible", 0.0, 1.0, len(next_text) * CHAR_READ_RATE, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	$Tween.start()
+	# tween.tween_property(label, "visible_ratio", 1.0, len(next_text) * CHAR_READ_RATE)
 
 func change_state(next_state):
 	current_state = next_state
@@ -73,5 +75,5 @@ func change_state(next_state):
 			print("Changing state to: State.FINISHED")
 
 func _on_Tween_tween_completed(object, key):
-	end_symbol.text = "v"
+	end_symbol.text = "<enter>"
 	change_state(State.FINISHED)
