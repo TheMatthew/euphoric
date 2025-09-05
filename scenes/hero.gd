@@ -53,7 +53,6 @@ func _unhandled_input(event):
 		if event.is_action_pressed(action) and not is_moving:
 			is_moving = true
 			move(action)
-			play_step_sound()
 			move_timer.start()  # Start the timer after the first press
 
 # Called when the move timer times out
@@ -80,6 +79,7 @@ func move(action):
 		if  can_move_to(new_pos):
 			
 			global_position = new_pos
+	play_step_sound()
 
 func get_current_tile_type() -> String:
 	var tilemap = get_parent().get_node("TileMapLayer")
