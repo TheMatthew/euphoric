@@ -33,6 +33,7 @@ func _on_body_exited(body):
 		player = null
 
 func teleport_player(player_node):
+<<<<<<< Updated upstream
 	# stop any children activities before changing the scene
 	_on_body_exited(player_node)
 	
@@ -62,6 +63,12 @@ func teleport_player(player_node):
 				nodes.append(node.name)
 			print ("Could not find : " , destination_id, " visible areas ", nodes)
 		
+=======
+	var destination = find_destination()
+	if destination:
+		player_node.global_position = destination.global_position
+		# Add teleport effects here
+>>>>>>> Stashed changes
 
 	if destination:
 		player_node.global_position = destination.global_position

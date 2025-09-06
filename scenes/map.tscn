@@ -40,6 +40,13 @@ script = ExtResource("5_2klcf")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dungeon_avarice"]
 shape = SubResource("RectangleShape2D_2lpho")
 
+[node name="dungeon_unjust" type="Area2D" parent="."]
+position = Vector2(5456, 6192)
+script = ExtResource("14_n1psn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dungeon_unjust"]
+shape = SubResource("RectangleShape2D_2lpho")
+
 [node name="dungeon_despair" type="Area2D" parent="."]
 position = Vector2(4496, 2672)
 script = ExtResource("6_2lpho")
@@ -146,3 +153,18 @@ shape = SubResource("RectangleShape2D_nakos")
 
 [node name="Sprite2D" type="Sprite2D" parent="castle_moonfel"]
 texture = ExtResource("13_gw3fx")
+<<<<<<< Updated upstream
+=======
+
+[node name="village_blackwater" type="Area2D" parent="."]
+position = Vector2(4400, 6736)
+script = ExtResource("9_mlgqr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="village_blackwater"]
+shape = SubResource("RectangleShape2D_nakos")
+
+[node name="Sprite2D" type="Sprite2D" parent="village_blackwater"]
+texture = ExtResource("8_jh32y")
+
+[node name="SoundPlayer" type="AudioStreamPlayer" parent="."]
+>>>>>>> Stashed changes
