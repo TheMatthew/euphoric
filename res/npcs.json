@@ -1,0 +1,730 @@
+{
+  "Valenwind": [
+	{
+	  "NAME": "I am a guard.",
+	  "JOB": "I am a guard.",
+	  "HEALTH": "Strong.",
+	  "GOLD": "Bribery is illegal.",
+	  "DESCRIPTION": "You see a strong guard.",
+	  "GENDER": "Male",
+	  "AGE": 33
+	},
+	{
+	  "NAME": "I am Alric, a humble farmer.",
+	  "JOB": "I tend the fields to feed our folk.",
+	  "HEALTH": "I feel hale enough, though my back aches.",
+	  "GOLD": "Gold? I have but a few coins for seed.",
+	  "DESCRIPTION": "A weathered man with soil-stained hands, always smelling of earth.",
+	  "GENDER": "Male",
+	  "AGE": 52,
+	  "HOOK": "The soil’s been strange of late… perhaps magic taints it."
+	},
+	{
+	  "NAME": "I am Serah.",
+	  "JOB": "I weave cloth for the village.",
+	  "HEALTH": "Well enough, thanks be.",
+	  "GOLD": "I barter more than I spend, little need for gold.",
+	  "DESCRIPTION": "A quiet woman with nimble fingers, always carrying a basket of yarn.",
+	  "GENDER": "Female",
+	  "AGE": 37,
+	  "HOOK": "Sailors from Elderia pay well for strong cloth."
+	},
+	{
+	  "NAME": "I am Thom the youth.",
+	  "JOB": "Someday I’ll be a knight! For now I fetch water.",
+	  "HEALTH": "Strong as an ox!",
+	  "GOLD": "I’ve naught but dreams of riches.",
+	  "DESCRIPTION": "A lanky boy with a wooden sword at his belt and endless enthusiasm.",
+	  "GENDER": "Male",
+	  "AGE": 14,
+	  "HOOK": "They say knights of Castle Moonfel train by moonlight."
+	},
+	{
+	  "NAME": "My name’s Marta.",
+	  "JOB": "I keep the inn warm and the food hot.",
+	  "HEALTH": "A bit weary from the hearth’s smoke.",
+	  "GOLD": "Enough to buy flour and ale, no more.",
+	  "DESCRIPTION": "A stout woman with rosy cheeks, always smelling of stew and bread.",
+	  "GENDER": "Female",
+	  "AGE": 44,
+	  "HOOK": "A strange man passed through, spoke of Blackwater’s mines."
+	},
+	{
+	  "NAME": "I am Brother Jorin.",
+	  "JOB": "I serve the small shrine here.",
+	  "HEALTH": "The spirits guide me, I endure.",
+	  "GOLD": "The shrine asks for alms, not for riches.",
+	  "DESCRIPTION": "A thin man in simple robes, speaking softly with kind eyes.",
+	  "GENDER": "Male",
+	  "AGE": 61,
+	  "HOOK": "Whispers say Brightwatch guards more than books."
+	},
+	{
+	  "NAME": "I am Oren.",
+	  "JOB": "I mend boots and shoes.",
+	  "HEALTH": "Healthy, though my eyes strain.",
+	  "GOLD": "Enough coppers to keep leather supple.",
+	  "DESCRIPTION": "A lean man hunched over his workbench, covered in leather scraps.",
+	  "GENDER": "Male",
+	  "AGE": 49,
+	  "HOOK": "Travelers speak of druids in Maplegrove performing rites."
+	},
+	{
+	  "NAME": "I am Kaela.",
+	  "JOB": "I teach the children their letters.",
+	  "HEALTH": "Bright of mind, though frail of body.",
+	  "GOLD": "Teachers earn little, but knowledge is treasure.",
+	  "DESCRIPTION": "A frail woman with kind eyes, chalk dust often clings to her sleeves.",
+	  "GENDER": "Female",
+	  "AGE": 58,
+	  "HOOK": "There’s a hidden verse in the old songs of Willowbend."
+	},
+	{
+	  "NAME": "Call me Rusk.",
+	  "JOB": "I chop wood for the hearths.",
+	  "HEALTH": "Strong arms, scarred hands.",
+	  "GOLD": "A few silver per week keeps me fed.",
+	  "DESCRIPTION": "A burly man with a friendly smile, carrying an axe over his shoulder.",
+	  "GENDER": "Male",
+	  "AGE": 34,
+	  "HOOK": "I’ve heard bandits lurk along the road to Elderia."
+	},
+	{
+	  "NAME": "I am Tilda.",
+	  "JOB": "I brew herbal teas.",
+	  "HEALTH": "Sound, thanks to my own tonics.",
+	  "GOLD": "I trade herbs, not hoard coins.",
+	  "DESCRIPTION": "An elderly woman with bright eyes and pouches of herbs at her belt.",
+	  "GENDER": "Female",
+	  "AGE": 67,
+	  "HOOK": "Herbs grow strangely strong near the ruins west of here."
+	},
+	{
+	  "NAME": "I am Berrick.",
+	  "JOB": "I guard the village gate.",
+	  "HEALTH": "Fit and ready.",
+	  "GOLD": "Soldiering pays modestly, but steady.",
+	  "DESCRIPTION": "A young man with polished armor and a spear taller than himself.",
+	  "GENDER": "Male",
+	  "AGE": 23,
+	  "HOOK": "Strangers in Blackwater speak in hushed tones of hidden tunnels."
+	}
+  ],
+
+  "Elderia": [
+	{
+	  "NAME": "I am Captain Rynn.",
+	  "JOB": "I command the harbor watch.",
+	  "HEALTH": "Sturdy as an old mast.",
+	  "GOLD": "Enough for rum and wages.",
+	  "DESCRIPTION": "A grizzled sailor with a salt-crusted beard and a loud voice.",
+	  "GENDER": "Male",
+	  "AGE": 56,
+	  "HOOK": "Ships whisper of a ghost light off the coast at night."
+	},
+	{
+	  "NAME": "My name’s Elira.",
+	  "JOB": "I sell spices from far shores.",
+	  "HEALTH": "Healthy, though seasick often.",
+	  "GOLD": "Business is good, gold jingles at my belt.",
+	  "DESCRIPTION": "A sharp-eyed woman with exotic scarves and a knowing grin.",
+	  "GENDER": "Female",
+	  "AGE": 29,
+	  "HOOK": "Pirates sail under a black crescent, beware their flag."
+	},
+	{
+	  "NAME": "I am Darrin.",
+	  "JOB": "I fish the deeper waters.",
+	  "HEALTH": "Strong, though the sea chills me.",
+	  "GOLD": "Enough silver to mend my nets.",
+	  "DESCRIPTION": "A broad man with saltwater scars and a perpetual squint.",
+	  "GENDER": "Male",
+	  "AGE": 41,
+	  "HOOK": "Strange shapes lurk beneath the waves eastward."
+	},
+	{
+	  "NAME": "Call me Fenna.",
+	  "JOB": "I mend sails for sailors.",
+	  "HEALTH": "Hands pricked but otherwise fine.",
+	  "GOLD": "A few coppers per stitch.",
+	  "DESCRIPTION": "A wiry woman with quick hands and a belt full of needles.",
+	  "GENDER": "Female",
+	  "AGE": 33,
+	  "HOOK": "A foreign ship brought plague years ago… some fear it may return."
+	},
+	{
+	  "NAME": "I am Torven.",
+	  "JOB": "Dockhand, loading crates.",
+	  "HEALTH": "My back is sore but strong.",
+	  "GOLD": "Hardly a coin left after drink.",
+	  "DESCRIPTION": "A burly man in ragged clothes, smelling of ale.",
+	  "GENDER": "Male",
+	  "AGE": 36,
+	  "HOOK": "Merchants whisper of a smuggler’s cove south of here."
+	},
+	{
+	  "NAME": "I am Lysia.",
+	  "JOB": "Innkeeper of the Salty Gull.",
+	  "HEALTH": "Hearty, from good food and laughter.",
+	  "GOLD": "Plenty enough from sailors’ purses.",
+	  "DESCRIPTION": "A cheerful woman with braided hair and a hearty laugh.",
+	  "GENDER": "Female",
+	  "AGE": 47,
+	  "HOOK": "Sailors spoke of Brightwatch scholars searching for old maps."
+	},
+	{
+	  "NAME": "I am Halric.",
+	  "JOB": "I forge anchors and chains.",
+	  "HEALTH": "Strong as iron.",
+	  "GOLD": "Decent coin from shipwrights.",
+	  "DESCRIPTION": "A muscular blacksmith with soot-streaked skin and a booming laugh.",
+	  "GENDER": "Male",
+	  "AGE": 50,
+	  "HOOK": "Blackwater’s mines ship ore through here, but some goes missing."
+	},
+	{
+	  "NAME": "They call me Mira.",
+	  "JOB": "I sing for sailors.",
+	  "HEALTH": "Well enough, though my voice tires.",
+	  "GOLD": "Enough to buy wine and ribbons.",
+	  "DESCRIPTION": "A graceful woman with a haunting voice and sea-colored eyes.",
+	  "GENDER": "Female",
+	  "AGE": 25,
+	  "HOOK": "Some say a siren’s song echoes from Willowbend’s coast."
+	},
+	{
+	  "NAME": "I am Jorn.",
+	  "JOB": "Customs clerk.",
+	  "HEALTH": "Fit, though ink stains my fingers.",
+	  "GOLD": "I keep records, not wealth.",
+	  "DESCRIPTION": "A bespectacled man with stacks of ledgers at his desk.",
+	  "GENDER": "Male",
+	  "AGE": 39,
+	  "HOOK": "A shipment of rare tomes is bound for Brightwatch soon."
+	},
+	{
+	  "NAME": "I am Selka.",
+	  "JOB": "I sell trinkets from far lands.",
+	  "HEALTH": "Fit as a fiddle.",
+	  "GOLD": "Coin clinks in every pocket.",
+	  "DESCRIPTION": "A flamboyant trader wearing bright silks and jangling jewelry.",
+	  "GENDER": "Female",
+	  "AGE": 42,
+	  "HOOK": "Rumor says Castle Moonfel pays handsomely for relics."
+	}
+  ],
+
+  "Maplegrove": [
+	{
+	  "NAME": "I am Elder Rowan.",
+	  "JOB": "I guide the druids.",
+	  "HEALTH": "Old, but spirit keeps me strong.",
+	  "GOLD": "We care little for coin.",
+	  "DESCRIPTION": "An elderly druid cloaked in leaves, staff in hand.",
+	  "GENDER": "Male",
+	  "AGE": 72,
+	  "HOOK": "Sacred stones sing when the moons are full."
+	},
+	{
+	  "NAME": "I am Sylvie.",
+	  "JOB": "I brew potions from herbs.",
+	  "HEALTH": "Robust, thanks to my own brews.",
+	  "GOLD": "Gold matters not, trade herbs instead.",
+	  "DESCRIPTION": "A young woman with a pouch of herbs and a mischievous smile.",
+	  "GENDER": "Female",
+	  "AGE": 26,
+	  "HOOK": "Roots near Brightwatch glow faintly when burned."
+	},
+	{
+	  "NAME": "I am Brann.",
+	  "JOB": "I watch the forest’s edge.",
+	  "HEALTH": "Strong and vigilant.",
+	  "GOLD": "Coin is rare here.",
+	  "DESCRIPTION": "A rugged man with a bow and quiet demeanor.",
+	  "GENDER": "Male",
+	  "AGE": 45,
+	  "HOOK": "I’ve seen shadows move where no beast should tread."
+	},
+	{
+	  "NAME": "I am Mariel.",
+	  "JOB": "I teach children the old songs.",
+	  "HEALTH": "Healthy of voice and heart.",
+	  "GOLD": "We have little need for wealth.",
+	  "DESCRIPTION": "A serene woman with flowers woven in her hair.",
+	  "GENDER": "Female",
+	  "AGE": 40,
+	  "HOOK": "Songs speak of a hidden glade that heals wounds."
+	},
+	{
+	  "NAME": "I am Taren.",
+	  "JOB": "I gather mushrooms.",
+	  "HEALTH": "Well, though damp from the forest.",
+	  "GOLD": "I sell a few to Elderia traders.",
+	  "DESCRIPTION": "A wiry man with a satchel full of fungi and a crooked grin.",
+	  "GENDER": "Male",
+	  "AGE": 32,
+	  "HOOK": "Beware red-capped mushrooms—they are cursed."
+	},
+	{
+	  "NAME": "I am Elwen.",
+	  "JOB": "I carve wooden charms.",
+	  "HEALTH": "Steady hands, good health.",
+	  "GOLD": "Charm buyers pay in kind.",
+	  "DESCRIPTION": "A gentle woman sanding a wooden talisman with care.",
+	  "GENDER": "Female",
+	  "AGE": 53,
+	  "HOOK": "Charms crack near Castle Moonfel’s gates."
+	},
+	{
+	  "NAME": "I am Garric.",
+	  "JOB": "I tend the sacred grove.",
+	  "HEALTH": "Strong as the oak.",
+	  "GOLD": "We treasure earth, not gold.",
+	  "DESCRIPTION": "A tall druid with bark-stained hands and a solemn gaze.",
+	  "GENDER": "Male",
+	  "AGE": 60,
+	  "HOOK": "Animals flee when the northern wind blows."
+	},
+	{
+	  "NAME": "I am Pyria.",
+	  "JOB": "I heal the sick.",
+	  "HEALTH": "Weary but giving.",
+	  "GOLD": "Healing earns blessings, not coin.",
+	  "DESCRIPTION": "A kind druidess carrying vials of herbs and a warm smile.",
+	  "GENDER": "Female",
+	  "AGE": 35,
+	  "HOOK": "A sickness spreads from the mining town of Blackwater."
+	},
+	{
+	  "NAME": "I am Loric.",
+	  "JOB": "I study stars through the treetops.",
+	  "HEALTH": "Weak of body, strong of mind.",
+	  "GOLD": "Knowledge is my wealth.",
+	  "DESCRIPTION": "A thin man with ink-stained fingers and skyward eyes.",
+	  "GENDER": "Male",
+	  "AGE": 48,
+	  "HOOK": "Strange constellations appear only above Brightwatch."
+	},
+	{
+	  "NAME": "I am Ysolde.",
+	  "JOB": "I weave garlands.",
+	  "HEALTH": "Healthy and joyful.",
+	  "GOLD": "I trade flowers for smiles.",
+	  "DESCRIPTION": "A cheerful young woman crowned with blossoms.",
+	  "GENDER": "Female",
+	  "AGE": 19,
+	  "HOOK": "Children say faeries dance near Willowbend at dusk."
+	}
+  ],
+
+  "Willowbend": [
+	{
+	  "NAME": "I am Fisher Konn.",
+	  "JOB": "I cast nets into the sea.",
+	  "HEALTH": "Salt keeps me strong.",
+	  "GOLD": "Enough to mend my nets.",
+	  "DESCRIPTION": "A broad fisherman with weathered skin and a hearty laugh.",
+	  "GENDER": "Male",
+	  "AGE": 46,
+	  "HOOK": "Sometimes nets pull up more than fish—strange relics too."
+	},
+	{
+	  "NAME": "I am Mira.",
+	  "JOB": "I salt and dry the catch.",
+	  "HEALTH": "Strong, though my hands are rough.",
+	  "GOLD": "Just enough for salt.",
+	  "DESCRIPTION": "A sturdy woman with brine-stained hands and a keen eye.",
+	  "GENDER": "Female",
+	  "AGE": 42,
+	  "HOOK": "Sailors say the sea glows green near Elderia’s bay."
+	},
+	{
+	  "NAME": "I am Tobin.",
+	  "JOB": "I carve boats.",
+	  "HEALTH": "Sound, though my back aches.",
+	  "GOLD": "Modest pay for good woodwork.",
+	  "DESCRIPTION": "A craftsman with sawdust in his hair and a broad smile.",
+	  "GENDER": "Male",
+	  "AGE": 54,
+	  "HOOK": "A hidden current can carry boats swiftly north."
+	},
+	{
+	  "NAME": "I am Nella.",
+	  "JOB": "I gather shellfish.",
+	  "HEALTH": "Fit, though sunburnt.",
+	  "GOLD": "A few coppers per basket.",
+	  "DESCRIPTION": "A young woman with sun-bleached hair and quick hands.",
+	  "GENDER": "Female",
+	  "AGE": 21,
+	  "HOOK": "Pearls found here sometimes glow under moonlight."
+	},
+	{
+	  "NAME": "I am Bryn.",
+	  "JOB": "I smoke fish.",
+	  "HEALTH": "Eyes water from smoke.",
+	  "GOLD": "Barely enough for wood.",
+	  "DESCRIPTION": "A wiry man with smoke-blackened clothes.",
+	  "GENDER": "Male",
+	  "AGE": 38,
+	  "HOOK": "Travelers claim Blackwater fish taste of iron."
+	},
+	{
+	  "NAME": "I am Elira.",
+	  "JOB": "I mend nets.",
+	  "HEALTH": "My fingers ache but I manage.",
+	  "GOLD": "I earn just enough to live.",
+	  "DESCRIPTION": "A patient woman with nimble hands and a quiet smile.",
+	  "GENDER": "Female",
+	  "AGE": 30,
+	  "HOOK": "Fishermen whisper of a sea serpent further out."
+	},
+	{
+	  "NAME": "I am Caldor.",
+	  "JOB": "I row ferryboats.",
+	  "HEALTH": "Strong arms from years of rowing.",
+	  "GOLD": "A few coins a ride.",
+	  "DESCRIPTION": "A middle-aged man with broad shoulders and a sun-scorched neck.",
+	  "GENDER": "Male",
+	  "AGE": 43,
+	  "HOOK": "Once I ferried a druid who spoke of storms being called."
+	},
+	{
+	  "NAME": "I am Sela.",
+	  "JOB": "I sell oysters.",
+	  "HEALTH": "Healthy, though always damp.",
+	  "GOLD": "Enough for bread.",
+	  "DESCRIPTION": "A lively girl with salt-crusted boots and a cheerful grin.",
+	  "GENDER": "Female",
+	  "AGE": 18,
+	  "HOOK": "An oyster once held a silver coin instead of a pearl."
+	},
+	{
+	  "NAME": "I am Harren.",
+	  "JOB": "I mend docks.",
+	  "HEALTH": "Sturdy, though my knees ache.",
+	  "GOLD": "Steady pay.",
+	  "DESCRIPTION": "A grey-haired man with tools always at his belt.",
+	  "GENDER": "Male",
+	  "AGE": 59,
+	  "HOOK": "Old pilings sometimes reveal barnacle-covered chests."
+	},
+	{
+	  "NAME": "I am Tira.",
+	  "JOB": "I cook fish stews.",
+	  "HEALTH": "Healthy, though I smell of fish always.",
+	  "GOLD": "Enough for spices.",
+	  "DESCRIPTION": "A matronly woman stirring a steaming pot, smiling gently.",
+	  "GENDER": "Female",
+	  "AGE": 50,
+	  "HOOK": "Some herbs from Maplegrove make the stew magical."
+	}
+  ],
+  "Brightwatch": [
+	{
+	  "NAME": "I am Sir Halric.",
+	  "JOB": "Knight sworn to defend this keep.",
+	  "HEALTH": "Strong, though scarred.",
+	  "GOLD": "Knights seek honor, not wealth.",
+	  "DESCRIPTION": "A tall knight in polished armor with a serious gaze.",
+	  "GENDER": "Male",
+	  "AGE": 41,
+	  "HOOK": "The library below hides tomes sealed from common eyes."
+	},
+	{
+	  "NAME": "I am Lady Maera.",
+	  "JOB": "Scholar of ancient histories.",
+	  "HEALTH": "Healthy, though ink stains my hands.",
+	  "GOLD": "I value books above coins.",
+	  "DESCRIPTION": "A refined woman with spectacles and stacks of scrolls.",
+	  "GENDER": "Female",
+	  "AGE": 38,
+	  "HOOK": "Legends tell of a weapon hidden in Maplegrove’s sacred grove."
+	},
+	{
+	  "NAME": "I am Brother Caddel.",
+	  "JOB": "Keeper of the library’s chapel.",
+	  "HEALTH": "Weary, but steady.",
+	  "GOLD": "The chapel lives on donations.",
+	  "DESCRIPTION": "An old monk with a hunched back and warm smile.",
+	  "GENDER": "Male",
+	  "AGE": 67,
+	  "HOOK": "Pilgrims whisper of miracles in Willowbend."
+	},
+	{
+	  "NAME": "I am Ellyn.",
+	  "JOB": "I copy manuscripts.",
+	  "HEALTH": "Sore hands from constant writing.",
+	  "GOLD": "Scribes are not paid in riches.",
+	  "DESCRIPTION": "A young woman with ink-stained robes and keen eyes.",
+	  "GENDER": "Female",
+	  "AGE": 22,
+	  "HOOK": "An old map in the archives marks tunnels near Blackwater."
+	},
+	{
+	  "NAME": "I am Guard Fenric.",
+	  "JOB": "I patrol the keep.",
+	  "HEALTH": "Fit for duty.",
+	  "GOLD": "My wages are modest.",
+	  "DESCRIPTION": "A stout guard with a halberd and steady stance.",
+	  "GENDER": "Male",
+	  "AGE": 30,
+	  "HOOK": "Bandits north of Valenwind grow bolder."
+	},
+	{
+	  "NAME": "I am Scholar Lysa.",
+	  "JOB": "Researcher of magic.",
+	  "HEALTH": "My body tires, but my mind soars.",
+	  "GOLD": "Arcane research is costly.",
+	  "DESCRIPTION": "A scholar with frizzy hair and arcane symbols inked on her robes.",
+	  "GENDER": "Female",
+	  "AGE": 45,
+	  "HOOK": "Moonfel’s archives may conceal forbidden spells."
+	},
+	{
+	  "NAME": "I am Tomas.",
+	  "JOB": "Stablehand of the keep.",
+	  "HEALTH": "Healthy, though hay fever plagues me.",
+	  "GOLD": "A few coins keep me fed.",
+	  "DESCRIPTION": "A boy smelling of horses, with straw in his hair.",
+	  "GENDER": "Male",
+	  "AGE": 15,
+	  "HOOK": "A knight lost his sword in Elderia’s tavern brawl."
+	},
+	{
+	  "NAME": "I am Archivist Bren.",
+	  "JOB": "Cataloging scrolls and tomes.",
+	  "HEALTH": "Eyes weak from candlelight.",
+	  "GOLD": "I care only for parchment.",
+	  "DESCRIPTION": "A man hunched over scrolls, whispering as he reads.",
+	  "GENDER": "Male",
+	  "AGE": 54,
+	  "HOOK": "Old prophecies mention Blackwater’s mines collapsing."
+	},
+	{
+	  "NAME": "I am Dame Corinne.",
+	  "JOB": "Swordmaster of Brightwatch.",
+	  "HEALTH": "Strong and steady.",
+	  "GOLD": "I live on the keep’s stipend.",
+	  "DESCRIPTION": "A stern woman with a practice blade always at hand.",
+	  "GENDER": "Female",
+	  "AGE": 36,
+	  "HOOK": "Castle Moonfel recruits only the bravest."
+	},
+	{
+	  "NAME": "I am Jareth.",
+	  "JOB": "Cook of the keep.",
+	  "HEALTH": "Round and well-fed.",
+	  "GOLD": "A cook’s purse is always light.",
+	  "DESCRIPTION": "A plump man with flour on his apron and a booming laugh.",
+	  "GENDER": "Male",
+	  "AGE": 48,
+	  "HOOK": "Travelers from Willowbend bring strange fish tales."
+	}
+  ],
+
+  "Blackwater": [
+	{
+	  "NAME": "I am Doran.",
+	  "JOB": "Foreman of the mines.",
+	  "HEALTH": "Rough lungs, but strong.",
+	  "GOLD": "Enough to keep the miners working.",
+	  "DESCRIPTION": "A scarred man with soot-covered clothes.",
+	  "GENDER": "Male",
+	  "AGE": 50,
+	  "HOOK": "Deeper shafts whisper with eerie winds."
+	},
+	{
+	  "NAME": "I am Mila.",
+	  "JOB": "Innkeeper for the miners.",
+	  "HEALTH": "Hearty from hard work.",
+	  "GOLD": "Enough to stock ale.",
+	  "DESCRIPTION": "A cheerful woman with a loud laugh and red cheeks.",
+	  "GENDER": "Female",
+	  "AGE": 42,
+	  "HOOK": "Drunk miners babble of gold veins untouched."
+	},
+	{
+	  "NAME": "I am Jorvik.",
+	  "JOB": "Smith of the town.",
+	  "HEALTH": "Arms strong, lungs weary.",
+	  "GOLD": "Paid in ore and coin.",
+	  "DESCRIPTION": "A burly man with arms blackened by soot.",
+	  "GENDER": "Male",
+	  "AGE": 46,
+	  "HOOK": "Ore carts vanish in the night."
+	},
+	{
+	  "NAME": "I am Greta.",
+	  "JOB": "Herbalist tending miners’ wounds.",
+	  "HEALTH": "Healthy from herbs.",
+	  "GOLD": "I sell poultices for silver.",
+	  "DESCRIPTION": "A stern woman with satchels of herbs and sharp eyes.",
+	  "GENDER": "Female",
+	  "AGE": 39,
+	  "HOOK": "Strange fungi grow in abandoned tunnels."
+	},
+	{
+	  "NAME": "I am Old Bram.",
+	  "JOB": "Retired miner.",
+	  "HEALTH": "Coughing, but alive.",
+	  "GOLD": "A pension of sorts.",
+	  "DESCRIPTION": "An old man with a hacking cough and shaking hands.",
+	  "GENDER": "Male",
+	  "AGE": 72,
+	  "HOOK": "I saw a beast in the dark, bigger than a man."
+	},
+	{
+	  "NAME": "I am Sella.",
+	  "JOB": "Barkeep’s daughter.",
+	  "HEALTH": "Young and spry.",
+	  "GOLD": "I earn tips from serving.",
+	  "DESCRIPTION": "A girl with braids and quick hands.",
+	  "GENDER": "Female",
+	  "AGE": 17,
+	  "HOOK": "Travelers whisper of secret doors in Brightwatch."
+	},
+	{
+	  "NAME": "I am Rurik.",
+	  "JOB": "Guard the mine entrance.",
+	  "HEALTH": "Fit and armed.",
+	  "GOLD": "Steady guard’s pay.",
+	  "DESCRIPTION": "A stern man with a halberd and dust-covered armor.",
+	  "GENDER": "Male",
+	  "AGE": 28,
+	  "HOOK": "Smugglers may use old shafts to move contraband."
+	},
+	{
+	  "NAME": "I am Toman.",
+	  "JOB": "Cart driver.",
+	  "HEALTH": "Back sore from work.",
+	  "GOLD": "A meager wage.",
+	  "DESCRIPTION": "A wiry man with a whip and a tired mule.",
+	  "GENDER": "Male",
+	  "AGE": 33,
+	  "HOOK": "Heard of druids trading ore for relics in Maplegrove."
+	},
+	{
+	  "NAME": "I am Frida.",
+	  "JOB": "Cook for miners.",
+	  "HEALTH": "Healthy and round.",
+	  "GOLD": "Enough to buy lard and flour.",
+	  "DESCRIPTION": "A plump woman stirring an enormous pot of stew.",
+	  "GENDER": "Female",
+	  "AGE": 51,
+	  "HOOK": "Blackwater stew tastes strange when storms near."
+	},
+	{
+	  "NAME": "I am Karst.",
+	  "JOB": "Overseer of supplies.",
+	  "HEALTH": "Worn by work.",
+	  "GOLD": "I keep records, not wealth.",
+	  "DESCRIPTION": "A lean man with ledgers under his arm.",
+	  "GENDER": "Male",
+	  "AGE": 43,
+	  "HOOK": "Caravans to Valenwind sometimes vanish."
+	}
+  ],
+
+  "Castle Moonfel": [
+	{
+	  "NAME": "I am King Aldren.",
+	  "JOB": "Ruler of this realm.",
+	  "HEALTH": "Strong though aged.",
+	  "GOLD": "The kingdom’s treasury is vast.",
+	  "DESCRIPTION": "A regal man with a silver crown and stern eyes.",
+	  "GENDER": "Male",
+	  "AGE": 62,
+	  "HOOK": "The crown weighs heavy with secrets of ancient wars."
+	},
+	{
+	  "NAME": "I am Queen Serenya.",
+	  "JOB": "Queen and counselor.",
+	  "HEALTH": "Graceful and healthy.",
+	  "GOLD": "Riches are not my concern.",
+	  "DESCRIPTION": "A graceful woman with golden hair and calm presence.",
+	  "GENDER": "Female",
+	  "AGE": 59,
+	  "HOOK": "A hidden chamber lies beneath Moonfel’s throne."
+	},
+	{
+	  "NAME": "I am Prince Kaelen.",
+	  "JOB": "Heir to the throne.",
+	  "HEALTH": "Strong and youthful.",
+	  "GOLD": "I spend freely.",
+	  "DESCRIPTION": "A young man in fine garb, carrying a practice blade.",
+	  "GENDER": "Male",
+	  "AGE": 24,
+	  "HOOK": "Dreams speak of an enemy rising from the sea."
+	},
+	{
+	  "NAME": "I am Sir Garron.",
+	  "JOB": "Commander of knights.",
+	  "HEALTH": "Fit and fierce.",
+	  "GOLD": "The crown pays me well.",
+	  "DESCRIPTION": "A burly knight with a scarred face and booming voice.",
+	  "GENDER": "Male",
+	  "AGE": 47,
+	  "HOOK": "Scouts vanish near Brightwatch’s forests."
+	},
+	{
+	  "NAME": "I am Lady Yselda.",
+	  "JOB": "Court mage.",
+	  "HEALTH": "Sustained by arcane force.",
+	  "GOLD": "Knowledge is my wealth.",
+	  "DESCRIPTION": "A tall woman in flowing robes with glowing rings.",
+	  "GENDER": "Female",
+	  "AGE": 55,
+	  "HOOK": "Ancient wards beneath the castle weaken."
+	},
+	{
+	  "NAME": "I am Chancellor Morric.",
+	  "JOB": "Keeper of the realm’s records.",
+	  "HEALTH": "Thin and pale.",
+	  "GOLD": "I count, not spend.",
+	  "DESCRIPTION": "A gaunt man with spectacles and scrolls.",
+	  "GENDER": "Male",
+	  "AGE": 60,
+	  "HOOK": "Lost treaties may lie in Brightwatch’s vaults."
+	},
+	{
+	  "NAME": "I am Elara.",
+	  "JOB": "Handmaiden to the Queen.",
+	  "HEALTH": "Healthy and graceful.",
+	  "GOLD": "A servant’s wage.",
+	  "DESCRIPTION": "A quiet young woman with a shy smile.",
+	  "GENDER": "Female",
+	  "AGE": 19,
+	  "HOOK": "I overheard whispers of assassins in Elderia."
+	},
+	{
+	  "NAME": "I am Sir Danel.",
+	  "JOB": "Knight of Moonfel.",
+	  "HEALTH": "Fit.",
+	  "GOLD": "My stipend suffices.",
+	  "DESCRIPTION": "A young knight polishing his sword diligently.",
+	  "GENDER": "Male",
+	  "AGE": 27,
+	  "HOOK": "The druids of Maplegrove may aid the crown."
+	},
+	{
+	  "NAME": "I am Cook Hilda.",
+	  "JOB": "Royal cook.",
+	  "HEALTH": "Round and hearty.",
+	  "GOLD": "I spend on spices.",
+	  "DESCRIPTION": "A plump woman bustling in the kitchens.",
+	  "GENDER": "Female",
+	  "AGE": 53,
+	  "HOOK": "The castle cat disappears into hidden passages."
+	},
+	{
+	  "NAME": "I am Page Rowan.",
+	  "JOB": "I serve the court.",
+	  "HEALTH": "Youthful and eager.",
+	  "GOLD": "I hold no wealth.",
+	  "DESCRIPTION": "A boy carrying scrolls and looking eager to please.",
+	  "GENDER": "Male",
+	  "AGE": 13,
+	  "HOOK": "Knights whisper of a tournament soon to come."
+	}
+  ]
+}
