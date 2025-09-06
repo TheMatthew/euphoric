@@ -2,7 +2,7 @@ extends MarginContainer
 
 const CHAR_READ_RATE = 0.05
 
-@onready var tween = Tween.new()
+@onready var tween:Tween=null
 @onready var textbox_container = self
 @onready var start_symbol = textbox_container.get_node("VBoxContainer").get_node("header")
 @onready var end_symbol = textbox_container.get_node("VBoxContainer").get_node("footer")
@@ -18,11 +18,9 @@ var current_state = State.READY
 var text_queue = []
 
 func _ready():
-	print("Starting state: State.READY")
 	hide_textbox()
-	tween.connect("finished",_on_Tween_tween_completed)
-
-func _process(delta):
+	
+func _process(_delta):
 	match current_state:
 		State.READY:
 			if !text_queue.is_empty():
@@ -57,12 +55,18 @@ func show_textbox():
 	label.show()
 
 func display_text():
+	if tween:
+		tween.kill()
+	tween = create_tween().set_ease(Tween.EASE_IN_OUT)
+	tween.connect("finished",_on_Tween_tween_completed)
+
 	var next_text = text_queue.pop_front()
 	label.text = next_text
 	label.visible_ratio = 1.0
 	change_state(State.READING)
 	show_textbox()
-	# tween.tween_property(label, "visible_ratio", 1.0, len(next_text) * CHAR_READ_RATE)
+	
+	tween.tween_property(label, "visible_ratio", 1.0, len(next_text) * CHAR_READ_RATE)
 
 func change_state(next_state):
 	current_state = next_state
@@ -74,6 +78,6 @@ func change_state(next_state):
 		State.FINISHED:
 			print("Changing state to: State.FINISHED")
 
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed():
 	end_symbol.text = "<enter>"
 	change_state(State.FINISHED)

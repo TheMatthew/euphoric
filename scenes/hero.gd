@@ -33,15 +33,6 @@ var tilemap:TileMapLayer
 func _ready():
 	tilemap = get_parent().get_node("TileMapLayer")
 
-	# Convert hero's global position to TileMap-local coordinates
-	var hero_local = tilemap.to_local(global_position)
-
-	# Convert to cell
-	var cell = tilemap.local_to_map(hero_local)
-
-	# Get tile id
-	var tile_id = tilemap.get_cell_source_id(cell)
-	
 	blocked_tiles = ["0", "1", "2", "8", "20", "19", "18", "25"]
 
 	# Add numbers from 27 to 60
@@ -89,7 +80,7 @@ func move(action):
 	play_step_sound()
 
 func get_current_tile_type() -> String:
-	var tilemap = get_parent().get_node("TileMapLayer")
+	tilemap = get_parent().get_node("TileMapLayer")
 
 	# target cell from hero position
 	var target_cell = tilemap.local_to_map(position)
@@ -106,7 +97,7 @@ func play_step_sound():
 		sound_player.play()  # Play the sound
 
 func can_move_to(world_pos: Vector2) -> bool:
-	var tilemap = get_parent().get_node("TileMapLayer")
+	tilemap = get_parent().get_node("TileMapLayer")
 
 	# target cell from hero position
 	var target_cell = tilemap.local_to_map(tilemap.to_local(world_pos))
