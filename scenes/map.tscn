@@ -5,15 +5,15 @@
 [ext_resource type="Texture2D" uid="uid://cbcyl8dmaw752" path="res://res/u4graphics-master/32x32x24/shapes-assets/031_avatar.png" id="2_paxxb"]
 [ext_resource type="Shader" uid="uid://cds4ou4lu3ha3" path="res://scenes/map.gdshader" id="4_2klcf"]
 [ext_resource type="Script" uid="uid://d17he41lldrm4" path="res://scenes/dungeon_avarice.gd" id="5_2klcf"]
-[ext_resource type="FontFile" uid="uid://d2pt750w0nauw" path="res://blackchancery.regular.ttf" id="5_be0no"]
-[ext_resource type="Script" uid="uid://c2k4yxebivld6" path="res://scenes/Textbox.gd" id="5_blm8a"]
+[ext_resource type="FontFile" uid="uid://m42oyeki1a78" path="res://blackchancery.regular.ttf" id="5_be0no"]
+[ext_resource type="Script" uid="uid://bcs1xh2v1ul7m" path="res://scenes/Textbox.gd" id="5_blm8a"]
 [ext_resource type="Script" uid="uid://4agas82fqfmx" path="res://scenes/dungeon_despair.gd" id="6_2lpho"]
 [ext_resource type="Texture2D" uid="uid://dxfp3i01it67i" path="res://res/u4graphics-master/32x32x24/shapes-assets/012_village.png" id="8_jh32y"]
 [ext_resource type="Script" uid="uid://b4b0dqdgv6ylx" path="res://scenes/generic_city.gd" id="9_mlgqr"]
 [ext_resource type="Texture2D" uid="uid://bvw4oi3waigvx" path="res://res/u4graphics-master/32x32x24/shapes-assets/010_town.png" id="12_n1psn"]
 [ext_resource type="Texture2D" uid="uid://crdowkpfp55kx" path="res://res/u4graphics-master/32x32x24/shapes-assets/011_keep.png" id="12_wslke"]
 [ext_resource type="Texture2D" uid="uid://d1cle8ooe7djg" path="res://res/u4graphics-master/32x32x24/shapes-assets/014_castle1.png" id="13_gw3fx"]
-[ext_resource type="Script" uid="uid://bm8bq6awoidao" path="res://scenes/dungeon_unjust.gd" id="14_n1psn"]
+[ext_resource type="Script" path="res://scenes/dungeon_unjust.gd" id="14_n1psn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2lpho"]
 shader = ExtResource("4_2klcf")
@@ -93,6 +93,8 @@ collision_mask = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hero"]
 shape = SubResource("RectangleShape2D_0cso3")
+
+[node name="SoundPlayer" type="AudioStreamPlayer" parent="hero"]
 
 [node name="dungeon_avarice" type="Area2D" parent="."]
 position = Vector2(3056, 3024)
@@ -204,5 +206,3 @@ shape = SubResource("RectangleShape2D_nakos")
 
 [node name="Sprite2D" type="Sprite2D" parent="village_blackwater"]
 texture = ExtResource("8_jh32y")
-
-[node name="SoundPlayer" type="AudioStreamPlayer" parent="."]

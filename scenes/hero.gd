@@ -23,10 +23,11 @@ const tile_sounds = {
 var grid_size = 32
 var is_moving = false
 var move_timer = null
+var blocked_tiles = []
 
 # Reference to the RayCast2D node
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
-@onready var sound_player = get_parent().get_node("SoundPlayer")
+@onready var sound_player = get_node("SoundPlayer")
 var tilemap:TileMapLayer
 
 func _ready():
@@ -40,6 +41,12 @@ func _ready():
 
 	# Get tile id
 	var tile_id = tilemap.get_cell_source_id(cell)
+	
+	blocked_tiles = ["0", "1", "2", "8", "20", "19", "18", "25"]
+
+	# Add numbers from 27 to 60
+	for i in range(27, 61):
+		blocked_tiles.append(str(i))
 	
 	move_timer = Timer.new()
 	move_timer.wait_time = 0.25  # Time between each step
@@ -98,10 +105,6 @@ func play_step_sound():
 		sound_player.stream = tile_sounds[tile_type]  # Set the sound stream
 		sound_player.play()  # Play the sound
 
-var blocked_tiles = [
-	"0","1","2","8"
-]
-
 func can_move_to(world_pos: Vector2) -> bool:
 	var tilemap = get_parent().get_node("TileMapLayer")
 
@@ -110,6 +113,7 @@ func can_move_to(world_pos: Vector2) -> bool:
 	# desired neighbor cell
 	
 	var tile_id = tilemap.get_cell_source_id(target_cell) # 0 = layer index
-	if str(tile_id) in blocked_tiles: # <-- make sure both are strings
-		return false
-	return true
+	if str(tile_id) in tile_sounds: # <-- make sure both are strings
+		return true
+	return str(tile_id) not in blocked_tiles
+	
