@@ -104,8 +104,31 @@ func can_move_to(world_pos: Vector2) -> bool:
 	var target_cell = tilemap.local_to_map(tilemap.to_local(world_pos))
 	# desired neighbor cell
 
+	if is_npc_at_position(world_pos):
+			return false  # Can't move here, NPC is blocking
 	var tile_id = tilemap.get_cell_source_id(target_cell) # 0 = layer index
 	if str(tile_id) in tile_sounds: # <-- make sure both are strings
+		# Now check for NPC collision at the target position
+		
 		return true
-	return str(tile_id) not in blocked_tiles
 	
+	return str(tile_id) not in blocked_tiles
+
+# Check if there's an NPC at the given world position
+func is_npc_at_position(world_pos: Vector2) -> bool:
+	# Get the village node (assuming it's a sibling of the hero's parent)
+	var village_node = get_parent().get_node_or_null("villagers")
+	if not village_node:
+		return false
+	
+	# Check all children of village for NPCs
+	for child in village_node.get_children():
+		# Check if this child has NPC data (created by dialog_manager)
+		if child.has_meta("npc_data"):
+			# Calculate distance between target position and NPC position
+			var distance = world_pos.distance_to(child.global_position)
+			# If they're close enough (within one grid cell), consider it blocked
+			if distance < grid_size * 0.7:  # 0.7 gives some tolerance
+				return true
+	
+	return false
