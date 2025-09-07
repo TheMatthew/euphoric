@@ -30,38 +30,34 @@ func spawn_village_npcs(village_name: String, parent: Node) -> void:
 		push_warning("Village not found in JSON: %s" % village_name)
 		return
 	var npc_spawn_area:CollisionShape2D = parent.get_node("spawn_area")
-	var min_x = 192
-	var min_y = 192
-	var num_x = 31
-	var num_y = 17
-	var max_x = 1216
-	var max_y = 704
+	
+	var num_x = int((1216 - 192)/32)
+	var num_y = int((704 - 192)/32)
 	if npc_spawn_area:
 		var rect = npc_spawn_area.shape
-		min_x = parent.position.x
-		min_y = parent.position.y
-		max_x = rect.size.x + min_x
-		max_y = rect.size.y + min_y
 		num_x = int(rect.size.x / 32)
 		num_y = int(rect.size.y / 32)
+	var offset_x = num_x / 2
+	var offset_y = num_y / 2
 	for npc_info in npc_data[village_name]:
-		var x = randi() % num_x *32
-		var y = randi() % num_y *32
+		var x = randi() % num_x
+		var y = randi() % num_y
 		var npc = create_npc(npc_info)
 		parent.add_child(npc)
 
 		# Set position based on "location" or random
 		if npc_info.has("location"):
 			npc.position = Vector2(
-				float(npc_info["location"].get("x", x)),
-				float(npc_info["location"].get("y", y))
+				float(npc_info["location"].get("x", x) - offset_x) * 32 - 16,
+				float(npc_info["location"].get("y", y) - offset_y) * 32 - 16
 			)
 		else:
-			npc.position = Vector2(
-				x,
-				y
+			var pos = Vector2(
+				(x - offset_x) * 32 - 16,
+				(y - offset_y) * 32 - 16
 			)
-		print("NPC created ", npc)
+			npc.position = pos
+		print("NPC created ", npc, " at ", npc.position)
 
 
 # --- NPC Scene (Sprite + Collision) ---
@@ -80,6 +76,5 @@ func create_npc(npc_info: Dictionary) -> Node2D:
 	npc_node.add_child(collision)
 
 	npc_node.set_meta("npc_data", npc_info) # store the JSON info
-	
 
 	return npc_node

@@ -7,7 +7,8 @@
 	  "GOLD": "Bribery is illegal.",
 	  "DESCRIPTION": "You see a strong guard.",
 	  "GENDER": "Male",
-	  "AGE": 33
+	  "AGE": 33,
+	  "location": {"x":17,"y":16}
 	},
 	{
 	  "NAME": "I am Alric, a humble farmer.",
@@ -27,7 +28,8 @@
 	  "DESCRIPTION": "A quiet woman with nimble fingers, always carrying a basket of yarn.",
 	  "GENDER": "Female",
 	  "AGE": 37,
-	  "HOOK": "Sailors from Elderia pay well for strong cloth."
+	  "HOOK": "Sailors from Elderia pay well for strong cloth.",
+	  "location": {"x":7,"y":3}
 	},
 	{
 	  "NAME": "I am Thom the youth.",
