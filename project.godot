@@ -16,6 +16,11 @@ run/main_scene="res://scenes/map.tscn"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://global.gd"
+DialogManager="*res://dialog_manager.gd"
+
 [display]
 
 window/size/viewport_width=1280

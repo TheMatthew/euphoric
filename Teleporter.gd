@@ -33,7 +33,6 @@ func _on_body_exited(body):
 		player = null
 
 func teleport_player(player_node):
-<<<<<<< Updated upstream
 	# stop any children activities before changing the scene
 	_on_body_exited(player_node)
 	
@@ -47,30 +46,23 @@ func teleport_player(player_node):
 	# another map is specified
 	if target_scene:
 		var old_scene = get_tree().current_scene
-		var new_scene:Node = load(target_scene).instantiate()
+		var new_scene = load(target_scene).instantiate()
 		get_tree().root.add_child(new_scene)
 		get_tree().current_scene = new_scene
 		get_tree().root.remove_child(old_scene)
 		parent_node = new_scene
 		destination = new_scene.get_node(return_destination)
 		
-		player_node.owner = null
 		player_node.reparent(new_scene)
 		old_scene.queue_free()
+		
 		if not destination:
 			var nodes = []
 			for node in new_scene.get_children():
 				nodes.append(node.name)
 			print ("Could not find : " , destination_id, " visible areas ", nodes)
-		
-=======
-	var destination = find_destination()
 	if destination:
 		player_node.global_position = destination.global_position
 		# Add teleport effects here
->>>>>>> Stashed changes
-
-	if destination:
-		player_node.global_position = destination.global_position
-		# Add teleport effects here
+		player_node.has_moved = false
 		print("parent_nodes ", parent_node.get_children())

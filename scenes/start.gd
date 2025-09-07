@@ -4,12 +4,13 @@ var hero:CharacterBody2D = null
 
 func _ready() -> void:
 	# Check if the hero node already exists in the parent
-	if not get_parent().has_node("hero"):
+	if not Global.player_in_scene:
 		# Load the hero scene and instantiate it
 		var hero_scene = load("res://scenes/hero.tscn")
 		var hero_node:Node2D = hero_scene.instantiate()
 		hero = hero_node.get_node("hero")
 		call_deferred_thread_group("_setup_hero")
+		Global.player_in_scene = true
 
 func _setup_hero()->void:
 	hero.owner=null

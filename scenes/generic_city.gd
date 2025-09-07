@@ -1,6 +1,5 @@
 extends AreaAnnouncement
 
-
 func _ready():
 	if not area_name or area_name == "Village":
 		var raw_name = name

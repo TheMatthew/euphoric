@@ -24,6 +24,7 @@ var grid_size = 32
 var is_moving = false
 var move_timer = null
 var blocked_tiles = []
+var has_moved = false
 
 # Reference to the RayCast2D node
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
@@ -74,8 +75,8 @@ func move(action):
 	
 	var new_pos = global_position + destination
 	if not ray_cast_2d.is_colliding():
-		if  can_move_to(new_pos):
-			
+		if can_move_to(new_pos):
+			has_moved = true
 			global_position = new_pos
 	play_step_sound()
 
@@ -102,7 +103,7 @@ func can_move_to(world_pos: Vector2) -> bool:
 	# target cell from hero position
 	var target_cell = tilemap.local_to_map(tilemap.to_local(world_pos))
 	# desired neighbor cell
-	
+
 	var tile_id = tilemap.get_cell_source_id(target_cell) # 0 = layer index
 	if str(tile_id) in tile_sounds: # <-- make sure both are strings
 		return true

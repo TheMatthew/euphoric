@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://cds4ou4lu3ha3" path="res://scenes/map.gdshader" id="2_y2sko"]
 [ext_resource type="Texture2D" uid="uid://cbcyl8dmaw752" path="res://res/u4graphics-master/32x32x24/shapes-assets/031_avatar.png" id="3_mo806"]
 [ext_resource type="Script" uid="uid://c2k4yxebivld6" path="res://scenes/Textbox.gd" id="4_n40cg"]
-[ext_resource type="FontFile" uid="uid://m42oyeki1a78" path="res://blackchancery.regular.ttf" id="5_txblw"]
+[ext_resource type="FontFile" uid="uid://d2pt750w0nauw" path="res://blackchancery.regular.ttf" id="5_txblw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n5qna"]
 shader = ExtResource("2_y2sko")

@@ -14,6 +14,7 @@ var tween:Tween = null
 func _ready():
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	
 
 
 func create_announcement_ui():
@@ -32,7 +33,7 @@ func _on_body_entered(body):
 	if not announcement_control:
 		create_announcement_ui()
 
-	if body.name == "hero" and not player_in_area:
+	if body.name == "hero" and not player_in_area and body.has_moved:
 		player_in_area = true
 		show_announcement()
 	super._on_body_entered(body)
