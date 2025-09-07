@@ -64,9 +64,12 @@ shape = SubResource("RectangleShape2D_nakos")
 [node name="Sprite2D" type="Sprite2D" parent="city_courtney"]
 texture = ExtResource("12_n1psn")
 
-[node name="city_eldoria" type="Area2D" parent="."]
+[node name="city_eldoria" type="Area2D" parent="." node_paths=PackedStringArray("teleporter_id")]
 position = Vector2(3312, 3120)
 script = ExtResource("9_mlgqr")
+destination_id = "start"
+teleporter_id = NodePath(".")
+target_scene = "uid://ch2c2f0siha24"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="city_eldoria"]
 shape = SubResource("RectangleShape2D_nakos")
