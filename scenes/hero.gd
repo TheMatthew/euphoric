@@ -31,6 +31,9 @@ var has_moved = false
 @onready var sound_player = get_node("SoundPlayer")
 var tilemap:TileMapLayer
 
+
+var dialog_system: Node= null
+
 func _ready():
 	tilemap = get_parent().get_node("TileMapLayer")
 
@@ -44,10 +47,23 @@ func _ready():
 	move_timer.wait_time = 0.25  # Time between each step
 	move_timer.connect("timeout", _on_move_timer_timeout)
 	add_child(move_timer)
+	setup_dialog_system()
+
+func setup_dialog_system():
+	# Create dialog system - it manages its own state
+	dialog_system = preload("res://dialog_system.gd").new()
+	add_child(dialog_system)
+	
+	# Optional: Connect to dialog system signals for additional behavior
+	dialog_system.connect("dialog_closed", _on_dialog_closed)
+	dialog_system.connect("state_changed", _on_dialog_state_changed)
+
 
 # Calls the move function with the appropriate input key
 # if any input map action is triggered
 func _unhandled_input(event):
+	if dialog_system and dialog_system.is_dialog_active():
+		return
 	for action in inputs.keys():
 		if event.is_action_pressed(action) and not is_moving:
 			is_moving = true
@@ -60,9 +76,23 @@ func _on_move_timer_timeout():
 		if Input.is_action_pressed(action):
 			move(action)
 			
+# Optional callback handlers
+func _on_dialog_closed():
+	print("Hero: Dialog closed, back to normal gameplay")
+
+func _on_dialog_state_changed(new_state):
+	match new_state:
+		dialog_system.DialogState.READY:
+			print("Hero: Ready for normal movement")
+		dialog_system.DialogState.DIRECTION:
+			print("Hero: Waiting for direction input")
+		dialog_system.DialogState.DIALOG:
+			print("Hero: In dialog mode")
 
 # Optional: Stop moving when the key is released
 func _input(event):
+	if dialog_system and dialog_system.is_dialog_active():
+		return
 	if event.is_action_released("move_right") or event.is_action_released("move_left") or event.is_action_released("move_up") or event.is_action_released("move_down"):
 		is_moving = false
 		move_timer.stop()  # Stop
