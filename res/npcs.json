@@ -81,7 +81,7 @@
 	  "AGE": 61,
 	  "HOOK": "Whispers say Brightwatch guards more than books.",
 	  "CLEAN_NAME": "Brother Jorin",
-	  "SPRITE": "ranger"
+	  "SPRITE": "mage"
 	},
 	{
 	  "NAME": "I am Oren.",
@@ -114,7 +114,7 @@
 	  "GENDER": "Male",
 	  "AGE": 34,
 	  "HOOK": "I’ve heard bandits lurk along the road to Elderia.",
-	  "CLEAN_NAME": "Rusk"
+	  "CLEAN_NAME": "Rusk","SPRITE":"ranger"
 	},
 	{
 	  "NAME": "I am Tilda.",
@@ -125,7 +125,7 @@
 	  "GENDER": "Female",
 	  "AGE": 67,
 	  "HOOK": "Herbs grow strangely strong near the ruins west of here.",
-	  "CLEAN_NAME": "Tilda"
+	  "CLEAN_NAME": "Tilda","SPRITE":"beggar"
 	},
 	{
 	  "NAME": "I am Berrick.",
@@ -136,7 +136,7 @@
 	  "GENDER": "Male",
 	  "AGE": 23,
 	  "HOOK": "Strangers in Blackwater speak in hushed tones of hidden tunnels.",
-	  "CLEAN_NAME": "Berrick"
+	  "CLEAN_NAME": "Berrick","SPRITE":"fighter"
 	}
   ],
   "Eldoria": [
