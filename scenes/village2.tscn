@@ -10,7 +10,7 @@
 size = Vector2(66, 90)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ateo5"]
-size = Vector2(1024, 512)
+size = Vector2(1024, 1152)
 
 [node name="Village2" type="Node2D"]
 
@@ -43,5 +43,5 @@ position = Vector2(704, 448)
 script = ExtResource("3_ios5k")
 
 [node name="spawn_area" type="CollisionShape2D" parent="villagers"]
-visible = false
+position = Vector2(0, 320)
 shape = SubResource("RectangleShape2D_ateo5")

@@ -8,17 +8,26 @@
 	  "DESCRIPTION": "You see a strong guard.",
 	  "GENDER": "Male",
 	  "AGE": 33,
-	  "location": {"x":17,"y":16}
+	  "location": {
+		"x": 17,
+		"y": 16
+	  },
+	  "CLEAN_NAME": "Guard",
+	  "SPRITE": "guard"
 	},
 	{
 	  "NAME": "I am Alric, a humble farmer.",
 	  "JOB": "I tend the fields to feed our folk.",
+	  "FIELDS": "My uncle used to say, if you build it, they will come. They never came.",
 	  "HEALTH": "I feel hale enough, though my back aches.",
 	  "GOLD": "Gold? I have but a few coins for seed.",
 	  "DESCRIPTION": "A weathered man with soil-stained hands, always smelling of earth.",
 	  "GENDER": "Male",
 	  "AGE": 52,
-	  "HOOK": "The soil’s been strange of late… perhaps magic taints it."
+	  "FEED": "The soil’s been strange of late… perhaps magic taints it.",
+	  "CLEAN_NAME": "Alric",
+	  "SPRITE": "citizen"
+	
 	},
 	{
 	  "NAME": "I am Serah.",
@@ -28,18 +37,27 @@
 	  "DESCRIPTION": "A quiet woman with nimble fingers, always carrying a basket of yarn.",
 	  "GENDER": "Female",
 	  "AGE": 37,
-	  "HOOK": "Sailors from Elderia pay well for strong cloth.",
-	  "location": {"x":7,"y":3}
+	  "CLOTH": "Sailors from Elderia pay well for strong cloth.",
+	  "location": {
+		"x": 7,
+		"y": 3
+	  },
+	  "CLEAN_NAME": "Serah",
+	  "SPRITE": "citizen"
+	
 	},
 	{
 	  "NAME": "I am Thom the youth.",
 	  "JOB": "Someday I’ll be a knight! For now I fetch water.",
+	  "WATER": "It is hard work, but trains my discipline.",
 	  "HEALTH": "Strong as an ox!",
 	  "GOLD": "I’ve naught but dreams of riches.",
 	  "DESCRIPTION": "A lanky boy with a wooden sword at his belt and endless enthusiasm.",
 	  "GENDER": "Male",
 	  "AGE": 14,
-	  "HOOK": "They say knights of Castle Moonfel train by moonlight."
+	  "KNIGHT": "They say knights of Castle Moonfel train by moonlight.",
+	  "CLEAN_NAME": "Thom",
+	  "SPRITE": "child"
 	},
 	{
 	  "NAME": "My name’s Marta.",
@@ -49,7 +67,9 @@
 	  "DESCRIPTION": "A stout woman with rosy cheeks, always smelling of stew and bread.",
 	  "GENDER": "Female",
 	  "AGE": 44,
-	  "HOOK": "A strange man passed through, spoke of Blackwater’s mines."
+	  "HOOK": "A strange man passed through, spoke of Blackwater’s mines.",
+	  "CLEAN_NAME": "Marta",
+	  "SPRITE": "citizen"
 	},
 	{
 	  "NAME": "I am Brother Jorin.",
@@ -59,7 +79,9 @@
 	  "DESCRIPTION": "A thin man in simple robes, speaking softly with kind eyes.",
 	  "GENDER": "Male",
 	  "AGE": 61,
-	  "HOOK": "Whispers say Brightwatch guards more than books."
+	  "HOOK": "Whispers say Brightwatch guards more than books.",
+	  "CLEAN_NAME": "Brother Jorin",
+	  "SPRITE": "ranger"
 	},
 	{
 	  "NAME": "I am Oren.",
@@ -69,7 +91,8 @@
 	  "DESCRIPTION": "A lean man hunched over his workbench, covered in leather scraps.",
 	  "GENDER": "Male",
 	  "AGE": 49,
-	  "HOOK": "Travelers speak of druids in Maplegrove performing rites."
+	  "HOOK": "Travelers speak of druids in Maplegrove performing rites.",
+	  "CLEAN_NAME": "Oren"
 	},
 	{
 	  "NAME": "I am Kaela.",
@@ -79,7 +102,8 @@
 	  "DESCRIPTION": "A frail woman with kind eyes, chalk dust often clings to her sleeves.",
 	  "GENDER": "Female",
 	  "AGE": 58,
-	  "HOOK": "There’s a hidden verse in the old songs of Willowbend."
+	  "HOOK": "There’s a hidden verse in the old songs of Willowbend.",
+	  "CLEAN_NAME": "Kaela"
 	},
 	{
 	  "NAME": "Call me Rusk.",
@@ -89,7 +113,8 @@
 	  "DESCRIPTION": "A burly man with a friendly smile, carrying an axe over his shoulder.",
 	  "GENDER": "Male",
 	  "AGE": 34,
-	  "HOOK": "I’ve heard bandits lurk along the road to Elderia."
+	  "HOOK": "I’ve heard bandits lurk along the road to Elderia.",
+	  "CLEAN_NAME": "Rusk"
 	},
 	{
 	  "NAME": "I am Tilda.",
@@ -99,7 +124,8 @@
 	  "DESCRIPTION": "An elderly woman with bright eyes and pouches of herbs at her belt.",
 	  "GENDER": "Female",
 	  "AGE": 67,
-	  "HOOK": "Herbs grow strangely strong near the ruins west of here."
+	  "HOOK": "Herbs grow strangely strong near the ruins west of here.",
+	  "CLEAN_NAME": "Tilda"
 	},
 	{
 	  "NAME": "I am Berrick.",
@@ -109,11 +135,11 @@
 	  "DESCRIPTION": "A young man with polished armor and a spear taller than himself.",
 	  "GENDER": "Male",
 	  "AGE": 23,
-	  "HOOK": "Strangers in Blackwater speak in hushed tones of hidden tunnels."
+	  "HOOK": "Strangers in Blackwater speak in hushed tones of hidden tunnels.",
+	  "CLEAN_NAME": "Berrick"
 	}
   ],
-
-  "Elderia": [
+  "Eldoria": [
 	{
 	  "NAME": "I am Captain Rynn.",
 	  "JOB": "I command the harbor watch.",
@@ -122,7 +148,8 @@
 	  "DESCRIPTION": "A grizzled sailor with a salt-crusted beard and a loud voice.",
 	  "GENDER": "Male",
 	  "AGE": 56,
-	  "HOOK": "Ships whisper of a ghost light off the coast at night."
+	  "HOOK": "Ships whisper of a ghost light off the coast at night.",
+	  "CLEAN_NAME": "Captain Rynn"
 	},
 	{
 	  "NAME": "My name’s Elira.",
@@ -132,7 +159,8 @@
 	  "DESCRIPTION": "A sharp-eyed woman with exotic scarves and a knowing grin.",
 	  "GENDER": "Female",
 	  "AGE": 29,
-	  "HOOK": "Pirates sail under a black crescent, beware their flag."
+	  "HOOK": "Pirates sail under a black crescent, beware their flag.",
+	  "CLEAN_NAME": "Elira"
 	},
 	{
 	  "NAME": "I am Darrin.",
@@ -142,7 +170,8 @@
 	  "DESCRIPTION": "A broad man with saltwater scars and a perpetual squint.",
 	  "GENDER": "Male",
 	  "AGE": 41,
-	  "HOOK": "Strange shapes lurk beneath the waves eastward."
+	  "HOOK": "Strange shapes lurk beneath the waves eastward.",
+	  "CLEAN_NAME": "Darrin"
 	},
 	{
 	  "NAME": "Call me Fenna.",
@@ -152,7 +181,8 @@
 	  "DESCRIPTION": "A wiry woman with quick hands and a belt full of needles.",
 	  "GENDER": "Female",
 	  "AGE": 33,
-	  "HOOK": "A foreign ship brought plague years ago… some fear it may return."
+	  "HOOK": "A foreign ship brought plague years ago… some fear it may return.",
+	  "CLEAN_NAME": "Fenna"
 	},
 	{
 	  "NAME": "I am Torven.",
@@ -162,7 +192,8 @@
 	  "DESCRIPTION": "A burly man in ragged clothes, smelling of ale.",
 	  "GENDER": "Male",
 	  "AGE": 36,
-	  "HOOK": "Merchants whisper of a smuggler’s cove south of here."
+	  "HOOK": "Merchants whisper of a smuggler’s cove south of here.",
+	  "CLEAN_NAME": "Torven"
 	},
 	{
 	  "NAME": "I am Lysia.",
@@ -172,7 +203,8 @@
 	  "DESCRIPTION": "A cheerful woman with braided hair and a hearty laugh.",
 	  "GENDER": "Female",
 	  "AGE": 47,
-	  "HOOK": "Sailors spoke of Brightwatch scholars searching for old maps."
+	  "HOOK": "Sailors spoke of Brightwatch scholars searching for old maps.",
+	  "CLEAN_NAME": "Lysia"
 	},
 	{
 	  "NAME": "I am Halric.",
@@ -182,7 +214,8 @@
 	  "DESCRIPTION": "A muscular blacksmith with soot-streaked skin and a booming laugh.",
 	  "GENDER": "Male",
 	  "AGE": 50,
-	  "HOOK": "Blackwater’s mines ship ore through here, but some goes missing."
+	  "HOOK": "Blackwater’s mines ship ore through here, but some goes missing.",
+	  "CLEAN_NAME": "Halric"
 	},
 	{
 	  "NAME": "They call me Mira.",
@@ -192,7 +225,8 @@
 	  "DESCRIPTION": "A graceful woman with a haunting voice and sea-colored eyes.",
 	  "GENDER": "Female",
 	  "AGE": 25,
-	  "HOOK": "Some say a siren’s song echoes from Willowbend’s coast."
+	  "HOOK": "Some say a siren’s song echoes from Willowbend’s coast.",
+	  "CLEAN_NAME": "Mira"
 	},
 	{
 	  "NAME": "I am Jorn.",
@@ -202,7 +236,8 @@
 	  "DESCRIPTION": "A bespectacled man with stacks of ledgers at his desk.",
 	  "GENDER": "Male",
 	  "AGE": 39,
-	  "HOOK": "A shipment of rare tomes is bound for Brightwatch soon."
+	  "HOOK": "A shipment of rare tomes is bound for Brightwatch soon.",
+	  "CLEAN_NAME": "Jorn"
 	},
 	{
 	  "NAME": "I am Selka.",
@@ -212,10 +247,10 @@
 	  "DESCRIPTION": "A flamboyant trader wearing bright silks and jangling jewelry.",
 	  "GENDER": "Female",
 	  "AGE": 42,
-	  "HOOK": "Rumor says Castle Moonfel pays handsomely for relics."
+	  "HOOK": "Rumor says Castle Moonfel pays handsomely for relics.",
+	  "CLEAN_NAME": "Selka"
 	}
   ],
-
   "Maplegrove": [
 	{
 	  "NAME": "I am Elder Rowan.",
@@ -225,7 +260,8 @@
 	  "DESCRIPTION": "An elderly druid cloaked in leaves, staff in hand.",
 	  "GENDER": "Male",
 	  "AGE": 72,
-	  "HOOK": "Sacred stones sing when the moons are full."
+	  "HOOK": "Sacred stones sing when the moons are full.",
+	  "CLEAN_NAME": "Elder Rowan"
 	},
 	{
 	  "NAME": "I am Sylvie.",
@@ -235,7 +271,8 @@
 	  "DESCRIPTION": "A young woman with a pouch of herbs and a mischievous smile.",
 	  "GENDER": "Female",
 	  "AGE": 26,
-	  "HOOK": "Roots near Brightwatch glow faintly when burned."
+	  "HOOK": "Roots near Brightwatch glow faintly when burned.",
+	  "CLEAN_NAME": "Sylvie"
 	},
 	{
 	  "NAME": "I am Brann.",
@@ -245,7 +282,8 @@
 	  "DESCRIPTION": "A rugged man with a bow and quiet demeanor.",
 	  "GENDER": "Male",
 	  "AGE": 45,
-	  "HOOK": "I’ve seen shadows move where no beast should tread."
+	  "HOOK": "I’ve seen shadows move where no beast should tread.",
+	  "CLEAN_NAME": "Brann"
 	},
 	{
 	  "NAME": "I am Mariel.",
@@ -255,7 +293,8 @@
 	  "DESCRIPTION": "A serene woman with flowers woven in her hair.",
 	  "GENDER": "Female",
 	  "AGE": 40,
-	  "HOOK": "Songs speak of a hidden glade that heals wounds."
+	  "HOOK": "Songs speak of a hidden glade that heals wounds.",
+	  "CLEAN_NAME": "Mariel"
 	},
 	{
 	  "NAME": "I am Taren.",
@@ -265,7 +304,8 @@
 	  "DESCRIPTION": "A wiry man with a satchel full of fungi and a crooked grin.",
 	  "GENDER": "Male",
 	  "AGE": 32,
-	  "HOOK": "Beware red-capped mushrooms—they are cursed."
+	  "HOOK": "Beware red-capped mushrooms—they are cursed.",
+	  "CLEAN_NAME": "Taren"
 	},
 	{
 	  "NAME": "I am Elwen.",
@@ -275,7 +315,8 @@
 	  "DESCRIPTION": "A gentle woman sanding a wooden talisman with care.",
 	  "GENDER": "Female",
 	  "AGE": 53,
-	  "HOOK": "Charms crack near Castle Moonfel’s gates."
+	  "HOOK": "Charms crack near Castle Moonfel’s gates.",
+	  "CLEAN_NAME": "Elwen"
 	},
 	{
 	  "NAME": "I am Garric.",
@@ -285,7 +326,8 @@
 	  "DESCRIPTION": "A tall druid with bark-stained hands and a solemn gaze.",
 	  "GENDER": "Male",
 	  "AGE": 60,
-	  "HOOK": "Animals flee when the northern wind blows."
+	  "HOOK": "Animals flee when the northern wind blows.",
+	  "CLEAN_NAME": "Garric"
 	},
 	{
 	  "NAME": "I am Pyria.",
@@ -295,7 +337,8 @@
 	  "DESCRIPTION": "A kind druidess carrying vials of herbs and a warm smile.",
 	  "GENDER": "Female",
 	  "AGE": 35,
-	  "HOOK": "A sickness spreads from the mining town of Blackwater."
+	  "HOOK": "A sickness spreads from the mining town of Blackwater.",
+	  "CLEAN_NAME": "Pyria"
 	},
 	{
 	  "NAME": "I am Loric.",
@@ -305,7 +348,8 @@
 	  "DESCRIPTION": "A thin man with ink-stained fingers and skyward eyes.",
 	  "GENDER": "Male",
 	  "AGE": 48,
-	  "HOOK": "Strange constellations appear only above Brightwatch."
+	  "HOOK": "Strange constellations appear only above Brightwatch.",
+	  "CLEAN_NAME": "Loric"
 	},
 	{
 	  "NAME": "I am Ysolde.",
@@ -315,10 +359,10 @@
 	  "DESCRIPTION": "A cheerful young woman crowned with blossoms.",
 	  "GENDER": "Female",
 	  "AGE": 19,
-	  "HOOK": "Children say faeries dance near Willowbend at dusk."
+	  "HOOK": "Children say faeries dance near Willowbend at dusk.",
+	  "CLEAN_NAME": "Ysolde"
 	}
   ],
-
   "Willowbend": [
 	{
 	  "NAME": "I am Fisher Konn.",
@@ -328,7 +372,8 @@
 	  "DESCRIPTION": "A broad fisherman with weathered skin and a hearty laugh.",
 	  "GENDER": "Male",
 	  "AGE": 46,
-	  "HOOK": "Sometimes nets pull up more than fish—strange relics too."
+	  "HOOK": "Sometimes nets pull up more than fish—strange relics too.",
+	  "CLEAN_NAME": "Fisher Konn"
 	},
 	{
 	  "NAME": "I am Mira.",
@@ -338,7 +383,8 @@
 	  "DESCRIPTION": "A sturdy woman with brine-stained hands and a keen eye.",
 	  "GENDER": "Female",
 	  "AGE": 42,
-	  "HOOK": "Sailors say the sea glows green near Elderia’s bay."
+	  "HOOK": "Sailors say the sea glows green near Elderia’s bay.",
+	  "CLEAN_NAME": "Mira"
 	},
 	{
 	  "NAME": "I am Tobin.",
@@ -348,7 +394,8 @@
 	  "DESCRIPTION": "A craftsman with sawdust in his hair and a broad smile.",
 	  "GENDER": "Male",
 	  "AGE": 54,
-	  "HOOK": "A hidden current can carry boats swiftly north."
+	  "HOOK": "A hidden current can carry boats swiftly north.",
+	  "CLEAN_NAME": "Tobin"
 	},
 	{
 	  "NAME": "I am Nella.",
@@ -358,7 +405,8 @@
 	  "DESCRIPTION": "A young woman with sun-bleached hair and quick hands.",
 	  "GENDER": "Female",
 	  "AGE": 21,
-	  "HOOK": "Pearls found here sometimes glow under moonlight."
+	  "HOOK": "Pearls found here sometimes glow under moonlight.",
+	  "CLEAN_NAME": "Nella"
 	},
 	{
 	  "NAME": "I am Bryn.",
@@ -368,7 +416,8 @@
 	  "DESCRIPTION": "A wiry man with smoke-blackened clothes.",
 	  "GENDER": "Male",
 	  "AGE": 38,
-	  "HOOK": "Travelers claim Blackwater fish taste of iron."
+	  "HOOK": "Travelers claim Blackwater fish taste of iron.",
+	  "CLEAN_NAME": "Bryn"
 	},
 	{
 	  "NAME": "I am Elira.",
@@ -378,7 +427,8 @@
 	  "DESCRIPTION": "A patient woman with nimble hands and a quiet smile.",
 	  "GENDER": "Female",
 	  "AGE": 30,
-	  "HOOK": "Fishermen whisper of a sea serpent further out."
+	  "HOOK": "Fishermen whisper of a sea serpent further out.",
+	  "CLEAN_NAME": "Elira"
 	},
 	{
 	  "NAME": "I am Caldor.",
@@ -388,17 +438,19 @@
 	  "DESCRIPTION": "A middle-aged man with broad shoulders and a sun-scorched neck.",
 	  "GENDER": "Male",
 	  "AGE": 43,
-	  "HOOK": "Once I ferried a druid who spoke of storms being called."
+	  "HOOK": "Once I ferried a druid who spoke of storms being called.",
+	  "CLEAN_NAME": "Caldor"
 	},
 	{
 	  "NAME": "I am Sela.",
 	  "JOB": "I sell oysters.",
-	  "HEALTH": "Healthy, though always damp.",
+	  "HEALTH": "Healthy, though always moist.",
 	  "GOLD": "Enough for bread.",
 	  "DESCRIPTION": "A lively girl with salt-crusted boots and a cheerful grin.",
 	  "GENDER": "Female",
 	  "AGE": 18,
-	  "HOOK": "An oyster once held a silver coin instead of a pearl."
+	  "HOOK": "An oyster once held a silver coin instead of a pearl.",
+	  "CLEAN_NAME": "Sela"
 	},
 	{
 	  "NAME": "I am Harren.",
@@ -408,7 +460,8 @@
 	  "DESCRIPTION": "A grey-haired man with tools always at his belt.",
 	  "GENDER": "Male",
 	  "AGE": 59,
-	  "HOOK": "Old pilings sometimes reveal barnacle-covered chests."
+	  "HOOK": "Old pilings sometimes reveal barnacle-covered chests.",
+	  "CLEAN_NAME": "Harren"
 	},
 	{
 	  "NAME": "I am Tira.",
@@ -418,7 +471,8 @@
 	  "DESCRIPTION": "A matronly woman stirring a steaming pot, smiling gently.",
 	  "GENDER": "Female",
 	  "AGE": 50,
-	  "HOOK": "Some herbs from Maplegrove make the stew magical."
+	  "HOOK": "Some herbs from Maplegrove make the stew magical.",
+	  "CLEAN_NAME": "Tira"
 	}
   ],
   "Brightwatch": [
@@ -430,7 +484,8 @@
 	  "DESCRIPTION": "A tall knight in polished armor with a serious gaze.",
 	  "GENDER": "Male",
 	  "AGE": 41,
-	  "HOOK": "The library below hides tomes sealed from common eyes."
+	  "HOOK": "The library below hides tomes sealed from common eyes.",
+	  "CLEAN_NAME": "Sir Halric"
 	},
 	{
 	  "NAME": "I am Lady Maera.",
@@ -440,7 +495,8 @@
 	  "DESCRIPTION": "A refined woman with spectacles and stacks of scrolls.",
 	  "GENDER": "Female",
 	  "AGE": 38,
-	  "HOOK": "Legends tell of a weapon hidden in Maplegrove’s sacred grove."
+	  "HOOK": "Legends tell of a weapon hidden in Maplegrove’s sacred grove.",
+	  "CLEAN_NAME": "Lady Maera"
 	},
 	{
 	  "NAME": "I am Brother Caddel.",
@@ -450,7 +506,8 @@
 	  "DESCRIPTION": "An old monk with a hunched back and warm smile.",
 	  "GENDER": "Male",
 	  "AGE": 67,
-	  "HOOK": "Pilgrims whisper of miracles in Willowbend."
+	  "HOOK": "Pilgrims whisper of miracles in Willowbend.",
+	  "CLEAN_NAME": "Brother Caddel"
 	},
 	{
 	  "NAME": "I am Ellyn.",
@@ -460,7 +517,8 @@
 	  "DESCRIPTION": "A young woman with ink-stained robes and keen eyes.",
 	  "GENDER": "Female",
 	  "AGE": 22,
-	  "HOOK": "An old map in the archives marks tunnels near Blackwater."
+	  "HOOK": "An old map in the archives marks tunnels near Blackwater.",
+	  "CLEAN_NAME": "Ellyn"
 	},
 	{
 	  "NAME": "I am Guard Fenric.",
@@ -470,7 +528,8 @@
 	  "DESCRIPTION": "A stout guard with a halberd and steady stance.",
 	  "GENDER": "Male",
 	  "AGE": 30,
-	  "HOOK": "Bandits north of Valenwind grow bolder."
+	  "HOOK": "Bandits north of Valenwind grow bolder.",
+	  "CLEAN_NAME": "Guard Fenric"
 	},
 	{
 	  "NAME": "I am Scholar Lysa.",
@@ -480,7 +539,8 @@
 	  "DESCRIPTION": "A scholar with frizzy hair and arcane symbols inked on her robes.",
 	  "GENDER": "Female",
 	  "AGE": 45,
-	  "HOOK": "Moonfel’s archives may conceal forbidden spells."
+	  "HOOK": "Moonfel’s archives may conceal forbidden spells.",
+	  "CLEAN_NAME": "Scholar Lysa"
 	},
 	{
 	  "NAME": "I am Tomas.",
@@ -490,7 +550,8 @@
 	  "DESCRIPTION": "A boy smelling of horses, with straw in his hair.",
 	  "GENDER": "Male",
 	  "AGE": 15,
-	  "HOOK": "A knight lost his sword in Elderia’s tavern brawl."
+	  "HOOK": "A knight lost his sword in Elderia’s tavern brawl.",
+	  "CLEAN_NAME": "Tomas"
 	},
 	{
 	  "NAME": "I am Archivist Bren.",
@@ -500,7 +561,8 @@
 	  "DESCRIPTION": "A man hunched over scrolls, whispering as he reads.",
 	  "GENDER": "Male",
 	  "AGE": 54,
-	  "HOOK": "Old prophecies mention Blackwater’s mines collapsing."
+	  "HOOK": "Old prophecies mention Blackwater’s mines collapsing.",
+	  "CLEAN_NAME": "Archivist Bren"
 	},
 	{
 	  "NAME": "I am Dame Corinne.",
@@ -510,7 +572,8 @@
 	  "DESCRIPTION": "A stern woman with a practice blade always at hand.",
 	  "GENDER": "Female",
 	  "AGE": 36,
-	  "HOOK": "Castle Moonfel recruits only the bravest."
+	  "HOOK": "Castle Moonfel recruits only the bravest.",
+	  "CLEAN_NAME": "Dame Corinne"
 	},
 	{
 	  "NAME": "I am Jareth.",
@@ -520,10 +583,10 @@
 	  "DESCRIPTION": "A plump man with flour on his apron and a booming laugh.",
 	  "GENDER": "Male",
 	  "AGE": 48,
-	  "HOOK": "Travelers from Willowbend bring strange fish tales."
+	  "HOOK": "Travelers from Willowbend bring strange fish tales.",
+	  "CLEAN_NAME": "Jareth"
 	}
   ],
-
   "Blackwater": [
 	{
 	  "NAME": "I am Doran.",
@@ -533,7 +596,8 @@
 	  "DESCRIPTION": "A scarred man with soot-covered clothes.",
 	  "GENDER": "Male",
 	  "AGE": 50,
-	  "HOOK": "Deeper shafts whisper with eerie winds."
+	  "HOOK": "Deeper shafts whisper with eerie winds.",
+	  "CLEAN_NAME": "Doran"
 	},
 	{
 	  "NAME": "I am Mila.",
@@ -543,7 +607,8 @@
 	  "DESCRIPTION": "A cheerful woman with a loud laugh and red cheeks.",
 	  "GENDER": "Female",
 	  "AGE": 42,
-	  "HOOK": "Drunk miners babble of gold veins untouched."
+	  "HOOK": "Drunk miners babble of gold veins untouched.",
+	  "CLEAN_NAME": "Mila"
 	},
 	{
 	  "NAME": "I am Jorvik.",
@@ -553,7 +618,8 @@
 	  "DESCRIPTION": "A burly man with arms blackened by soot.",
 	  "GENDER": "Male",
 	  "AGE": 46,
-	  "HOOK": "Ore carts vanish in the night."
+	  "HOOK": "Ore carts vanish in the night.",
+	  "CLEAN_NAME": "Jorvik"
 	},
 	{
 	  "NAME": "I am Greta.",
@@ -563,7 +629,8 @@
 	  "DESCRIPTION": "A stern woman with satchels of herbs and sharp eyes.",
 	  "GENDER": "Female",
 	  "AGE": 39,
-	  "HOOK": "Strange fungi grow in abandoned tunnels."
+	  "HOOK": "Strange fungi grow in abandoned tunnels.",
+	  "CLEAN_NAME": "Greta"
 	},
 	{
 	  "NAME": "I am Old Bram.",
@@ -573,7 +640,8 @@
 	  "DESCRIPTION": "An old man with a hacking cough and shaking hands.",
 	  "GENDER": "Male",
 	  "AGE": 72,
-	  "HOOK": "I saw a beast in the dark, bigger than a man."
+	  "HOOK": "I saw a beast in the dark, bigger than a man.",
+	  "CLEAN_NAME": "Old Bram"
 	},
 	{
 	  "NAME": "I am Sella.",
@@ -583,7 +651,8 @@
 	  "DESCRIPTION": "A girl with braids and quick hands.",
 	  "GENDER": "Female",
 	  "AGE": 17,
-	  "HOOK": "Travelers whisper of secret doors in Brightwatch."
+	  "HOOK": "Travelers whisper of secret doors in Brightwatch.",
+	  "CLEAN_NAME": "Sella"
 	},
 	{
 	  "NAME": "I am Rurik.",
@@ -593,7 +662,8 @@
 	  "DESCRIPTION": "A stern man with a halberd and dust-covered armor.",
 	  "GENDER": "Male",
 	  "AGE": 28,
-	  "HOOK": "Smugglers may use old shafts to move contraband."
+	  "HOOK": "Smugglers may use old shafts to move contraband.",
+	  "CLEAN_NAME": "Rurik"
 	},
 	{
 	  "NAME": "I am Toman.",
@@ -603,7 +673,8 @@
 	  "DESCRIPTION": "A wiry man with a whip and a tired mule.",
 	  "GENDER": "Male",
 	  "AGE": 33,
-	  "HOOK": "Heard of druids trading ore for relics in Maplegrove."
+	  "HOOK": "Heard of druids trading ore for relics in Maplegrove.",
+	  "CLEAN_NAME": "Toman"
 	},
 	{
 	  "NAME": "I am Frida.",
@@ -613,7 +684,8 @@
 	  "DESCRIPTION": "A plump woman stirring an enormous pot of stew.",
 	  "GENDER": "Female",
 	  "AGE": 51,
-	  "HOOK": "Blackwater stew tastes strange when storms near."
+	  "HOOK": "Blackwater stew tastes strange when storms near.",
+	  "CLEAN_NAME": "Frida"
 	},
 	{
 	  "NAME": "I am Karst.",
@@ -623,10 +695,10 @@
 	  "DESCRIPTION": "A lean man with ledgers under his arm.",
 	  "GENDER": "Male",
 	  "AGE": 43,
-	  "HOOK": "Caravans to Valenwind sometimes vanish."
+	  "HOOK": "Caravans to Valenwind sometimes vanish.",
+	  "CLEAN_NAME": "Karst"
 	}
   ],
-
   "Castle Moonfel": [
 	{
 	  "NAME": "I am King Aldren.",
@@ -636,7 +708,8 @@
 	  "DESCRIPTION": "A regal man with a silver crown and stern eyes.",
 	  "GENDER": "Male",
 	  "AGE": 62,
-	  "HOOK": "The crown weighs heavy with secrets of ancient wars."
+	  "HOOK": "The crown weighs heavy with secrets of ancient wars.",
+	  "CLEAN_NAME": "King Aldren"
 	},
 	{
 	  "NAME": "I am Queen Serenya.",
@@ -646,7 +719,8 @@
 	  "DESCRIPTION": "A graceful woman with golden hair and calm presence.",
 	  "GENDER": "Female",
 	  "AGE": 59,
-	  "HOOK": "A hidden chamber lies beneath Moonfel’s throne."
+	  "HOOK": "A hidden chamber lies beneath Moonfel’s throne.",
+	  "CLEAN_NAME": "Queen Serenya"
 	},
 	{
 	  "NAME": "I am Prince Kaelen.",
@@ -656,7 +730,8 @@
 	  "DESCRIPTION": "A young man in fine garb, carrying a practice blade.",
 	  "GENDER": "Male",
 	  "AGE": 24,
-	  "HOOK": "Dreams speak of an enemy rising from the sea."
+	  "HOOK": "Dreams speak of an enemy rising from the sea.",
+	  "CLEAN_NAME": "Prince Kaelen"
 	},
 	{
 	  "NAME": "I am Sir Garron.",
@@ -666,7 +741,8 @@
 	  "DESCRIPTION": "A burly knight with a scarred face and booming voice.",
 	  "GENDER": "Male",
 	  "AGE": 47,
-	  "HOOK": "Scouts vanish near Brightwatch’s forests."
+	  "HOOK": "Scouts vanish near Brightwatch’s forests.",
+	  "CLEAN_NAME": "Sir Garron"
 	},
 	{
 	  "NAME": "I am Lady Yselda.",
@@ -676,7 +752,8 @@
 	  "DESCRIPTION": "A tall woman in flowing robes with glowing rings.",
 	  "GENDER": "Female",
 	  "AGE": 55,
-	  "HOOK": "Ancient wards beneath the castle weaken."
+	  "HOOK": "Ancient wards beneath the castle weaken.",
+	  "CLEAN_NAME": "Lady Yselda"
 	},
 	{
 	  "NAME": "I am Chancellor Morric.",
@@ -686,7 +763,8 @@
 	  "DESCRIPTION": "A gaunt man with spectacles and scrolls.",
 	  "GENDER": "Male",
 	  "AGE": 60,
-	  "HOOK": "Lost treaties may lie in Brightwatch’s vaults."
+	  "HOOK": "Lost treaties may lie in Brightwatch’s vaults.",
+	  "CLEAN_NAME": "Chancellor Morric"
 	},
 	{
 	  "NAME": "I am Elara.",
@@ -696,7 +774,8 @@
 	  "DESCRIPTION": "A quiet young woman with a shy smile.",
 	  "GENDER": "Female",
 	  "AGE": 19,
-	  "HOOK": "I overheard whispers of assassins in Elderia."
+	  "HOOK": "I overheard whispers of assassins in Elderia.",
+	  "CLEAN_NAME": "Elara"
 	},
 	{
 	  "NAME": "I am Sir Danel.",
@@ -706,7 +785,8 @@
 	  "DESCRIPTION": "A young knight polishing his sword diligently.",
 	  "GENDER": "Male",
 	  "AGE": 27,
-	  "HOOK": "The druids of Maplegrove may aid the crown."
+	  "HOOK": "The druids of Maplegrove may aid the crown.",
+	  "CLEAN_NAME": "Sir Danel"
 	},
 	{
 	  "NAME": "I am Cook Hilda.",
@@ -716,7 +796,8 @@
 	  "DESCRIPTION": "A plump woman bustling in the kitchens.",
 	  "GENDER": "Female",
 	  "AGE": 53,
-	  "HOOK": "The castle cat disappears into hidden passages."
+	  "HOOK": "The castle cat disappears into hidden passages.",
+	  "CLEAN_NAME": "Cook Hilda"
 	},
 	{
 	  "NAME": "I am Page Rowan.",
@@ -726,7 +807,8 @@
 	  "DESCRIPTION": "A boy carrying scrolls and looking eager to please.",
 	  "GENDER": "Male",
 	  "AGE": 13,
-	  "HOOK": "Knights whisper of a tournament soon to come."
+	  "HOOK": "Knights whisper of a tournament soon to come.",
+	  "CLEAN_NAME": "Page Rowan"
 	}
   ]
 }

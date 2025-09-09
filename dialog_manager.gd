@@ -112,9 +112,9 @@ func is_position_occupied(pos: Vector2, occupied_list: Array) -> bool:
 func create_npc(npc_info: Dictionary) -> Node2D:
 	var npc_node = Node2D.new()
 
-	var sprite = Sprite2D.new()
-	sprite.centered = true
-	npc_node.add_child(sprite)
+	var sprite_2d = Sprite2D.new()
+	sprite_2d.centered = true
+	npc_node.add_child(sprite_2d)
 
 	var collision = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
@@ -126,16 +126,63 @@ func create_npc(npc_info: Dictionary) -> Node2D:
 
 	# Store NPC data and animation info
 	npc_node.set_meta("npc_data", npc_info)
-	npc_node.set_meta("sprite", sprite)
+	npc_node.set_meta("sprite", sprite_2d)
 	npc_node.set_meta("current_frame", 0)
-	
-	# Load both textures
 	var texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/082_citizen0.png")
 	var texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/083_citizen1.png")
+	
+	var sprite = npc_info.get("SPRITE", "")
+	if "mage" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/032_mage0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/033_mage1.png")
+	elif "bard" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/034_bard0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/035_bard1.png")
+	elif "fighter" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/036_fighter0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/037_fighter1.png")
+	elif "druid" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/038_druid0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/039_druid1.png")
+	elif "tinker" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/040_tinker0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/041_tinker1.png")
+	elif "paladin" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/042_paladin0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/043_paladin1.png")
+	elif "ranger" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/044_ranger0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/045_ranger1.png")
+	elif "shepherd" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/046_shepherd0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/047_shepherd1.png")
+	elif "gaurd" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/080_guard0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/081_guard1.png")
+	elif "citizen" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/082_citizen0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/083_citizen1.png")
+	elif "singing" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/084_singing_bard0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/085_singing_bard1.png")
+	elif "jester" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/086_jester0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/087_jester1.png")
+	elif "beggar" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/088_beggar0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/089_beggar1.png")
+	elif "child" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/090_child0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/091_child1.png")
+	elif "lord" in sprite:
+		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/094_lord0.png")
+		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/095_lord1.png")
+	
+	# Load both textures
 	npc_node.set_meta("textures", [texture1, texture2])
 	
 	# Set initial texture
-	sprite.texture = texture1
+	sprite_2d.texture = texture1
 	
 	# Create and configure animation timer
 	var anim_timer = Timer.new()
