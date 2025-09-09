@@ -94,11 +94,10 @@ func create_dialog_ui():
 	input_field.placeholder_text = "You say..."
 	input_field.custom_minimum_size = Vector2(560, 30)
 	vbox.add_child(input_field)
-	input_field.grab_focus()
 
 	# Connect input field
 	input_field.connect("text_submitted", _on_text_submitted)
-	
+	print ("editing ", input_field.is_editing())
 	input_field.connect("focus_exited", func(): print("LineEdit lost focus"))
 	input_field.connect("editing_toggled", func(): print("LineEdit editing toggled", input_field.is_editing()))
 	# Add to scene
@@ -146,7 +145,7 @@ func _handle_direction_state(event):
 	
 	for action in inputs.keys():
 		if event.is_action_pressed(action):
-			attempt_talk_in_direction(action, inputs[action])
+			attempt_talk_in_direction(inputs[action])
 			return true  # Consumed event
 	
 	# Handle cancel (Escape key)
@@ -236,7 +235,7 @@ func show_cancelled_message():
 		label.queue_free()
 
 # NPC Interaction Logic
-func attempt_talk_in_direction(action: String, direction: Vector2):
+func attempt_talk_in_direction(direction: Vector2):
 	if not hero_node:
 		transition_to_ready_state()
 		return
@@ -301,9 +300,8 @@ func open_dialog(npc: Node2D):
 	
 	input_field.text = ""
 	input_field.grab_focus()
-	
-	# Pause game when dialog opens
-	get_tree().paused = true
+	input_field.keep_editing_on_text_submit=true
+	input_field.edit()
 
 func close_dialog():
 	dialog_panel.visible = false
@@ -323,20 +321,20 @@ func is_dialog_open() -> bool:
 	return dialog_state == DialogState.DIALOG
 
 func get_npc_name(npc_data: Dictionary) -> String:
-	var name = npc_data.get("NAME", "Unknown")
+	var npc_name = npc_data.get("NAME", "Unknown")
 	# Extract just the name part after "I am" or "My name's" etc.
-	if "I am " in name:
-		name = name.replace("I am ", "")
-	elif "My name's " in name:
+	if "I am " in npc_name:
+		npc_name = npc_name.replace("I am ", "")
+	elif "My name's " in npc_name:
 		name = name.replace("My name's ", "")
-	elif "Call me " in name:
+	elif "Call me " in npc_name:
 		name = name.replace("Call me ", "")
-	elif "They call me " in name:
-		name = name.replace("They call me ", "")
+	elif "They call me " in npc_name:
+		npc_name = npc_name.replace("They call me ", "")
 	
 	# Remove periods
-	name = name.replace(".", "")
-	return name
+	npc_name = npc_name.replace(".", "")
+	return npc_name
 
 func _on_quick_question(question: String):
 	input_field.text = question
@@ -352,7 +350,9 @@ func _on_text_submitted(text: String):
 	# Update dialog text
 	var question_color = "yellow"
 	var response_color = "white"
-	
+	if text.to_upper() in ["FAREWELL", "BYE"]:
+		close_dialog()
+		return ""
 	dialog_text_label.text += "\n\n[color=%s]You: %s[/color]\n[color=%s]%s: %s[/color]" % [
 		question_color, text,
 		response_color, get_npc_name(npc_data), response
@@ -369,7 +369,7 @@ func get_npc_response(npc_data: Dictionary, question: String) -> String:
 	# Direct key matches
 	if npc_data.has(question):
 		return npc_data[question]
-	
+	question = question.to_upper()
 	# Handle common variations and synonyms
 	var responses = {
 		"NAME": npc_data.get("NAME", "I prefer not to say."),
