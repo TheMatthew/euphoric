@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://c5xb68iabtgjq" path="res://res/euphoric-village.tres" id="1_ios5k"]
 [ext_resource type="Script" uid="uid://b1n2x2jfwphq" path="res://scenes/village_2.gd" id="1_ng0jw"]
 [ext_resource type="Script" uid="uid://cnkfplufes00k" path="res://Teleporter.gd" id="2_ng0jw"]
-[ext_resource type="Script" uid="uid://djiksfmpdmk4x" path="res://scenes/eldoria.gd" id="3_ios5k"]
+[ext_resource type="Script" uid="uid://b1o53udmudwup" path="res://scenes/villagers.gd" id="4_ng0jw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lrr1i"]
 
@@ -42,7 +42,8 @@ shape = SubResource("RectangleShape2D_lkpp3")
 
 [node name="villagers" type="Area2D" parent="."]
 position = Vector2(704, 448)
-script = ExtResource("3_ios5k")
+script = ExtResource("4_ng0jw")
+spawn_name = "Eldoria"
 
 [node name="spawn_area" type="CollisionShape2D" parent="villagers"]
 position = Vector2(0, 320)

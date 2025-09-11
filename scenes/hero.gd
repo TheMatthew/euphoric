@@ -32,7 +32,7 @@ var has_moved = false
 var tilemap:TileMapLayer
 
 
-var dialog_system: Node= null
+@onready var dialog_tree: Node= dialog_system.new()
 
 func _ready():
 	tilemap = get_parent().get_node("TileMapLayer")
@@ -51,18 +51,17 @@ func _ready():
 
 func setup_dialog_system():
 	# Create dialog system - it manages its own state
-	dialog_system = preload("res://dialog_system.gd").new()
-	add_child(dialog_system)
+	add_child(dialog_tree)
 	
 	# Optional: Connect to dialog system signals for additional behavior
-	dialog_system.connect("dialog_closed", _on_dialog_closed)
-	dialog_system.connect("state_changed", _on_dialog_state_changed)
+	dialog_tree.connect("dialog_closed", _on_dialog_closed)
+	dialog_tree.connect("state_changed", _on_dialog_state_changed)
 
 
 # Calls the move function with the appropriate input key
 # if any input map action is triggered
 func _unhandled_input(event):
-	if dialog_system and dialog_system.is_dialog_active():
+	if dialog_tree and dialog_tree.is_dialog_active():
 		return
 	for action in inputs.keys():
 		if event.is_action_pressed(action) and not is_moving:
@@ -91,7 +90,7 @@ func _on_dialog_state_changed(new_state):
 
 # Optional: Stop moving when the key is released
 func _input(event):
-	if dialog_system and dialog_system.is_dialog_active():
+	if dialog_tree and dialog_tree.is_dialog_active():
 		return
 	if event.is_action_released("move_right") or event.is_action_released("move_left") or event.is_action_released("move_up") or event.is_action_released("move_down"):
 		is_moving = false

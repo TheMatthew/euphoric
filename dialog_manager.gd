@@ -26,11 +26,14 @@ func load_json(path: String) -> Dictionary:
 
 # --- Spawn NPCs in a village scene ---
 func spawn_village_npcs(village_name: String, parent: Node) -> void:
+	const grid_size = 32
+	const half_grid_size = 16
 	if not npc_data.has(village_name):
 		push_warning("Village not found in JSON: %s" % village_name)
 		return
 	var npc_spawn_area:CollisionShape2D = parent.get_node("spawn_area")
-	
+	if not npc_spawn_area:
+		push_warning("Spawn area not found as child of ",name )
 	# Get the TileMapLayer sibling node
 	var tilemap = parent.get_parent().get_node("TileMapLayer")
 	if not tilemap:
@@ -38,16 +41,16 @@ func spawn_village_npcs(village_name: String, parent: Node) -> void:
 		return
 	
 	# Valid tile IDs for NPC spawning
-	var valid_tiles = [4, 5, 22,24]
+	var valid_tiles = [4, 5, 22, 24]
 	
 	# Track occupied positions to avoid overlapping NPCs
 	var occupied_positions = []
-	var num_x:int = (1216 - 192)/32
-	var num_y:int = (704 - 192)/32
+	var num_x:int = 1024 / grid_size
+	var num_y:int = 576 / grid_size
 	if npc_spawn_area:
 		var rect = npc_spawn_area.shape
-		num_x = rect.size.x / 32
-		num_y = rect.size.y / 32
+		num_x = rect.size.x / grid_size
+		num_y = rect.size.y / grid_size
 	var offset_x:int = num_x / 2
 	var offset_y:int = num_y / 2
 	
@@ -59,7 +62,10 @@ func spawn_village_npcs(village_name: String, parent: Node) -> void:
 		
 		# Try to find a valid spawn position
 		if npc_info.has("location") and npc_info["location"].has("x") and npc_info["location"].has("y"):
-			npc.position = Vector2i(int(npc_info["location"]["x"]),int(npc_info["location"]["y"]))
+			spawn_pos = Vector2(
+					(npc_info["location"]["x"] - offset_x) * grid_size - half_grid_size,
+					(npc_info["location"]["y"] - offset_y) * grid_size - half_grid_size
+				)
 		else:
 			while attempts < max_attempts:
 				var x: int
@@ -75,12 +81,12 @@ func spawn_village_npcs(village_name: String, parent: Node) -> void:
 				
 				# Calculate world position
 				spawn_pos = Vector2(
-					(x - offset_x) * 32 - 16,
-					(y - offset_y) * 32 - 16
+					(x - offset_x) * grid_size - half_grid_size,
+					(y - offset_y) * grid_size - half_grid_size
 				)
 				
 				# Convert world position to tile coordinates
-				var tile_pos:Vector2i = tilemap.local_to_map(tilemap.to_local(spawn_pos))+Vector2i(offset_x, offset_y)
+				var tile_pos:Vector2i = tilemap.local_to_map(npc_spawn_area.to_global(spawn_pos))
 				var tile_id = tilemap.get_cell_source_id(tile_pos)
 				
 				# Check if tile is valid and position is not occupied
@@ -90,14 +96,15 @@ func spawn_village_npcs(village_name: String, parent: Node) -> void:
 				
 				attempts += 1
 			
-			# Only add NPC if we found a valid position
-			if attempts < max_attempts:
-				parent.add_child(npc)
-				npc.position = spawn_pos
-				print("NPC created ", npc, " at ", npc.position, " on tile ID: ", tilemap.get_cell_source_id(tilemap.local_to_map(tilemap.to_local(spawn_pos))))
-			else:
-				print("Could not find valid spawn position for NPC, skipping")
-				npc.queue_free()
+		# Only add NPC if we found a valid position
+		if attempts < max_attempts:
+			parent.add_child(npc)
+			npc.position = spawn_pos
+			
+			print("NPC created ", npc, " at ", npc.position, " on tile ID: ", tilemap.get_cell_source_id(tilemap.local_to_map(tilemap.to_local(spawn_pos))))
+		else:
+			print("Could not find valid spawn position for NPC, skipping")
+			npc.queue_free()
 
 # Check if a position is already occupied by another NPC
 func is_position_occupied(pos: Vector2, occupied_list: Array) -> bool:
@@ -156,7 +163,7 @@ func create_npc(npc_info: Dictionary) -> Node2D:
 	elif "shepherd" in sprite:
 		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/046_shepherd0.png")
 		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/047_shepherd1.png")
-	elif "gaurd" in sprite:
+	elif "guard" in sprite:
 		texture1 = load("res://res/u4graphics-master/32x32x24/shapes-assets/080_guard0.png")
 		texture2 = load("res://res/u4graphics-master/32x32x24/shapes-assets/081_guard1.png")
 	elif "citizen" in sprite:
