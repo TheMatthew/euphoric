@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://75k4u5aie0cg"]
+[gd_scene load_steps=16 format=4 uid="uid://75k4u5aie0cg"]
 
 [ext_resource type="TileSet" uid="uid://br0h1p1uc07xg" path="res://res/euphoric.tres" id="1_c7s6e"]
 [ext_resource type="Script" uid="uid://dfpwqqn3scmrg" path="res://scenes/map.gd" id="1_mlgqr"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://4agas82fqfmx" path="res://scenes/dungeon_despair.gd" id="6_2lpho"]
 [ext_resource type="Texture2D" uid="uid://dxfp3i01it67i" path="res://res/u4graphics-master/32x32x24/shapes-assets/012_village.png" id="8_jh32y"]
 [ext_resource type="Script" uid="uid://b4b0dqdgv6ylx" path="res://scenes/generic_city.gd" id="9_mlgqr"]
+[ext_resource type="Texture2D" uid="uid://bjc0kjnefe337" path="res://res/u5-hut.png" id="10_wslke"]
 [ext_resource type="Texture2D" uid="uid://bvw4oi3waigvx" path="res://res/u4graphics-master/32x32x24/shapes-assets/010_town.png" id="12_n1psn"]
 [ext_resource type="Texture2D" uid="uid://crdowkpfp55kx" path="res://res/u4graphics-master/32x32x24/shapes-assets/011_keep.png" id="12_wslke"]
 [ext_resource type="Texture2D" uid="uid://d1cle8ooe7djg" path="res://res/u4graphics-master/32x32x24/shapes-assets/014_castle1.png" id="13_gw3fx"]
@@ -92,7 +93,7 @@ texture = ExtResource("8_jh32y")
 [node name="village_valewind" type="Area2D" parent="."]
 position = Vector2(2832, 2700)
 script = ExtResource("9_mlgqr")
-area_name = "Village of Valenwind"
+area_name = "Village of Valewind"
 destination_id = "start"
 target_scene = "uid://4b8dx7wp2mhu"
 
@@ -101,6 +102,19 @@ shape = SubResource("RectangleShape2D_nakos")
 
 [node name="Sprite2D" type="Sprite2D" parent="village_valewind"]
 texture = ExtResource("8_jh32y")
+
+[node name="hut_alvo" type="Area2D" parent="."]
+position = Vector2(2768, 2832)
+script = ExtResource("9_mlgqr")
+area_name = "Alvo's Hut"
+destination_id = "start"
+target_scene = "uid://duq1usti0s0r1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hut_alvo"]
+shape = SubResource("RectangleShape2D_nakos")
+
+[node name="Sprite2D" type="Sprite2D" parent="hut_alvo"]
+texture = ExtResource("10_wslke")
 
 [node name="village_maplegrove" type="Area2D" parent="."]
 position = Vector2(4592, 2512)

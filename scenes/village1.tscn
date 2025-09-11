@@ -42,6 +42,7 @@ shape = SubResource("RectangleShape2D_lkpp3")
 [node name="villagers" type="Area2D" parent="."]
 position = Vector2(704, 448)
 script = ExtResource("3_lkpp3")
+spawn_name = "valewind"
 
 [node name="spawn_area" type="CollisionShape2D" parent="villagers"]
 shape = SubResource("RectangleShape2D_ateo5")

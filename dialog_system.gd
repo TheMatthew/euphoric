@@ -1,12 +1,13 @@
 extends Node
 
+class_name dialog_system
 # Dialog State Machine
 enum DialogState {
 	READY,
 	DIRECTION,
 	DIALOG
 }
-
+signal dialog_finished(person:String)
 # Dialog UI nodes
 var dialog_panel: Panel
 var npc_name_label: Label
@@ -321,7 +322,10 @@ func is_dialog_open() -> bool:
 	return dialog_state == DialogState.DIALOG
 
 func get_npc_name(npc_data: Dictionary) -> String:
-	var npc_name = npc_data.get("NAME", "Unknown")
+	var npc_name = npc_data.get("CLEAN_NAME", "")
+	if npc_name:
+		return npc_name
+	npc_name = npc_data.get("NAME", "Unknown")
 	# Extract just the name part after "I am" or "My name's" etc.
 	if "I am " in npc_name:
 		npc_name = npc_name.replace("I am ", "")
@@ -352,6 +356,7 @@ func _on_text_submitted(text: String):
 	var response_color = "white"
 	if text.to_upper() in ["FAREWELL", "BYE"]:
 		close_dialog()
+		dialog_finished.emit()
 		return ""
 	dialog_text_label.text += "\n\n[color=%s]You: %s[/color]\n[color=%s]%s: %s[/color]" % [
 		question_color, text,
@@ -370,7 +375,7 @@ func get_npc_response(npc_data: Dictionary, question: String) -> String:
 	if npc_data.has(question):
 		return npc_data[question]
 	question = question.to_upper()
-	# Handle common variations and synonyms
+	# Handle common variations and synonyms-
 	var responses = {
 		"NAME": npc_data.get("NAME", "I prefer not to say."),
 		"JOB": npc_data.get("JOB", "I work as I must."),
@@ -388,8 +393,16 @@ func get_npc_response(npc_data: Dictionary, question: String) -> String:
 		"NEWS": npc_data.get("HOOK", "I know nothing of interest."),
 		"SECRET": npc_data.get("HOOK", "I know nothing of interest.")
 	}
-	
-	if responses.has(question):
+			
+	if npc_data.has(question) and "OPEN" in question or "UNLOCK" in question or "KEY" in question:
+		var key_name = "Key-"+npc_data.get('CLEAN_NAME')
+		if Global.inventory.has_item(key_name):
+			return "I already gave you the key"
+		Global.inventory.add_item(key_name)
+		return "It is done!"
+		
+	var block_list = ['OPEN', 'LOCATION', 'CLEAN_NAME', 'AGE', 'SPRITE']
+	if not block_list.has(question) and responses.has(question):
 		return responses[question]
 	
 	# Location-based responses

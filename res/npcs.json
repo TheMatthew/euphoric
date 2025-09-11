@@ -1,4 +1,27 @@
 {
+	"AlvoHut":[
+		{
+	  "NAME": "I am Alvo the fisherman.",
+	  "JOB": "I have been a fisherman since I was a boy.",
+	  "GOLD": "I have enough to get by.",
+	  "GREETINGS": "Excellent, good to see you have some strength back in your limbs.  I wasn’t sure what to expect when I found you.",
+	  "FOUND": "Yes, clinging to some flotsam and barely alive.  You’ve been asleep for at least three days and it was only yesterday a fever that held you captive was finally broken.  Tell me, what do you remember?",
+	  "REMEMBER": "Nothing?  Well, I am sorry to hear.  Perhaps your memories shall return in time.  I suppose you will need to decide what to do next.",
+	  "NEXT": "If you go north, you’ll find the village of Valenwind.  To the east, the city of Eldoria.  I don’t have you picked for a fisherman so this life is undoubtedly not for you.  In the chest by that bed you will find a dagger I found strapped to your waist and a torn gambeson that took awhile to dry.  Whatever your future is, you’ll find it out there.",
+	  "FUTURE": "That is up to you.  Just remember, these are dangerous lands.  Take no chances, particularly as you are recovering.  Sometimes discretion is the better part of valour.  Take your time, and when you are ready venture out and may the gods watch over you.",
+	  "GODS": "Those who came before and gave us a world to live in.  You’d be better off talking to a priest about such things.  Who knows, it might even help you remember.",
+	  "VALENWIND": "A small village, it is a meeting place for farmers and fishermen on the western side of the Isle of Origin.  You’ll find the people there welcoming and no doubt some form of work.",
+	  "ELDORIA": "Eldoria is home to many craftspeople as well as Eldor Keep, the home of Lady Answyn.  She holds dominion on the Isle of Origin, and it is her knights that patrol the Isle to keep the people safe.",
+	  "ORIGIN": "Some say that this was the land where the gods first arrived.  Though where they came from, only the priests could say.",
+	  "HEALTH": "The years have been kind even when the seas have been rough.",
+	  "DESCRIPTION": "You see an older man with iron gray hair and beard, worn by the sun and wind yet with blue eyes marked by mirthful crowfeet.",
+	  "OPEN":"",
+	  "GENDER": "Male",
+	  "AGE": 56,
+	  "CLEAN_NAME": "Alvo",
+	  "SPRITE": "citizen"
+	},
+	],
   "valewind": [
 	{
 	  "NAME": "I am a guard.",
