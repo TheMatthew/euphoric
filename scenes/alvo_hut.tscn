@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://duq1usti0s0r1"]
+[gd_scene load_steps=15 format=4 uid="uid://duq1usti0s0r1"]
 
 [ext_resource type="TileSet" uid="uid://c5xb68iabtgjq" path="res://res/euphoric-village.tres" id="1_6qo0i"]
 [ext_resource type="Script" uid="uid://cnkfplufes00k" path="res://Teleporter.gd" id="2_pc2kj"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://7no53jbtnj3t" path="res://scenes/alvo_hut.gd" id="3_6qo0i"]
 [ext_resource type="AudioStream" uid="uid://c6i7oo8ba0f28" path="res://res/alvo.mp3" id="3_qcl8o"]
 [ext_resource type="Script" uid="uid://dpantfjkxrp6o" path="res://scenes/village_music.gd" id="3_ukbm3"]
+[ext_resource type="Script" uid="uid://dhx4fxuyeonud" path="res://scenes/start.gd" id="5_0kt8c"]
 [ext_resource type="Texture2D" uid="uid://dacffn50nx1j2" path="res://res/u4graphics-master/32x32x24/shapes-assets/058_door_locked.png" id="6_qcl8o"]
 [ext_resource type="Script" uid="uid://31g052fnhv5y" path="res://scenes/door.gd" id="7_joujq"]
 
@@ -34,6 +35,7 @@ source_comment = "From Aventari"
 
 [node name="start" type="Area2D" parent="."]
 position = Vector2(302, 721)
+script = ExtResource("5_0kt8c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="start"]
 shape = SubResource("RectangleShape2D_ruym6")
