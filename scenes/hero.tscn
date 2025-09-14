@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d1x8hdiyf0gh7"]
+[gd_scene load_steps=12 format=3 uid="uid://d1x8hdiyf0gh7"]
 
 [ext_resource type="Script" uid="uid://bohugl1jyx784" path="res://scenes/hero.gd" id="1_w7pyx"]
 [ext_resource type="Shader" uid="uid://cds4ou4lu3ha3" path="res://scenes/map.gdshader" id="2_y2sko"]
@@ -9,6 +9,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_n5qna"]
 shader = ExtResource("2_y2sko")
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_6mqrs"]
+frame_0/texture = ExtResource("3_mo806")
 
 [sub_resource type="Theme" id="Theme_d6xj2"]
 
@@ -31,7 +34,7 @@ script = ExtResource("1_w7pyx")
 
 [node name="hero_sprite" type="Sprite2D" parent="hero"]
 material = SubResource("ShaderMaterial_n5qna")
-texture = ExtResource("3_mo806")
+texture = SubResource("AnimatedTexture_6mqrs")
 
 [node name="Camera2D" type="Camera2D" parent="hero"]
 ignore_rotation = false

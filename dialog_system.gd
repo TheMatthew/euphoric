@@ -14,7 +14,7 @@ var npc_name_label: Label
 var dialog_text_label: RichTextLabel
 var input_field: LineEdit
 var response_buttons: VBoxContainer
-var current_npc = null
+var current_npc:npc_node = null
 
 # State machine variables
 var dialog_state: DialogState = DialogState.READY
@@ -267,7 +267,7 @@ func find_npc_at_position(world_pos: Vector2) -> Node2D:
 	
 	# Check all children of village for NPCs
 	for child in village_node.get_children():
-		if child.has_meta("npc_data"):
+		if child.has_meta("dialog"):
 			var distance = world_pos.distance_to(child.global_position)
 			if distance < grid_size * 0.7:
 				return child
@@ -289,13 +289,13 @@ func show_no_one_message():
 	if is_instance_valid(label):
 		label.queue_free()
 
-func open_dialog(npc: Node2D):
+func open_dialog(npc: npc_node):
 	current_npc = npc
 	if not dialog_panel:
 		create_dialog_ui()
 	dialog_panel.visible = true
 	
-	var npc_data = npc.get_meta("npc_data")
+	var npc_data = npc.npc_info
 	npc_name_label.text = get_npc_name(npc_data)
 	dialog_text_label.text = "[color=cyan]%s approaches...[/color]\n\n%s" % [get_npc_name(npc_data), npc_data.get("DESCRIPTION", "A mysterious figure.")]
 	
@@ -348,7 +348,7 @@ func _on_text_submitted(text: String):
 	if text.is_empty() or not current_npc:
 		return
 	
-	var npc_data = current_npc.get_meta("npc_data")
+	var npc_data = current_npc.npc_info
 	var response = get_npc_response(npc_data, text.to_upper().strip_edges())
 	
 	# Update dialog text

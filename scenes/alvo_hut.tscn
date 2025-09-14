@@ -34,7 +34,7 @@ source = ExtResource("3_qcl8o")
 source_comment = "From Aventari"
 
 [node name="start" type="Area2D" parent="."]
-position = Vector2(302, 721)
+position = Vector2(496, 720)
 script = ExtResource("5_0kt8c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="start"]
@@ -74,4 +74,5 @@ texture = ExtResource("6_qcl8o")
 shape = SubResource("RectangleShape2D_qcl8o")
 
 [node name="spawn_area" type="CollisionShape2D" parent="villagers"]
+position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_2kdac")
