@@ -153,7 +153,7 @@ func is_npc_at_position(world_pos: Vector2) -> bool:
 	# Check all children of village for NPCs
 	for child in village_node.get_children():
 		# Check if this child has NPC data (created by dialog_manager)
-		if child.has_meta("npc_data"):
+		if child.has_meta("collide"):
 			# Calculate distance between target position and NPC position
 			var distance = world_pos.distance_to(child.global_position)
 			# If they're close enough (within one grid cell), consider it blocked
