@@ -372,7 +372,8 @@ func _on_text_submitted(text: String):
 
 func get_npc_response(npc_data: Dictionary, question: String) -> String:
 	# Direct key matches
-	if npc_data.has(question):
+	var block_list = ['OPEN', 'LOCATION', 'CLEAN_NAME', 'AGE', 'SPRITE']
+	if npc_data.has(question) and question not in block_list:
 		return npc_data[question]
 	question = question.to_upper()
 	# Handle common variations and synonyms-
@@ -401,7 +402,6 @@ func get_npc_response(npc_data: Dictionary, question: String) -> String:
 		Global.inventory.add_item(key_name)
 		return "It is done!"
 		
-	var block_list = ['OPEN', 'LOCATION', 'CLEAN_NAME', 'AGE', 'SPRITE']
 	if not block_list.has(question) and responses.has(question):
 		return responses[question]
 	
