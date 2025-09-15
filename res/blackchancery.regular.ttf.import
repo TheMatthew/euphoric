@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://d2pt750w0nauw"
-path="res://.godot/imported/blackchancery.regular.ttf-aeffee53c9948eb05637d2403423ae83.fontdata"
+path="res://.godot/imported/blackchancery.regular.ttf-459be90ebaa1cd68ab378486890c5c4b.fontdata"
 
 [deps]
 
-source_file="res://blackchancery.regular.ttf"
-dest_files=["res://.godot/imported/blackchancery.regular.ttf-aeffee53c9948eb05637d2403423ae83.fontdata"]
+source_file="res://res/blackchancery.regular.ttf"
+dest_files=["res://.godot/imported/blackchancery.regular.ttf-459be90ebaa1cd68ab378486890c5c4b.fontdata"]
 
 [params]
 

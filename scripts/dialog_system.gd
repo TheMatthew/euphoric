@@ -20,14 +20,14 @@ var current_npc:npc_node = null
 var dialog_state: DialogState = DialogState.READY
 var talk_timer: Timer
 var talk_prompt_label: Label
-var hero_node: Node2D
+var hero_node: CharacterEntity
 
+var dynamic_font:Font = load("res://res/blackchancery.regular.ttf")
 # Signals
 signal dialog_closed
 signal state_changed(new_state: DialogState)
 
 func _ready():
-	create_dialog_ui()
 	setup_state_machine()
 
 func setup_state_machine():
@@ -39,14 +39,18 @@ func setup_state_machine():
 	add_child(talk_timer)
 	
 	# Get reference to hero
-	hero_node = get_parent()
+	hero_node = get_tree().current_scene.get_node('hero')
 
 func create_dialog_ui():
+	var camera:FollowingCamera2D = get_tree().current_scene.get_node("Camera2D")
 	# Create main dialog panel
 	dialog_panel = Panel.new()
 	dialog_panel.size = Vector2(600, 300)
-	dialog_panel.position = Vector2(-300, -150)
+	
+	
+	dialog_panel.position = camera.position - (dialog_panel.size / 2)
 	dialog_panel.visible = false
+	dialog_panel.z_index = 10
 	
 	# Style the panel
 	var style_box = StyleBoxFlat.new()
@@ -64,7 +68,6 @@ func create_dialog_ui():
 	vbox.position = Vector2(10, 10)
 	dialog_panel.add_child(vbox)
 	
-	var dynamic_font:Font = load("res://blackchancery.regular.ttf")
 	# NPC name label
 	npc_name_label = Label.new()
 	npc_name_label.text = "NPC Name"
@@ -98,14 +101,12 @@ func create_dialog_ui():
 
 	# Connect input field
 	input_field.connect("text_submitted", _on_text_submitted)
-	print ("editing ", input_field.is_editing())
-	input_field.connect("focus_exited", func(): print("LineEdit lost focus"))
-	input_field.connect("editing_toggled", func(): print("LineEdit editing toggled", input_field.is_editing()))
-	# Add to scene
-	get_tree().current_scene.get_node("hero").get_node("Camera2D").add_child(dialog_panel)
+	dialog_panel.visible = true
+	get_tree().current_scene.add_child(dialog_panel)
+
 
 func is_dialog_active() -> bool:
-	return dialog_panel.visible 
+	return dialog_panel and dialog_panel.visible 
 	
 func _unhandled_input(event: InputEvent) -> void:
 	match dialog_state:
@@ -203,6 +204,7 @@ func show_talk_prompt():
 		return
 		
 	talk_prompt_label = Label.new()
+	talk_prompt_label.add_theme_font_override("", dynamic_font)
 	talk_prompt_label.text = "Choose direction to talk, or ESC to cancel..."
 	talk_prompt_label.position = hero_node.global_position + Vector2(-80, -50)
 	talk_prompt_label.add_theme_color_override("font_color", Color.YELLOW)
@@ -291,9 +293,12 @@ func show_no_one_message():
 
 func open_dialog(npc: npc_node):
 	current_npc = npc
-	if not dialog_panel:
-		create_dialog_ui()
-	dialog_panel.visible = true
+	if dialog_panel:
+		dialog_panel.queue_free()
+		dialog_panel = null
+	create_dialog_ui()
+	
+	
 	
 	var npc_data = npc.npc_info
 	npc_name_label.text = get_npc_name(npc_data)
@@ -305,10 +310,8 @@ func open_dialog(npc: npc_node):
 	input_field.edit()
 
 func close_dialog():
-	dialog_panel.visible = false
 	current_npc = null
-	# Unpause game when dialog closes
-	get_tree().paused = false
+	dialog_panel.queue_free()
 	# Transition back to READY state
 	transition_to_ready_state()
 	# Emit signal for any listeners

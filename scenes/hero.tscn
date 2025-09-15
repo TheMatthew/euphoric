@@ -1,17 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://d1x8hdiyf0gh7"]
+[gd_scene load_steps=13 format=3 uid="uid://d1x8hdiyf0gh7"]
 
+[ext_resource type="Script" uid="uid://ltk21sspa4ft" path="res://scenes/FollowingCamera2D.gd" id="1_mo806"]
 [ext_resource type="Script" uid="uid://bohugl1jyx784" path="res://scenes/hero.gd" id="1_w7pyx"]
 [ext_resource type="Shader" uid="uid://cds4ou4lu3ha3" path="res://scenes/map.gdshader" id="2_y2sko"]
 [ext_resource type="Texture2D" uid="uid://cbcyl8dmaw752" path="res://res/u4graphics-master/32x32x24/shapes-assets/031_avatar.png" id="3_mo806"]
 [ext_resource type="Script" uid="uid://c2k4yxebivld6" path="res://scenes/Textbox.gd" id="4_n40cg"]
-[ext_resource type="FontFile" uid="uid://d2pt750w0nauw" path="res://blackchancery.regular.ttf" id="5_txblw"]
-[ext_resource type="Script" uid="uid://csvtayvskx250" path="res://dialog_system.gd" id="6_y2sko"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n5qna"]
-shader = ExtResource("2_y2sko")
-
-[sub_resource type="AnimatedTexture" id="AnimatedTexture_6mqrs"]
-frame_0/texture = ExtResource("3_mo806")
+[ext_resource type="FontFile" uid="uid://d2pt750w0nauw" path="res://res/blackchancery.regular.ttf" id="5_txblw"]
+[ext_resource type="Script" uid="uid://csvtayvskx250" path="res://scripts/dialog_system.gd" id="6_y2sko"]
 
 [sub_resource type="Theme" id="Theme_d6xj2"]
 
@@ -23,9 +18,56 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.197478, 0.189561, 0.133436, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n5qna"]
+shader = ExtResource("2_y2sko")
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_6mqrs"]
+frame_0/texture = ExtResource("3_mo806")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6mqrs"]
 
 [node name="Hero" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(2735, 2862)
+ignore_rotation = false
+zoom = Vector2(2, 2)
+script = ExtResource("1_mo806")
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D"]
+z_index = 2
+offset_left = -250.0
+offset_top = 60.0
+offset_right = 250.0
+offset_bottom = 140.0
+script = ExtResource("4_n40cg")
+
+[node name="Panel" type="Panel" parent="Camera2D/MarginContainer"]
+z_index = 2
+layout_mode = 2
+theme = SubResource("Theme_d6xj2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_sryfu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/MarginContainer"]
+z_index = 2
+layout_mode = 2
+
+[node name="header" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_txblw")
+text = "char_name"
+
+[node name="body" type="RichTextLabel" parent="Camera2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/normal_font = ExtResource("5_txblw")
+text = "This is the text I have to say"
+
+[node name="footer" type="Label" parent="Camera2D/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("5_txblw")
+text = "> input"
 
 [node name="hero" type="CharacterBody2D" parent="."]
 z_index = 1
@@ -33,44 +75,9 @@ position = Vector2(2735, 2862)
 script = ExtResource("1_w7pyx")
 
 [node name="hero_sprite" type="Sprite2D" parent="hero"]
+z_index = 1
 material = SubResource("ShaderMaterial_n5qna")
 texture = SubResource("AnimatedTexture_6mqrs")
-
-[node name="Camera2D" type="Camera2D" parent="hero"]
-ignore_rotation = false
-zoom = Vector2(2, 2)
-
-[node name="MarginContainer" type="MarginContainer" parent="hero/Camera2D"]
-offset_left = -250.0
-offset_top = 60.0
-offset_right = 250.0
-offset_bottom = 140.0
-script = ExtResource("4_n40cg")
-
-[node name="Panel" type="Panel" parent="hero/Camera2D/MarginContainer"]
-layout_mode = 2
-theme = SubResource("Theme_d6xj2")
-theme_override_styles/panel = SubResource("StyleBoxFlat_sryfu")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="hero/Camera2D/MarginContainer"]
-layout_mode = 2
-
-[node name="header" type="Label" parent="hero/Camera2D/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("5_txblw")
-text = "char_name"
-
-[node name="body" type="RichTextLabel" parent="hero/Camera2D/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("5_txblw")
-text = "This is the text I have to say"
-
-[node name="footer" type="Label" parent="hero/Camera2D/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/font = ExtResource("5_txblw")
-text = "> input"
 
 [node name="RayCast2D" type="RayCast2D" parent="hero"]
 target_position = Vector2(32, 0)

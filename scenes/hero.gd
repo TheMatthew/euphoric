@@ -1,4 +1,6 @@
 extends CharacterBody2D
+class_name CharacterEntity
+# can be an NPC or a PC
 
 const inputs = {
 	"move_right": Vector2.RIGHT,
@@ -25,20 +27,19 @@ var is_moving = false
 var move_timer = null
 var blocked_tiles = []
 var has_moved = false
+signal moved
 
 # Reference to the RayCast2D node
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 @onready var sound_player = get_node("SoundPlayer")
-var tilemap:TileMapLayer
+@onready var camera:FollowingCamera2D = get_parent().get_node("Camera2D")
+@onready var tilemap:TileMapLayer = get_parent().get_node("TileMapLayer")
 
 
 @onready var dialog_tree: Node= dialog_system.new()
 
 func _ready():
-	tilemap = get_parent().get_node("TileMapLayer")
-
 	blocked_tiles = ["0", "1", "2", "8", "20", "19", "18", "25"]
-
 	# Add numbers from 27 to 60
 	for i in range(27, 61):
 		blocked_tiles.append(str(i))
@@ -47,11 +48,13 @@ func _ready():
 	move_timer.wait_time = 0.25  # Time between each step
 	move_timer.connect("timeout", _on_move_timer_timeout)
 	add_child(move_timer)
+	
+	camera.target=self
 	setup_dialog_system()
 
 func setup_dialog_system():
 	# Create dialog system - it manages its own state
-	add_child(dialog_tree)
+	camera.add_child(dialog_tree)
 	
 	# Optional: Connect to dialog system signals for additional behavior
 	dialog_tree.connect("dialog_closed", _on_dialog_closed)
@@ -108,6 +111,7 @@ func move(action):
 			has_moved = true
 			global_position = new_pos
 	play_step_sound()
+	moved.emit()
 
 func get_current_tile_type() -> String:
 	tilemap = get_parent().get_node("TileMapLayer")

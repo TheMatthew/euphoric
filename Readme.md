@@ -71,7 +71,7 @@ Main (root)
 | Enter / Space | Interact         |
 | I             | Open Inventory   |
 | Esc           | Pause/Menu       |
-| 1-9           | Dialog responses |
+| Typing        | Dialog responses |
 
 ---
 
@@ -85,8 +85,8 @@ Main (root)
 ```json
 {
   "maps": [
-    { "id": "overworld", "scene": "res://maps/overworld.tscn" },
-    { "id": "village_1", "scene": "res://maps/village_1.tscn" }
+	{ "id": "overworld", "scene": "res://maps/overworld.tscn" },
+	{ "id": "village_1", "scene": "res://maps/village_1.tscn" }
   ]
 }
 ```
@@ -98,39 +98,35 @@ Stored in a JSON file (`items.json`):
 ```json
 {
   "healing_potion": {
-    "name": "Healing Potion",
-    "effect": "heal",
-    "value": 20,
-    "icon": "res://icons/potion.png"
+	"name": "Healing Potion",
+	"effect": "heal",
+	"value": 20,
+	"icon": "res://icons/potion.png"
   }
 }
 ```
 
 ### 🔸 NPC Dialogs
 
-Stored in a dialog file per NPC (`npc_blacksmith.json`):
+Stored in an NPC file (`npc.json`):
 
 ```json
-{
-  "name": "Blacksmith",
-  "dialog": [
-    {
-      "text": "Welcome, traveler. Need a blade?",
-      "choices": [
-        { "text": "Yes", "next": 1 },
-        { "text": "No", "next": 2 }
-      ]
-    },
-    {
-      "text": "Here you go. Be careful out there!",
-      "end": true
-    },
-    {
-      "text": "Very well. Safe travels!",
-      "end": true
-    }
-  ]
-}
+  "valewind": [
+	{
+	  "NAME": "I am a guard.",
+	  "JOB": "I am a guard.",
+	  "HEALTH": "Strong.",
+	  "GOLD": "Bribery is illegal.",
+	  "DESCRIPTION": "You see a strong guard.",
+	  "GENDER": "Male",
+	  "AGE": 33,
+	  "location": {
+		"x": 17,
+		"y": 16
+	  },
+	  "CLEAN_NAME": "Guard",
+	  "SPRITE": "guard"
+	},...
 ```
 
 ---
@@ -139,7 +135,7 @@ Stored in a dialog file per NPC (`npc_blacksmith.json`):
 
 * **Turn-based**, player party vs enemy group.
 * Initiative queue (AGI or random roll).
-* Menu-driven: Attack / Spell / Item / Flee.
+* Tactical, movement on a tile map as well as selection of combat action
 * Implement as a self-contained scene to load when combat is triggered.
 * Data for enemies loaded from `enemies.json`.
 
@@ -157,24 +153,21 @@ Stored in a dialog file per NPC (`npc_blacksmith.json`):
 ```
 res://
 ├── scenes/
-│   ├── main/
 │   ├── overworld/
-│   ├── village/
+│   ├── settlement/
 │   ├── dungeon/
-│   ├── combat/
-│   └── ui/
+│   └── combat/
 ├── data/
 │   ├── items.json
 │   ├── dialogs/
 │   └── maps.json
-├── sprites/
-│   ├── tilesets/
-│   ├── characters/
-│   └── ui/
+├── res /
+│   ├── sprites/
+│   ├── u4graphics-master/ <-- Tiles for the world
+│   └── sounds (other name)/
 ├── scripts/
 │   ├── game_manager.gd
-│   ├── player.gd
-│   ├── dialog_system.gd
+│   ├── ...
 │   └── combat.gd
 ```
 
@@ -184,22 +177,24 @@ res://
 
 ### ✅ Phase 1: Core Framework
 
-* [ ] Basic TileMap + Player movement
+* [X] Basic TileMap + Player movement
 * [ ] GameManager singleton
 * [ ] Menu screen
 * [ ] Map loading system
 
 ### ✅ Phase 2: NPC & Dialog
 
-* [ ] Dialog system from JSON
-* [ ] NPC interaction
-* [ ] Dialog choice UI
+* [x] Dialog system from JSON
+* [x] NPC interaction
+* [x] Dialog triggers external events
+* [ ] Persist NPCs from every scene change
 
 ### ✅ Phase 3: Inventory & Items
 
 * [ ] Item system with JSON
 * [ ] Simple inventory UI
 * [ ] Basic item effects (e.g., healing)
+* [ ] Set up Party system
 
 ### ✅ Phase 4: Combat
 
@@ -212,4 +207,11 @@ res://
 * [ ] Add new maps (village, dungeon)
 * [ ] Add quests and virtue system
 * [ ] Polish with sound, UI and effects
+* [ ] IP Cleanup
 
+### ✅ Phase 6: Extension (in parallel)
+
+* [ ] Add a unique storyline
+* [ ] Add unique artwork
+* [ ] Make a plot spanning multiple area
+* [ ] End the game

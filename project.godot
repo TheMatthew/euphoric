@@ -14,12 +14,13 @@ config/name="Euphoric"
 config/description="An Ultima 4 inspired game"
 run/main_scene="uid://bb52d46jb6mdl"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://4aoyr27m3x7t"
+config/windows_native_icon="res://euphoric.ico"
 
 [autoload]
 
-Global="*res://global.gd"
-DialogManager="*res://dialog_manager.gd"
+Global="*res://scripts/global.gd"
+DialogManager="*res://scripts/dialog_manager.gd"
 
 [display]
 
@@ -64,3 +65,4 @@ ui_talk={
 [rendering]
 
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

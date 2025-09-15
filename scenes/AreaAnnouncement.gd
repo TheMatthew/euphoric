@@ -14,11 +14,9 @@ var tween:Tween = null
 func _ready():
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
-	
-
 
 func create_announcement_ui():
-	var camera:Camera2D = get_parent().get_node("hero").get_node("Camera2D")
+	var camera:FollowingCamera2D = get_tree().current_scene.get_node("Camera2D")
 	# Create a Control container
 	announcement_control = camera.get_node("MarginContainer")
 	textbox_script = announcement_control  # The script is attached to the MarginContainer
@@ -30,10 +28,9 @@ func create_announcement_ui():
 	announcement_control.visible = false
 
 func _on_body_entered(body):
-	if not announcement_control:
-		create_announcement_ui()
-
 	if body.name == "hero" and not player_in_area and body.has_moved:
+		if not announcement_control:
+			announcement_label = create_announcement_ui()
 		player_in_area = true
 		show_announcement()
 	super._on_body_entered(body)
@@ -41,8 +38,9 @@ func _on_body_entered(body):
 func _on_body_exited(body):
 	if body.name == "hero":
 		player_in_area = false
-		textbox_script.change_state(textbox_script.State.READY)
-		textbox_script.hide_textbox()
+		if textbox_script:
+			textbox_script.change_state(textbox_script.State.READY)
+			textbox_script.hide_textbox()
 	super._on_body_exited(body)
 	
 func show_announcement():
