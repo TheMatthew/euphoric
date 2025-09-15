@@ -57,12 +57,12 @@ position = Vector2(452, -458.5)
 shape = SubResource("RectangleShape2D_cmn13")
 
 [node name="villagers" type="Area2D" parent="."]
-position = Vector2(272, 624)
+position = Vector2(256, 608)
 script = ExtResource("7_8yeeb")
 spawn_name = "AlvoHutStart"
 
 [node name="Door" type="Node2D" parent="villagers"]
-position = Vector2(160, -32)
+position = Vector2(176, -16)
 script = ExtResource("8_wm4qe")
 
 [node name="Sprite2D" type="Sprite2D" parent="villagers/Door"]
