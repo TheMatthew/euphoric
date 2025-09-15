@@ -27,7 +27,7 @@ func load_json(path: String) -> Dictionary:
 # --- Spawn NPCs in a village scene ---
 func spawn_village_npcs(village_name: String, parent: Node) -> void:
 	const grid_size = 32
-	const half_grid_size = 16
+	const half_grid_size:int = int(grid_size / 2.0)
 	if not npc_data.has(village_name):
 		push_warning("Village not found in JSON: %s" % village_name)
 		return
@@ -45,12 +45,11 @@ func spawn_village_npcs(village_name: String, parent: Node) -> void:
 	
 	# Track occupied positions to avoid overlapping NPCs
 	var occupied_positions = []
-	var num_x:int = int(1280.0 / grid_size)
-	var num_y:int = int(720.0 / grid_size)
+	var dims = get_viewport().get_visible_rect().size/grid_size
 	if npc_spawn_area:
-		var rect = npc_spawn_area.shape
-		num_x = rect.size.x / grid_size
-		num_y = rect.size.y / grid_size
+		dims = npc_spawn_area.shape.size / grid_size
+	var num_x:int = int(dims.x)
+	var num_y:int = int(dims.y)
 	var offset_x:int = int(float(num_x) / 2)
 	var offset_y:int = int(float(num_y) / 2)
 	

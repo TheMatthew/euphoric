@@ -43,10 +43,14 @@ func _ready() -> void:
 		sprite_2d.cell_image = load("res://res/sprites/guard.png")
 	elif "citizen" in sprite:
 		sprite_2d.cell_image = load("res://res/sprites/merchant.png")
+	elif "merchant" in sprite:
+		sprite_2d.cell_image = load("res://res/sprites/merchant.png")
 	elif "jester" in sprite:
 		sprite_2d.cell_image = load("res://res/sprites/jester.png")
 	elif "beggar" in sprite:
 		sprite_2d.cell_image = load("res://res/sprites/beggar.png")
+	elif "rogue" in sprite:
+		sprite_2d.cell_image = load("res://res/sprites/rogue.png")
 	elif "child" in sprite:
 		sprite_2d.cell_image = load("res://res/sprites/child.png")
 	elif "lord" in sprite:
