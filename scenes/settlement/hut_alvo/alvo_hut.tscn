@@ -62,17 +62,20 @@ script = ExtResource("3_1mqtm")
 spawn_name = "AlvoHut"
 
 [node name="Door" type="Node2D" parent="villagers"]
+visible = false
 position = Vector2(160, -32)
 script = ExtResource("7_joujq")
 
 [node name="Sprite2D" type="Sprite2D" parent="villagers/Door"]
+visible = false
 texture = ExtResource("6_qcl8o")
 
 [node name="Area2D" type="Area2D" parent="villagers/Door"]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="villagers/Door/Area2D"]
+visible = false
 shape = SubResource("RectangleShape2D_qcl8o")
 
 [node name="spawn_area" type="CollisionShape2D" parent="villagers"]
-position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_2kdac")

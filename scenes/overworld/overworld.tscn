@@ -73,8 +73,8 @@ texture = ExtResource("12_n1psn")
 position = Vector2(3312, 3120)
 script = ExtResource("9_mlgqr")
 destination_id = "start"
-target_scene = "uid://ch2c2f0siha24"
 teleporter_id = NodePath(".")
+target_scene = "uid://ch2c2f0siha24"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="city_eldoria"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -151,6 +151,9 @@ texture = ExtResource("8_jh32y")
 [node name="keep_brightwatch" type="Area2D" parent="."]
 position = Vector2(5872, 6288)
 script = ExtResource("9_mlgqr")
+area_name = "Brightwatch"
+destination_id = "start"
+target_scene = "uid://c8t2h5xbnhrlp"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="keep_brightwatch"]
 shape = SubResource("RectangleShape2D_nakos")
