@@ -1,5 +1,5 @@
 extends MarginContainer
-
+class_name TextBox
 const CHAR_READ_RATE = 0.05
 
 @onready var tween:Tween=null

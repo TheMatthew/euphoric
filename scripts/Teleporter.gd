@@ -19,6 +19,7 @@ func _ready():
 
 func _input(event):
 	if player_in_range and player and destination_id and (auto_teleport or event.is_action_pressed("interact")):
+
 		teleport_player(player)
 
 func _on_body_entered(body):
@@ -36,7 +37,8 @@ func teleport_player(player_node):
 	# stop any children activities before changing the scene
 	_on_body_exited(player_node)
 	
-	
+	var camera:FollowingCamera2D = get_tree().current_scene.get_node("Camera2D")
+		
 	var return_destination = destination_id
 	var parent_node = player_node.get_parent()
 	var destination = null
@@ -53,16 +55,18 @@ func teleport_player(player_node):
 		parent_node = new_scene
 		destination = new_scene.get_node(return_destination)
 		
+		camera.reparent(new_scene)
 		player_node.reparent(new_scene)
 		old_scene.queue_free()
-		
 		if not destination:
 			var nodes = []
 			for node in new_scene.get_children():
 				nodes.append(node.name)
-			print ("Could not find : " , destination_id, " visible areas ", nodes)
+			push_error("Could not find : " , destination_id, " visible areas ", nodes)
 	if destination:
 		player_node.global_position = destination.global_position
+		camera._ready()
+		camera.move_update()
 		# Add teleport effects here
 		player_node.has_moved = false
 		print("parent_nodes ", parent_node.get_children())
