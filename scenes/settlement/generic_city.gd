@@ -1,5 +1,5 @@
 extends AreaAnnouncement
-class_name  generic_city
+class_name generic_city
 
 func _ready():
 	if not area_name or area_name == "Village":
