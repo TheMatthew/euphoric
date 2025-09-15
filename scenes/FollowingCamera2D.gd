@@ -14,7 +14,8 @@ var max_y:int = 700
 func _ready() -> void:
 	if not target:
 		target = get_parent().get_node("hero")
-	target.connect("moved", move_update)
+	if not target.is_connected("moved", move_update):
+		target.connect("moved", move_update)
 	tilemap = get_tree().current_scene.get_node('TileMapLayer')
 	bounding_box = get_bounding_box()
 	min_x = bounding_box.position.x
