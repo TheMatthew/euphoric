@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="5mm"
+   height="5mm"
+   viewBox="0 0 5 5"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="euphoric.svg"
+   inkscape:export-filename="euphoric.png"
+   inkscape:export-xdpi="1471.7931"
+   inkscape:export-ydpi="1471.7931"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="1"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="false"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="10.35098"
+     inkscape:cx="0.57965527"
+     inkscape:cy="18.404055"
+     inkscape:window-width="1390"
+     inkscape:window-height="1230"
+     inkscape:window-x="691"
+     inkscape:window-y="134"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="223.14017"
+       y="258.23657"
+       width="52.910309"
+       height="49.153595"
+       id="rect236" />
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter952"
+       x="-0.026263285"
+       y="-0.030499299"
+       width="1.0525266"
+       height="1.0609986">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.1541"
+         id="feGaussianBlur954" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       style="color-interpolation-filters:sRGB"
+       id="filter960"
+       x="-0.061166281"
+       y="-0.042513406"
+       width="1.1223326"
+       height="1.0850268">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.065985268"
+         id="feGaussianBlur962" />
+    </filter>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-weight:bold;font-size:10.5833px;line-height:1.25;font-family:'Noto Sans';-inkscape-font-specification:'Noto Sans Bold';letter-spacing:0px;word-spacing:0px;mix-blend-mode:normal;stroke-width:0.264583;filter:url(#filter960)"
+       x="62.482746"
+       y="76.887375"
+       id="text958"
+       transform="matrix(0.34628068,0,0,0.40727124,-18.986792,-27.393464)"><tspan
+         sodipodi:role="line"
+         id="tspan956"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:BlackChancery;-inkscape-font-specification:'BlackChancery Bold';fill:#ffff00;stroke:#b2ad06;stroke-width:0.264583;stroke-opacity:1"
+         x="62.482746"
+         y="76.887375">4</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.12673704,0,0,0.12792249,-27.832606,-33.284689)"
+       id="text234"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:40px;line-height:1.25;font-family:BlackChancery;-inkscape-font-specification:'BlackChancery Bold';letter-spacing:0px;word-spacing:0px;white-space:pre;shape-inside:url(#rect236);display:inline;mix-blend-mode:normal;fill:#ffdd55;stroke:#b2ad06;stroke-opacity:1;filter:url(#filter952)"><tspan
+         x="223.14062"
+         y="289.89233"
+         id="tspan5379">E</tspan></text>
+  </g>
+</svg>

@@ -62,12 +62,6 @@ shape = SubResource("RectangleShape2D_2lpho")
 [node name="city_courtney" type="Area2D" parent="."]
 position = Vector2(4816, 5904)
 script = ExtResource("9_mlgqr")
-area_name = null
-display_duration = null
-offset_y = null
-destination_id = null
-target_scene = null
-auto_teleport = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="city_courtney"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -78,13 +72,9 @@ texture = ExtResource("12_n1psn")
 [node name="city_eldoria" type="Area2D" parent="." node_paths=PackedStringArray("teleporter_id")]
 position = Vector2(3312, 3120)
 script = ExtResource("9_mlgqr")
-area_name = null
-display_duration = null
-offset_y = null
 destination_id = "start"
-target_scene = "uid://ch2c2f0siha24"
-auto_teleport = null
 teleporter_id = NodePath(".")
+target_scene = "uid://ch2c2f0siha24"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="city_eldoria"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -95,12 +85,6 @@ texture = ExtResource("12_n1psn")
 [node name="village_thorne" type="Area2D" parent="."]
 position = Vector2(5840, 6288)
 script = ExtResource("9_mlgqr")
-area_name = null
-display_duration = null
-offset_y = null
-destination_id = null
-target_scene = null
-auto_teleport = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="village_thorne"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -112,11 +96,8 @@ texture = ExtResource("8_jh32y")
 position = Vector2(2832, 2700)
 script = ExtResource("9_mlgqr")
 area_name = "Village of Valewind"
-display_duration = null
-offset_y = null
 destination_id = "start"
 target_scene = "uid://4b8dx7wp2mhu"
-auto_teleport = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="village_valewind"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -128,11 +109,8 @@ texture = ExtResource("8_jh32y")
 position = Vector2(2768, 2832)
 script = ExtResource("9_mlgqr")
 area_name = "Alvo's Hut"
-display_duration = null
-offset_y = null
 destination_id = "start"
 target_scene = "uid://duq1usti0s0r1"
-auto_teleport = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hut_alvo"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -143,12 +121,6 @@ texture = ExtResource("10_wslke")
 [node name="village_maplegrove" type="Area2D" parent="."]
 position = Vector2(4592, 2512)
 script = ExtResource("9_mlgqr")
-area_name = null
-display_duration = null
-offset_y = null
-destination_id = null
-target_scene = null
-auto_teleport = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="village_maplegrove"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -159,12 +131,6 @@ texture = ExtResource("8_jh32y")
 [node name="village_willowbend" type="Area2D" parent="."]
 position = Vector2(3152, 4528)
 script = ExtResource("9_mlgqr")
-area_name = null
-display_duration = null
-offset_y = null
-destination_id = null
-target_scene = null
-auto_teleport = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="village_willowbend"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -175,12 +141,6 @@ texture = ExtResource("8_jh32y")
 [node name="village_blackwater" type="Area2D" parent="."]
 position = Vector2(4400, 6736)
 script = ExtResource("9_mlgqr")
-area_name = null
-display_duration = null
-offset_y = null
-destination_id = null
-target_scene = null
-auto_teleport = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="village_blackwater"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -192,11 +152,8 @@ texture = ExtResource("8_jh32y")
 position = Vector2(5872, 6288)
 script = ExtResource("9_mlgqr")
 area_name = "Brightwatch"
-display_duration = null
-offset_y = null
 destination_id = "start"
 target_scene = "uid://c8t2h5xbnhrlp"
-auto_teleport = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="keep_brightwatch"]
 shape = SubResource("RectangleShape2D_nakos")
@@ -207,12 +164,6 @@ texture = ExtResource("12_wslke")
 [node name="castle_moonfel" type="Area2D" parent="."]
 position = Vector2(3760, 3856)
 script = ExtResource("9_mlgqr")
-area_name = null
-display_duration = null
-offset_y = null
-destination_id = null
-target_scene = null
-auto_teleport = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="castle_moonfel"]
 shape = SubResource("RectangleShape2D_nakos")

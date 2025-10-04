@@ -12,8 +12,8 @@ config_version=5
 
 config/name="Euphoric"
 config/description="An Ultima 4 inspired game"
-run/main_scene="uid://bb52d46jb6mdl"
-config/features=PackedStringArray("4.4", "Mobile")
+run/main_scene="uid://bwsyvx4jsxsaq"
+config/features=PackedStringArray("4.5", "Mobile")
 config/icon="uid://4aoyr27m3x7t"
 config/windows_native_icon="res://euphoric.ico"
 

@@ -1,0 +1,326 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwsyvx4jsxsaq"]
+
+[ext_resource type="Script" uid="uid://bhqjxjgktlamk" path="res://scenes/menu/menu.gd" id="1_script"]
+[ext_resource type="SpriteFrames" uid="uid://cjdjnw1ate627" path="res://res/menu/fire.tres" id="2_klgdb"]
+[ext_resource type="AudioStream" uid="uid://dokmbr3wo0nkq" path="res://res/music/Embers.mp3" id="3_mcvr8"]
+[ext_resource type="Texture2D" uid="uid://nh7dr55k3lks" path="res://res/menu/euphoric.png" id="4_e0arn"]
+[ext_resource type="FontFile" uid="uid://d2pt750w0nauw" path="res://res/blackchancery.regular.ttf" id="5_y1o0p"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.05, 0.15, 1)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Background"]
+position = Vector2(624, 424)
+sprite_frames = ExtResource("2_klgdb")
+autoplay = "default"
+speed_scale = 0.66
+
+[node name="Title" type="Sprite2D" parent="Background"]
+position = Vector2(648, 200)
+texture = ExtResource("4_e0arn")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_mcvr8")
+autoplay = true
+
+[node name="MenuContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenu" type="CenterContainer" parent="MenuContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 456.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/MainMenu"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TopRow" type="HBoxContainer" parent="MenuContainer/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="NewGameButton" type="Button" parent="MenuContainer/MainMenu/VBoxContainer/TopRow"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.54669094, 0.63576436, 0.2207332, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "New Game"
+
+[node name="ContinueButton" type="Button" parent="MenuContainer/MainMenu/VBoxContainer/TopRow"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.54669094, 0.63576436, 0.2207332, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Continue"
+
+[node name="BottomRow" type="HBoxContainer" parent="MenuContainer/MainMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="OptionsButton" type="Button" parent="MenuContainer/MainMenu/VBoxContainer/BottomRow"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.54669094, 0.63576436, 0.2207332, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="MenuContainer/MainMenu/VBoxContainer/BottomRow"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.54669094, 0.63576436, 0.2207332, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Exit"
+
+[node name="SaveSlotsMenu" type="CenterContainer" parent="MenuContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MenuContainer/SaveSlotsMenu"]
+custom_minimum_size = Vector2(800, 600)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/SaveSlotsMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/SaveSlotsMenu/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="MenuContainer/SaveSlotsMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Select Save Slot"
+horizontal_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MenuContainer/SaveSlotsMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/SaveSlotsMenu/Panel/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="BackButton" type="Button" parent="MenuContainer/SaveSlotsMenu/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.54669094, 0.63576436, 0.2207332, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Back"
+
+[node name="OptionsMenu" type="CenterContainer" parent="MenuContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MenuContainer/OptionsMenu"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/OptionsMenu/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/OptionsMenu/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MenuContainer/OptionsMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Options"
+horizontal_alignment = 1
+
+[node name="SoundVolumeContainer" type="VBoxContainer" parent="MenuContainer/OptionsMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MenuContainer/OptionsMenu/Panel/MarginContainer/VBoxContainer/SoundVolumeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Sound Volume"
+
+[node name="SoundSlider" type="HSlider" parent="MenuContainer/OptionsMenu/Panel/MarginContainer/VBoxContainer/SoundVolumeContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="MusicVolumeContainer" type="VBoxContainer" parent="MenuContainer/OptionsMenu/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MenuContainer/OptionsMenu/Panel/MarginContainer/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Music Volume"
+
+[node name="MusicSlider" type="HSlider" parent="MenuContainer/OptionsMenu/Panel/MarginContainer/VBoxContainer/MusicVolumeContainer"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.6
+
+[node name="BackButton" type="Button" parent="MenuContainer/OptionsMenu/Panel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.54669094, 0.63576436, 0.2207332, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Back"
+
+[node name="ExitConfirm" type="CenterContainer" parent="MenuContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="MenuContainer/ExitConfirm"]
+custom_minimum_size = Vector2(400, 200)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/ExitConfirm/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MenuContainer/ExitConfirm/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MenuContainer/ExitConfirm/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 24
+text = "Are you sure you want to exit?"
+horizontal_alignment = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="MenuContainer/ExitConfirm/Panel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="YesButton" type="Button" parent="MenuContainer/ExitConfirm/Panel/MarginContainer/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.54669094, 0.63576436, 0.2207332, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="MenuContainer/ExitConfirm/Panel/MarginContainer/VBoxContainer/ButtonContainer"]
+custom_minimum_size = Vector2(120, 50)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8277902, 0.9435964, 7.70092e-07, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_pressed_color = Color(0.54669094, 0.63576436, 0.2207332, 1)
+theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_y1o0p")
+theme_override_font_sizes/font_size = 36
+text = "No"
