@@ -1,0 +1,7 @@
+Principle	Attribute	Contributes to Virtue 1	Contributes to Virtue 2	Contributes to Virtue 3
+Valor	STR	Aegis (Courage)	Sovereignty (Enforcement)	
+Resolve	END	Aegis (Steadfastness)	Erudition (Patience)	
+Adroitness	DEX	Aegis (Precision of Action)	Erudition (Skillful Execution)	
+Verity	INT	Erudition (Objective Truth)	Sovereignty (Logical Integrity)	
+Clarity	WIS	Erudition (Sound Judgment)	Sovereignty (Insight)	
+Grace	CHA	Aegis (Inspiring Presence)	Sovereignty (Persuasion)	
