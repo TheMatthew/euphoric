@@ -88,10 +88,9 @@ var principle_scores = {}
 var current_question = 0
 var quiz_started = false
 var final_virtue_name = ""
-var current_story_sequence = "intro"  # Track which story we're in
+var current_story_sequence = "intro"
 var story_index = 0
 var selected_option = 0
-var waiting_for_timer = false  # Track if we're in a timer wait
 
 # Story sequences
 var intro_story = [
@@ -106,6 +105,19 @@ var fortune_story = [
 	"'Child, you have a destiny. But first, we must discover the true nature of your soul.'"
 ]
 
+var prophecy_story = []  # Will be populated dynamically
+
+var ship_story = [
+	"You secure passage on a sturdy vessel, the wind guiding you toward your destiny...",
+	"A few days out, the sky turns the color of deep bruise. A brutal storm tears through your ship."
+]
+
+var wreck_story = [
+	"The world is chaos. You cling to wreckage, battered by the surf, until consciousness fails you.",
+	"All your life's possessions are lost. The prophecy slips from your memory like water...",
+	"..."
+]
+
 # --- 4. NODE REFERENCES ---
 @onready var text_box = $TextBox
 @onready var option_a = $Options/OptionA
@@ -115,6 +127,7 @@ var fortune_story = [
 @onready var fortune_sprite = $fortune
 @onready var ship_sprite = $ship
 @onready var wreck_sprite = $wreck
+@onready var continue_label = $ContinueLabel
 
 func _ready():
 	# Initialize principle scores
@@ -130,19 +143,15 @@ func _ready():
 	# Hide options initially
 	$Options.visible = false
 	
+	# Show continue prompt
+	continue_label.visible = true
+	
 	# Start the prologue
 	show_sprite("hut")
 	show_story(intro_story)
 
 func _input(event):
-	if waiting_for_timer:
-		# If waiting for timer, clicking skips it
-		if event.is_action_pressed("ui_accept") or (event is InputEventMouseButton and event.pressed):
-			skip_timer()
-	elif not quiz_started and current_story_sequence != "confirmation":
-		if event.is_action_pressed("ui_accept") or (event is InputEventMouseButton and event.pressed):
-			advance_story()
-	elif current_story_sequence == "confirmation":
+	if current_story_sequence == "confirmation":
 		# Handle confirmation input
 		if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_left"):
 			selected_option = 0
@@ -152,6 +161,10 @@ func _input(event):
 			update_confirmation_highlight()
 		elif event.is_action_pressed("ui_accept"):
 			confirm_choice()
+	elif not quiz_started:
+		# Story advancement with Enter key
+		if event.is_action_pressed("ui_accept"):
+			advance_story()
 	else:
 		# Handle keyboard selection during quiz
 		if event.is_action_pressed("ui_up"):
@@ -187,27 +200,56 @@ func show_story(story_lines):
 
 func advance_story():
 	# Advance based on which story sequence we're currently in
-	if current_story_sequence == "intro":
-		story_index += 1
-		if story_index < intro_story.size():
-			text_box.text = intro_story[story_index]
-		else:
-			# Transition to fortune teller
-			current_story_sequence = "fortune"
-			show_sprite("fortune")
-			show_story(fortune_story)
-	elif current_story_sequence == "fortune":
-		story_index += 1
-		if story_index < fortune_story.size():
-			text_box.text = fortune_story[story_index]
-		else:
-			# Start the quiz
-			start_quiz()
+	match current_story_sequence:
+		"intro":
+			story_index += 1
+			if story_index < intro_story.size():
+				text_box.text = intro_story[story_index]
+			else:
+				# Transition to fortune teller
+				current_story_sequence = "fortune"
+				show_sprite("fortune")
+				show_story(fortune_story)
+		
+		"fortune":
+			story_index += 1
+			if story_index < fortune_story.size():
+				text_box.text = fortune_story[story_index]
+			else:
+				# Start the quiz
+				start_quiz()
+		
+		"prophecy":
+			story_index += 1
+			if story_index < prophecy_story.size():
+				text_box.text = prophecy_story[story_index]
+			else:
+				# Show confirmation
+				show_confirmation()
+		
+		"ship":
+			story_index += 1
+			if story_index < ship_story.size():
+				text_box.text = ship_story[story_index]
+			else:
+				# Move to wreck
+				current_story_sequence = "wreck"
+				show_sprite("wreck")
+				show_story(wreck_story)
+		
+		"wreck":
+			story_index += 1
+			if story_index < wreck_story.size():
+				text_box.text = wreck_story[story_index]
+			else:
+				# Load next scene
+				load_next_scene()
 
 func start_quiz():
 	quiz_started = true
 	current_question = 0
 	$Options.visible = true
+	continue_label.visible = false
 	selected_option = 0
 	show_question()
 
@@ -261,23 +303,10 @@ func answer_question(choice):
 	else:
 		show_question()
 
-var current_timer = null  # Reference to active timer
-
-func skip_timer():
-	# Skip the current timer by stopping it and proceeding
-	if current_timer:
-		current_timer.timeout.disconnect(Callable(self, "_on_timer_complete"))
-		waiting_for_timer = false
-		current_timer = null
-		_on_timer_complete()
-
-func _on_timer_complete():
-	# This will be overridden by each timer's specific completion action
-	pass
-
 func finish_quiz():
 	quiz_started = false
 	$Options.visible = false
+	continue_label.visible = true
 	
 	# Determine virtue
 	var virtue_data = determine_virtue()
@@ -288,10 +317,14 @@ func finish_quiz():
 	else:
 		final_virtue_name = dominant_virtues[0] + " & " + dominant_virtues[-1]
 	
+	# Build prophecy story
+	build_prophecy_story()
+	
 	# Show prophecy
-	show_prophecy()
+	current_story_sequence = "prophecy"
+	show_story(prophecy_story)
 
-func show_prophecy():
+func build_prophecy_story():
 	var description = ""
 	if final_virtue_name.find("Aegis") != -1:
 		description = "You are the Champion, destined to walk the path of direct action, courage, and relentless defense of the weak."
@@ -302,15 +335,16 @@ func show_prophecy():
 	else:
 		description = "Your destiny is complex, blending the callings of your heart."
 	
-	text_box.text = "'Your Virtue is revealed! Your soul yearns for the path of %s.'\n\n%s\n\n'Now, you must depart. Take a ship from the harbor when the moon is new.'" % [final_virtue_name.to_upper(), description]
-	
-	# Wait then show confirmation
-	await get_tree().create_timer(10.0).timeout
-	show_confirmation()
+	prophecy_story = [
+		"'Your Virtue is revealed! Your soul yearns for the path of %s.'" % final_virtue_name.to_upper(),
+		description,
+		"'Now, you must depart. Take a ship from the harbor when the moon is new.'"
+	]
 
 func show_confirmation():
 	current_story_sequence = "confirmation"
 	text_box.text = "Are you sure about your choices?"
+	continue_label.visible = false
 	
 	# Show Yes/No options
 	$Options.visible = true
@@ -336,11 +370,13 @@ func confirm_choice():
 		# Yes - Continue to ship
 		$Options.visible = false
 		option_c.visible = true  # Restore third option for future use
+		continue_label.visible = true
 		show_shipwreck()
 	else:
 		# No - Retake quiz
 		$Options.visible = false
 		option_c.visible = true  # Restore third option
+		continue_label.visible = true
 		restart_quiz()
 
 func restart_quiz():
@@ -358,25 +394,14 @@ func restart_quiz():
 	show_sprite("fortune")
 	text_box.text = "'Very well, child. Let us discover your true nature once more.'"
 	
-	await get_tree().create_timer(3.0).timeout
-	start_quiz()
+	# Will advance on Enter key press
 
 func show_shipwreck():
+	current_story_sequence = "ship"
 	show_sprite("ship")
-	text_box.text = "You secure passage on a sturdy vessel, the wind guiding you toward your destiny...\n\nA few days out, the sky turns the color of deep bruise. A brutal storm tears through your ship."
-	
-	await get_tree().create_timer(10.0).timeout
-	
-	show_sprite("wreck")
-	text_box.text = "The world is chaos. You cling to wreckage, battered by the surf, until consciousness fails you.\n\nAll your life's possessions are lost. The prophecy slips from your memory like water..."
-	
-	await get_tree().create_timer(10.0).timeout
-	
-	# Fade to black and load the next scene
-	text_box.text = "..."
-	
-	await get_tree().create_timer(10.0).timeout
-	
+	show_story(ship_story)
+
+func load_next_scene():
 	# Load the starting hut scene
 	get_tree().change_scene_to_file("res://scenes/settlement/hut_alvo/alvo_hut_start.tscn")
 
