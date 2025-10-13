@@ -8,51 +8,77 @@ const GRID_HEIGHT = 11
 
 # Combat states
 enum CombatState {
-	PLAYER_TURN,
-	PLAYER_SELECTING_TARGET,
-	ENEMY_TURN,
+	WAITING_FOR_ACTION,
+	MOVING,
+	SELECTING_ATTACK_TARGET,
+	ANIMATING,
 	COMBAT_WON,
 	COMBAT_LOST
 }
 
-# Turn phases
-enum TurnPhase {
-	SELECT_ACTION,
-	MOVE,
-	ATTACK,
-	END_TURN
-}
-
-var current_state: CombatState = CombatState.PLAYER_TURN
-var current_phase: TurnPhase = TurnPhase.SELECT_ACTION
-var selected_unit: CombatUnit = null
-var target_position: Vector2i = Vector2i.ZERO
-var enemies: Array[CombatUnit] = []
-var player_units: Array[CombatUnit] = []
-var current_enemy_index: int = 0
+var current_state: CombatState = CombatState.WAITING_FOR_ACTION
+var initiative_order: Array[CombatUnit] = []
+var current_unit_index: int = 0
+var current_unit: CombatUnit = null
 
 # UI elements
 var tilemap: TileMapLayer
 var cursor: Sprite2D
-var action_panel: Panel
 var status_label: Label
-var unit_info_panel: Panel
+var initiative_panel: Panel
+var initiative_list: VBoxContainer
 var cursor_position: Vector2i = Vector2i(7, 5)
+var attack_cursor_position: Vector2i = Vector2i(0, 0)
 
-# Action buttons
-var move_button: Button
-var attack_button: Button
-var wait_button: Button
-var flee_button: Button
+# Audio
+var battle_music: AudioStreamPlayer
+var sword_sound: AudioStreamPlayer
+var arrow_sound: AudioStreamPlayer
+var hit_sound: AudioStreamPlayer
+
+var enemies: Array[CombatUnit] = []
+var player_units: Array[CombatUnit] = []
 
 signal combat_ended(victory: bool)
 
 func _ready():
+	setup_audio()
 	setup_tilemap()
 	setup_ui()
 	setup_cursor()
 	spawn_combat_units()
-	update_status("Your turn! Select a unit.")
+	initialize_initiative()
+	start_turn()
+
+func setup_audio():
+	# Battle music
+	battle_music = AudioStreamPlayer.new()
+	var battle_stream = load("res://res/music/battle.mp3")
+	if battle_stream:
+		battle_music.stream = battle_stream
+		battle_music.autoplay = true
+		if battle_stream.has_method("set_loop"):
+			battle_stream.set_loop(true)
+		add_child(battle_music)
+	
+	# Sound effects
+	sword_sound = AudioStreamPlayer.new()
+	var sword_stream = load("res://res/sfx/sword.mp3")
+	if sword_stream:
+		sword_sound.stream = sword_stream
+		add_child(sword_sound)
+	
+	arrow_sound = AudioStreamPlayer.new()
+	var arrow_stream = load("res://res/sfx/arrow.mp3")
+	if arrow_stream:
+		arrow_sound.stream = arrow_stream
+		add_child(arrow_sound)
+	
+	hit_sound = AudioStreamPlayer.new()
+	var hit_stream = load("res://res/sfx/hit.mp3")
+	if hit_stream:
+		hit_sound.stream = hit_stream
+		add_child(hit_sound)
 
 func setup_tilemap():
 	tilemap = TileMapLayer.new()
@@ -67,11 +93,10 @@ func setup_tilemap():
 			tilemap.set_cell(Vector2i(x, y), terrain_type, Vector2i(0, 0), 0)
 
 func create_combat_tileset() -> TileSet:
-	# Create a simple tileset for combat terrain
 	var ts = TileSet.new()
 	ts.tile_size = Vector2i(GRID_SIZE, GRID_SIZE)
 	
-	# Add basic terrain sources (grass, stone, water)
+	# Add basic terrain sources
 	for i in range(3):
 		var source = TileSetAtlasSource.new()
 		source.texture = create_terrain_texture(i)
@@ -94,7 +119,6 @@ func create_terrain_texture(terrain_type: int) -> ImageTexture:
 	return ImageTexture.create_from_image(img)
 
 func get_terrain_for_position(x: int, y: int) -> int:
-	# Create some varied terrain
 	if (x < 2 or x > GRID_WIDTH - 3) and (y > 2 and y < GRID_HEIGHT - 3):
 		return 2  # Water on sides
 	elif (x + y) % 7 == 0:
@@ -102,6 +126,8 @@ func get_terrain_for_position(x: int, y: int) -> int:
 	return 0  # Mostly grass
 
 func setup_cursor():
+	print("--- Setting up cursor ---")
+	
 	cursor = Sprite2D.new()
 	cursor.name = "Cursor"
 	var cursor_img = Image.create(GRID_SIZE, GRID_SIZE, false, Image.FORMAT_RGBA8)
@@ -116,43 +142,13 @@ func setup_cursor():
 	
 	cursor.texture = ImageTexture.create_from_image(cursor_img)
 	cursor.centered = false
+	cursor.visible = false
 	add_child(cursor)
-	update_cursor_position()
+	
+	print("Cursor created at: ", cursor.position)
+	print("Cursor setup complete")
 
 func setup_ui():
-	# Action panel
-	action_panel = Panel.new()
-	action_panel.size = Vector2(200, 200)
-	action_panel.position = Vector2(GRID_WIDTH * GRID_SIZE + 20, 20)
-	action_panel.visible = false
-	add_child(action_panel)
-	
-	var vbox = VBoxContainer.new()
-	vbox.position = Vector2(10, 10)
-	vbox.custom_minimum_size = Vector2(180, 180)
-	action_panel.add_child(vbox)
-	
-	# Action buttons
-	move_button = Button.new()
-	move_button.text = "Move"
-	move_button.pressed.connect(_on_move_pressed)
-	vbox.add_child(move_button)
-	
-	attack_button = Button.new()
-	attack_button.text = "Attack"
-	attack_button.pressed.connect(_on_attack_pressed)
-	vbox.add_child(attack_button)
-	
-	wait_button = Button.new()
-	wait_button.text = "Wait"
-	wait_button.pressed.connect(_on_wait_pressed)
-	vbox.add_child(wait_button)
-	
-	flee_button = Button.new()
-	flee_button.text = "Flee"
-	flee_button.pressed.connect(_on_flee_pressed)
-	vbox.add_child(flee_button)
-	
 	# Status label
 	status_label = Label.new()
 	status_label.position = Vector2(20, GRID_HEIGHT * GRID_SIZE + 20)
@@ -161,15 +157,41 @@ func setup_ui():
 	status_label.add_theme_color_override("font_shadow_color", Color.BLACK)
 	status_label.add_theme_constant_override("shadow_offset_x", 2)
 	status_label.add_theme_constant_override("shadow_offset_y", 2)
+	status_label.add_theme_font_size_override("font_size", 16)
 	add_child(status_label)
 	
-	# Unit info panel
-	unit_info_panel = Panel.new()
-	unit_info_panel.size = Vector2(200, 150)
-	unit_info_panel.position = Vector2(GRID_WIDTH * GRID_SIZE + 20, 240)
-	add_child(unit_info_panel)
+	# Initiative panel
+	initiative_panel = Panel.new()
+	initiative_panel.size = Vector2(200, 300)
+	initiative_panel.position = Vector2(GRID_WIDTH * GRID_SIZE + 20, 20)
+	
+	# Add style to make panel visible
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.2, 0.2, 0.3, 0.9)
+	style.border_width_left = 2
+	style.border_width_right = 2
+	style.border_width_top = 2
+	style.border_width_bottom = 2
+	style.border_color = Color(0.8, 0.8, 0.8, 1)
+	initiative_panel.add_theme_stylebox_override("panel", style)
+	
+	add_child(initiative_panel)
+	
+	var title = Label.new()
+	title.text = "Turn Order"
+	title.position = Vector2(10, 10)
+	title.add_theme_font_size_override("font_size", 18)
+	title.add_theme_color_override("font_color", Color.WHITE)
+	initiative_panel.add_child(title)
+	
+	initiative_list = VBoxContainer.new()
+	initiative_list.position = Vector2(10, 40)
+	initiative_list.custom_minimum_size = Vector2(180, 250)
+	initiative_panel.add_child(initiative_list)
 
 func spawn_combat_units():
+	print("--- Spawning combat units ---")
+	
 	# Spawn player party
 	var player_positions = [
 		Vector2i(1, 5),
@@ -177,12 +199,15 @@ func spawn_combat_units():
 		Vector2i(2, 6),
 	]
 	
+	var player_weapons = ["sword", "bow", "sword"]
+	
 	for i in range(min(3, player_positions.size())):
-		var unit = CombatUnit.new("Hero" + str(i + 1), true)
+		var unit = CombatUnit.new("Hero" + str(i + 1), true, player_weapons[i])
 		unit.position = Vector2(player_positions[i].x * GRID_SIZE, player_positions[i].y * GRID_SIZE)
 		unit.grid_pos = player_positions[i]
 		add_child(unit)
 		player_units.append(unit)
+		print("Spawned player unit: ", unit.unit_name, " at ", unit.position)
 	
 	# Spawn enemies
 	var enemy_positions = [
@@ -193,11 +218,84 @@ func spawn_combat_units():
 	]
 	
 	for i in range(4):
-		var unit = CombatUnit.new("Enemy" + str(i + 1), false)
+		var unit = CombatUnit.new("Enemy" + str(i + 1), false, "sword")
 		unit.position = Vector2(enemy_positions[i].x * GRID_SIZE, enemy_positions[i].y * GRID_SIZE)
 		unit.grid_pos = enemy_positions[i]
 		add_child(unit)
 		enemies.append(unit)
+		print("Spawned enemy unit: ", unit.unit_name, " at ", unit.position)
+	
+	print("Total player units: ", player_units.size())
+	print("Total enemy units: ", enemies.size())
+	print("Unit spawning complete")
+
+func initialize_initiative():
+	# Combine all units
+	var all_units = player_units + enemies
+	
+	# Roll initiative for each unit (d20 + dex modifier)
+	for unit in all_units:
+		unit.initiative = randi_range(1, 20) + unit.dex_modifier
+	
+	# Sort by initiative (highest first)
+	all_units.sort_custom(func(a, b): return a.initiative > b.initiative)
+	
+	initiative_order = all_units
+	current_unit_index = 0
+	
+	update_initiative_display()
+
+func update_initiative_display():
+	# Clear existing labels
+	for child in initiative_list.get_children():
+		child.queue_free()
+	
+	# Add labels for each unit in initiative order
+	for i in range(initiative_order.size()):
+		var unit = initiative_order[i]
+		var label = Label.new()
+		label.text = "%s (%d)" % [unit.unit_name, unit.initiative]
+		
+		# Highlight current unit
+		if i == current_unit_index:
+			label.add_theme_color_override("font_color", Color.YELLOW)
+			label.text = "► " + label.text
+		else:
+			label.add_theme_color_override("font_color", Color.WHITE if unit.is_player else Color.RED)
+		
+		initiative_list.add_child(label)
+
+func start_turn():
+	if current_unit_index >= initiative_order.size():
+		# Round complete, start new round
+		current_unit_index = 0
+	
+	current_unit = initiative_order[current_unit_index]
+	
+	# Skip dead units
+	if current_unit.current_hp <= 0:
+		next_turn()
+		return
+	
+	current_unit.has_acted = false
+	current_unit.has_moved = false
+	
+	update_initiative_display()
+	
+	if current_unit.is_player:
+		start_player_turn()
+	else:
+		start_enemy_turn()
+
+func start_player_turn():
+	current_state = CombatState.WAITING_FOR_ACTION
+	update_status("%s's turn! Move with arrows OR press 'A' to attack." % current_unit.unit_name)
+
+func start_enemy_turn():
+	current_state = CombatState.ANIMATING
+	update_status("%s's turn..." % current_unit.unit_name)
+	await get_tree().create_timer(0.5).timeout
+	execute_enemy_ai()
 
 func _input(event):
 	if current_state == CombatState.COMBAT_WON or current_state == CombatState.COMBAT_LOST:
@@ -205,209 +303,215 @@ func _input(event):
 			combat_ended.emit(current_state == CombatState.COMBAT_WON)
 		return
 	
-	if current_state == CombatState.PLAYER_TURN:
-		handle_player_input(event)
-	elif current_state == CombatState.PLAYER_SELECTING_TARGET:
-		handle_target_selection(event)
+	if not current_unit or not current_unit.is_player:
+		return
+	
+	match current_state:
+		CombatState.WAITING_FOR_ACTION:
+			handle_action_input(event)
+		CombatState.SELECTING_ATTACK_TARGET:
+			handle_attack_targeting(event)
 
-func handle_player_input(event):
-	if current_phase == TurnPhase.SELECT_ACTION:
-		if event.is_action_pressed("move_up"):
-			move_cursor(Vector2i(0, -1))
-		elif event.is_action_pressed("move_down"):
-			move_cursor(Vector2i(0, 1))
-		elif event.is_action_pressed("move_left"):
-			move_cursor(Vector2i(-1, 0))
-		elif event.is_action_pressed("move_right"):
-			move_cursor(Vector2i(1, 0))
-		elif event.is_action_pressed("ui_accept"):
-			select_unit_at_cursor()
-
-func handle_target_selection(event):
+func handle_action_input(event):
+	# Can only move OR attack, not both
+	
+	# Movement (ends turn immediately)
 	if event.is_action_pressed("move_up"):
-		move_cursor(Vector2i(0, -1))
+		attempt_move(Vector2i(0, -1))
 	elif event.is_action_pressed("move_down"):
-		move_cursor(Vector2i(0, 1))
+		attempt_move(Vector2i(0, 1))
 	elif event.is_action_pressed("move_left"):
-		move_cursor(Vector2i(-1, 0))
+		attempt_move(Vector2i(-1, 0))
 	elif event.is_action_pressed("move_right"):
-		move_cursor(Vector2i(1, 0))
-	elif event.is_action_pressed("ui_accept"):
-		if current_phase == TurnPhase.MOVE:
-			execute_move()
-		elif current_phase == TurnPhase.ATTACK:
-			execute_attack()
+		attempt_move(Vector2i(1, 0))
+	# Attack
+	elif event.is_action_pressed("ui_text_backspace"):  # 'A' key
+		start_attack_targeting()
+	# Skip turn
 	elif event.is_action_pressed("ui_cancel"):
-		cancel_target_selection()
+		end_turn()
 
-func move_cursor(delta: Vector2i):
-	cursor_position += delta
-	cursor_position.x = clamp(cursor_position.x, 0, GRID_WIDTH - 1)
-	cursor_position.y = clamp(cursor_position.y, 0, GRID_HEIGHT - 1)
+func attempt_move(direction: Vector2i):
+	var new_pos = current_unit.grid_pos + direction
+	
+	# Check bounds
+	if new_pos.x < 0 or new_pos.x >= GRID_WIDTH or new_pos.y < 0 or new_pos.y >= GRID_HEIGHT:
+		update_status("Can't move there!")
+		return
+	
+	# Check if position is occupied
+	if is_position_occupied(new_pos):
+		update_status("Space occupied!")
+		return
+	
+	# Move the unit
+	current_unit.grid_pos = new_pos
+	current_unit.position = Vector2(new_pos.x * GRID_SIZE, new_pos.y * GRID_SIZE)
+	current_unit.has_moved = true
+	current_unit.has_acted = true  # Moving ends the turn
+	
+	# Check for chest at new position
+	if collect_chest_at_position(new_pos):
+		await get_tree().create_timer(1.0).timeout
+	
+	update_status("%s moved. Turn ending..." % current_unit.unit_name)
+	
+	# End turn after moving
+	await get_tree().create_timer(0.5).timeout
+	end_turn()
+
+func start_attack_targeting():
+	current_state = CombatState.SELECTING_ATTACK_TARGET
+	cursor.visible = true
+	attack_cursor_position = current_unit.grid_pos
 	update_cursor_position()
+	update_status("Select target with arrows, Enter to confirm, ESC to cancel.")
+
+func handle_attack_targeting(event):
+	if event.is_action_pressed("move_up"):
+		move_attack_cursor(Vector2i(0, -1))
+	elif event.is_action_pressed("move_down"):
+		move_attack_cursor(Vector2i(0, 1))
+	elif event.is_action_pressed("move_left"):
+		move_attack_cursor(Vector2i(-1, 0))
+	elif event.is_action_pressed("move_right"):
+		move_attack_cursor(Vector2i(1, 0))
+	elif event.is_action_pressed("ui_accept"):
+		execute_attack()
+	elif event.is_action_pressed("ui_cancel"):
+		cancel_attack_targeting()
+
+func move_attack_cursor(delta: Vector2i):
+	var new_pos = attack_cursor_position + delta
+	var distance = current_unit.grid_pos.distance_to(new_pos)
+	
+	# Check if within weapon range
+	if distance <= current_unit.attack_range:
+		attack_cursor_position = new_pos
+		update_cursor_position()
 
 func update_cursor_position():
-	cursor.position = Vector2(cursor_position.x * GRID_SIZE, cursor_position.y * GRID_SIZE)
-
-func select_unit_at_cursor():
-	for unit in player_units:
-		if unit.grid_pos == cursor_position and not unit.has_acted:
-			selected_unit = unit
-			action_panel.visible = true
-			update_status("Selected " + unit.unit_name + ". Choose action.")
-			return
-	
-	update_status("No unit at cursor or unit already acted.")
-
-func _on_move_pressed():
-	if not selected_unit:
-		return
-	
-	current_phase = TurnPhase.MOVE
-	current_state = CombatState.PLAYER_SELECTING_TARGET
-	action_panel.visible = false
-	update_status("Select destination (range: " + str(selected_unit.move_range) + " tiles)")
-
-func _on_attack_pressed():
-	if not selected_unit:
-		return
-	
-	current_phase = TurnPhase.ATTACK
-	current_state = CombatState.PLAYER_SELECTING_TARGET
-	action_panel.visible = false
-	update_status("Select target to attack (range: " + str(selected_unit.attack_range) + " tiles)")
-
-func _on_wait_pressed():
-	if selected_unit:
-		selected_unit.has_acted = true
-		end_unit_turn()
-
-func _on_flee_pressed():
-	if randf() < 0.5:
-		update_status("Fled from combat!")
-		await get_tree().create_timer(1.0).timeout
-		combat_ended.emit(false)
-	else:
-		update_status("Failed to flee!")
-		end_turn()
-
-func execute_move():
-	if not selected_unit:
-		return
-	
-	var distance = cursor_position.distance_to(selected_unit.grid_pos)
-	
-	if distance <= selected_unit.move_range and not is_position_occupied(cursor_position):
-		selected_unit.grid_pos = cursor_position
-		selected_unit.position = Vector2(cursor_position.x * GRID_SIZE, cursor_position.y * GRID_SIZE)
-		update_status(selected_unit.unit_name + " moved.")
-		end_unit_turn()
-	else:
-		update_status("Cannot move there!")
-		cancel_target_selection()
+	cursor.position = Vector2(attack_cursor_position.x * GRID_SIZE, attack_cursor_position.y * GRID_SIZE)
 
 func execute_attack():
-	if not selected_unit:
+	var target = get_unit_at_position(attack_cursor_position)
+	
+	if not target:
+		update_status("No target at that position!")
 		return
 	
-	var target = get_unit_at_position(cursor_position)
-	var distance = cursor_position.distance_to(selected_unit.grid_pos)
+	if target.is_player:
+		update_status("Can't attack allies!")
+		return
 	
-	if target and not target.is_player and distance <= selected_unit.attack_range:
-		var damage = selected_unit.attack_power + randi_range(-2, 2)
-		target.take_damage(damage)
-		update_status(selected_unit.unit_name + " attacks " + target.unit_name + " for " + str(damage) + " damage!")
+	var distance = current_unit.grid_pos.distance_to(attack_cursor_position)
+	if distance > current_unit.attack_range:
+		update_status("Out of range!")
+		return
+	
+	# Perform attack
+	current_state = CombatState.ANIMATING
+	cursor.visible = false
+	
+	# Play weapon sound based on weapon type
+	if current_unit.weapon_type == "bow":
+		if arrow_sound:
+			arrow_sound.play()
+	else:  # sword, spear, etc.
+		if sword_sound:
+			sword_sound.play()
+	
+	# Wait for weapon sound
+	await get_tree().create_timer(0.3).timeout
+	
+	var damage = current_unit.attack_power + randi_range(-2, 2)
+	var target_name = target.unit_name  # Store name before potential death
+	var target_pos = target.grid_pos  # Store position for loot drop
+	target.take_damage(damage)
+	
+	# Play hit sound
+	if hit_sound:
+		hit_sound.play()
+	
+	update_status("%s attacks %s for %d damage!" % [current_unit.unit_name, target_name, damage])
+	
+	if target.current_hp <= 0:
+		enemies.erase(target)
+		update_status("%s defeated!" % target_name)
 		
-		if target.current_hp <= 0:
-			enemies.erase(target)
-			target.queue_free()
-			update_status(target.unit_name + " defeated!")
+		# Drop loot chest before removing unit
+		drop_loot_chest(target_pos)
 		
-		selected_unit.has_acted = true
-		await get_tree().create_timer(1.0).timeout
-		end_unit_turn()
+		target.queue_free()
 		check_victory()
-	else:
-		update_status("Invalid target!")
-		cancel_target_selection()
-
-func cancel_target_selection():
-	current_state = CombatState.PLAYER_TURN
-	current_phase = TurnPhase.SELECT_ACTION
-	action_panel.visible = true
-	update_status("Action cancelled. Choose another action.")
-
-func end_unit_turn():
-	selected_unit = null
-	action_panel.visible = false
-	current_state = CombatState.PLAYER_TURN
-	current_phase = TurnPhase.SELECT_ACTION
 	
-	# Check if all player units have acted
-	var all_acted = true
-	for unit in player_units:
-		if not unit.has_acted:
-			all_acted = false
-			break
+	current_unit.has_acted = true
 	
-	if all_acted:
-		end_turn()
-	else:
-		update_status("Select next unit.")
+	await get_tree().create_timer(1.0).timeout
+	
+	# End turn after attacking
+	end_turn()
+
+func cancel_attack_targeting():
+	current_state = CombatState.WAITING_FOR_ACTION
+	cursor.visible = false
+	update_status("%s's turn. Move with arrows or press 'A' to attack." % current_unit.unit_name)
 
 func end_turn():
-	# Reset player units
-	for unit in player_units:
-		unit.has_acted = false
-	
-	# Enemy turn
-	current_state = CombatState.ENEMY_TURN
-	update_status("Enemy turn...")
-	await get_tree().create_timer(0.5).timeout
-	execute_enemy_turn()
+	current_unit.has_acted = true
+	current_unit.has_moved = true
+	next_turn()
 
-func execute_enemy_turn():
-	for enemy in enemies:
-		if enemy.current_hp <= 0:
-			continue
+func next_turn():
+	current_unit_index += 1
+	start_turn()
+
+func execute_enemy_ai():
+	# Simple AI: move toward nearest player and attack if in range
+	var nearest_player = find_nearest_player(current_unit)
+	if not nearest_player:
+		end_turn()
+		return
+	
+	var distance = current_unit.grid_pos.distance_to(nearest_player.grid_pos)
+	
+	if distance <= current_unit.attack_range:
+		# Attack
+		var damage = current_unit.attack_power + randi_range(-2, 2)
+		var player_name = nearest_player.unit_name  # Store name before potential death
+		var player_pos = nearest_player.grid_pos  # Store position for loot drop
+		nearest_player.take_damage(damage)
+		update_status("%s attacks %s for %d damage!" % [current_unit.unit_name, player_name, damage])
 		
-		# Simple AI: move toward nearest player and attack if in range
-		var nearest_player = find_nearest_player(enemy)
-		if nearest_player:
-			var distance = enemy.grid_pos.distance_to(nearest_player.grid_pos)
+		if nearest_player.current_hp <= 0:
+			player_units.erase(nearest_player)
+			update_status("%s defeated!" % player_name)
 			
-			if distance <= enemy.attack_range:
-				# Attack
-				var damage = enemy.attack_power + randi_range(-2, 2)
-				nearest_player.take_damage(damage)
-				update_status(enemy.unit_name + " attacks " + nearest_player.unit_name + " for " + str(damage) + " damage!")
-				
-				if nearest_player.current_hp <= 0:
-					player_units.erase(nearest_player)
-					nearest_player.queue_free()
-					update_status(nearest_player.unit_name + " defeated!")
-			else:
-				# Move toward player
-				var direction = (nearest_player.grid_pos - enemy.grid_pos).normalized()
-				var new_pos = enemy.grid_pos + Vector2i(round(direction.x), round(direction.y))
-				
-				if not is_position_occupied(new_pos) and new_pos.x >= 0 and new_pos.x < GRID_WIDTH and new_pos.y >= 0 and new_pos.y < GRID_HEIGHT:
-					enemy.grid_pos = new_pos
-					enemy.position = Vector2(new_pos.x * GRID_SIZE, new_pos.y * GRID_SIZE)
+			# Drop loot chest before removing unit
+			drop_loot_chest(player_pos)
 			
-			await get_tree().create_timer(0.5).timeout
+			nearest_player.queue_free()
+			check_defeat()
+	else:
+		# Move toward player - convert to Vector2 for normalized(), then back to Vector2i
+		var direction_vec2 = Vector2(nearest_player.grid_pos - current_unit.grid_pos).normalized()
+		var new_pos = current_unit.grid_pos + Vector2i(round(direction_vec2.x), round(direction_vec2.y))
+		
+		if not is_position_occupied(new_pos) and new_pos.x >= 0 and new_pos.x < GRID_WIDTH and new_pos.y >= 0 and new_pos.y < GRID_HEIGHT:
+			current_unit.grid_pos = new_pos
+			current_unit.position = Vector2(new_pos.x * GRID_SIZE, new_pos.y * GRID_SIZE)
+			update_status("%s moves closer." % current_unit.unit_name)
 	
-	check_defeat()
-	
-	# Back to player turn
-	current_state = CombatState.PLAYER_TURN
-	update_status("Your turn!")
+	await get_tree().create_timer(1.0).timeout
+	next_turn()
 
 func find_nearest_player(enemy: CombatUnit) -> CombatUnit:
 	var nearest: CombatUnit = null
 	var min_distance = INF
 	
 	for player in player_units:
+		if player.current_hp <= 0:
+			continue
 		var distance = enemy.grid_pos.distance_to(player.grid_pos)
 		if distance < min_distance:
 			min_distance = distance
@@ -417,13 +521,13 @@ func find_nearest_player(enemy: CombatUnit) -> CombatUnit:
 
 func is_position_occupied(pos: Vector2i) -> bool:
 	for unit in player_units + enemies:
-		if unit.grid_pos == pos:
+		if unit.grid_pos == pos and unit.current_hp > 0:
 			return true
 	return false
 
 func get_unit_at_position(pos: Vector2i) -> CombatUnit:
 	for unit in player_units + enemies:
-		if unit.grid_pos == pos:
+		if unit.grid_pos == pos and unit.current_hp > 0:
 			return unit
 	return null
 
@@ -437,9 +541,99 @@ func check_defeat():
 		current_state = CombatState.COMBAT_LOST
 		update_status("Defeat! Press Enter to continue.")
 
+func drop_loot_chest(pos: Vector2i):
+	"""Drop a chest with random loot at the given position"""
+	var chest = LootChest.new()
+	chest.position = Vector2(pos.x * GRID_SIZE, pos.y * GRID_SIZE)
+	chest.grid_pos = pos
+	add_child(chest)
+	
+	# Generate random loot
+	var gold_amount = randi_range(1, 10)
+	chest.gold = gold_amount
+	
+	# Random item (40% chance for each, 20% chance for nothing extra)
+	var item_roll = randi_range(1, 100)
+	if item_roll <= 20:
+		chest.item = "dagger"
+	elif item_roll <= 40:
+		chest.item = "sword"
+	elif item_roll <= 60:
+		chest.item = "shield"
+	elif item_roll <= 80:
+		chest.item = "bow"
+	elif item_roll <= 90:
+		chest.item = "ring"
+	# else: no item (just gold)
+	
+	update_status("A chest appeared! Move onto it to collect loot.")
+
+func collect_chest_at_position(pos: Vector2i):
+	"""Check if there's a chest at this position and collect it"""
+	for child in get_children():
+		if child is LootChest and child.grid_pos == pos:
+			var loot_text = "%d gold" % child.gold
+			if child.item:
+				loot_text += " and a %s" % child.item
+				# Add item to player inventory
+				Global.inventory.add_item(child.item, 1)
+			
+			# Add gold to player inventory
+			Global.inventory.gold += child.gold
+			
+			update_status("Collected: %s!" % loot_text)
+			child.queue_free()
+			return true
+	return false
+
 func update_status(text: String):
 	status_label.text = text
 	print("Combat: ", text)
+
+static func start_combat(parent_scene: Node):
+	var combat = CombatSystem.new()
+	combat.name = "CombatScene"
+	parent_scene.add_child(combat)
+	combat.position = Vector2.ZERO
+	combat.z_index = 100
+	return combat
+
+# Loot Chest Class
+class LootChest extends Node2D:
+	var grid_pos: Vector2i
+	var gold: int = 0
+	var item: String = ""
+	
+	var sprite: Sprite2D
+	
+	func _ready():
+		# Create chest sprite
+		sprite = Sprite2D.new()
+		var img = Image.create(28, 28, false, Image.FORMAT_RGB8)
+		
+		# Draw a simple chest (brown with gold latch)
+		for y in range(28):
+			for x in range(28):
+				if y < 14:
+					img.set_pixel(x, y, Color(0.4, 0.25, 0.1))  # Brown top
+				else:
+					img.set_pixel(x, y, Color(0.35, 0.2, 0.05))  # Darker brown bottom
+		
+		# Gold latch
+		for x in range(10, 18):
+			for y in range(12, 16):
+				img.set_pixel(x, y, Color(0.8, 0.7, 0.2))  # Gold
+		
+		sprite.texture = ImageTexture.create_from_image(img)
+		sprite.position = Vector2(16, 16)
+		add_child(sprite)
+		
+		# Label
+		var label = Label.new()
+		label.text = "💰"
+		label.position = Vector2(8, -10)
+		label.add_theme_font_size_override("font_size", 16)
+		add_child(label)
 
 # Combat Unit Class
 class CombatUnit extends Node2D:
@@ -450,28 +644,46 @@ class CombatUnit extends Node2D:
 	var current_hp: int = 20
 	var attack_power: int = 5
 	var defense: int = 2
-	var move_range: int = 3
-	var attack_range: int = 1
+	var dex_modifier: int = 0
+	var initiative: int = 0
 	var has_acted: bool = false
+	var has_moved: bool = false
+	var weapon_type: String = "sword"
+	var attack_range: int = 1
 	
 	var sprite: Sprite2D
 	var hp_bar: ColorRect
 	var name_label: Label
 	
-	func _init(name: String, player: bool):
+	func _init(name: String, player: bool, weapon: String = "sword"):
 		unit_name = name
 		is_player = player
+		weapon_type = weapon
+		
+		# Set weapon range
+		match weapon_type:
+			"sword":
+				attack_range = 1
+			"bow":
+				attack_range = 4
+			"spear":
+				attack_range = 2
 		
 		if is_player:
 			max_hp = 25
 			current_hp = 25
 			attack_power = 6
+			dex_modifier = 2
 		else:
 			max_hp = 15
 			current_hp = 15
 			attack_power = 4
+			dex_modifier = 0
 	
 	func _ready():
+		print("--- CombatUnit _ready() called ---")
+		print("Unit: ", unit_name, " at position: ", position)
+		
 		# Create sprite
 		sprite = Sprite2D.new()
 		var img = Image.create(24, 24, false, Image.FORMAT_RGB8)
@@ -479,6 +691,7 @@ class CombatUnit extends Node2D:
 		sprite.texture = ImageTexture.create_from_image(img)
 		sprite.position = Vector2(16, 16)
 		add_child(sprite)
+		print("Sprite created for ", unit_name)
 		
 		# Create HP bar
 		hp_bar = ColorRect.new()
@@ -493,6 +706,19 @@ class CombatUnit extends Node2D:
 		name_label.position = Vector2(-10, -15)
 		name_label.add_theme_font_size_override("font_size", 8)
 		add_child(name_label)
+		
+		# Weapon indicator
+		if weapon_type == "bow":
+			var weapon_label = Label.new()
+			weapon_label.text = "🏹"
+			weapon_label.position = Vector2(20, -15)
+			weapon_label.add_theme_font_size_override("font_size", 10)
+			add_child(weapon_label)
+		
+		print("Unit ", unit_name, " fully initialized")
+		print("  Position: ", position)
+		print("  Visible: ", visible)
+		print("  Modulate: ", modulate)
 	
 	func take_damage(damage: int):
 		var actual_damage = max(1, damage - defense)

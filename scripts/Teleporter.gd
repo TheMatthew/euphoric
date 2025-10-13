@@ -32,6 +32,7 @@ func _on_body_exited(body):
 	if body.name == "hero":
 		player_in_range = false
 		player = null
+# Update your Teleporter.gd teleport_player function
 
 func teleport_player(player_node):
 	# stop any children activities before changing the scene
@@ -58,6 +59,13 @@ func teleport_player(player_node):
 		camera.reparent(new_scene)
 		player_node.reparent(new_scene)
 		old_scene.queue_free()
+		
+		# Refresh fog of war for new scene using the singleton instance
+		var fog = camera.get_node_or_null("FogOfWar")
+		if fog and fog.has_method("refresh_for_new_scene"):
+			fog.call_deferred("refresh_for_new_scene")
+			print("Teleporter: Refreshing fog of war")
+		
 		if not destination:
 			var nodes = []
 			for node in new_scene.get_children():
