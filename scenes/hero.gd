@@ -93,7 +93,15 @@ func _on_dialog_state_changed(new_state):
 
 # Optional: Stop moving when the key is released
 func _input(event):
+		
+	if in_combat:
+		return
 	if dialog_tree and dialog_tree.is_dialog_active():
+		return
+	
+	# Test combat trigger - press 'C' key
+	if event.is_action_pressed("ui_combat"):
+		trigger_combat()
 		return
 	if event.is_action_released("move_right") or event.is_action_released("move_left") or event.is_action_released("move_up") or event.is_action_released("move_down"):
 		is_moving = false
@@ -165,3 +173,111 @@ func is_npc_at_position(world_pos: Vector2) -> bool:
 				return true
 	
 	return false
+# Add this to your hero.gd file - near the _input function
+
+var in_combat: bool = false
+var stored_overworld_scene: Node = null
+var stored_music_player: AudioStreamPlayer = null
+
+func trigger_combat():
+	"""Start a combat encounter by loading combat scene"""
+	if in_combat:
+		return
+	
+	in_combat = true
+	is_moving = false
+	move_timer.stop()
+	
+	print("=== HERO: Starting Combat ===")
+	
+	# Store reference to current overworld scene
+	stored_overworld_scene = get_tree().current_scene
+	print("Stored overworld scene: ", stored_overworld_scene.name)
+	
+	# Find and stop any overworld music
+	stop_overworld_music(stored_overworld_scene)
+	
+	print("Loading combat scene...")
+	# Load the combat scene
+	var combat_scene = load("res://scenes/combat.tscn")
+	if not combat_scene:
+		print("ERROR: Could not load combat scene!")
+		in_combat = false
+		return
+	
+	print("Combat scene loaded, instantiating...")
+	var combat_instance = combat_scene.instantiate()
+	print("Combat instance created: ", combat_instance.name)
+	
+	# Connect to combat end signal
+	var combat_system = combat_instance.get_node_or_null("CombatSystem")
+	if combat_system:
+		print("Found CombatSystem node")
+		combat_system.combat_ended.connect(_on_combat_ended)
+	else:
+		print("ERROR: Could not find CombatSystem node!")
+		print("Combat instance children: ", combat_instance.get_children())
+	
+	# Switch to combat scene
+	print("Adding combat to scene tree...")
+	get_tree().root.add_child(combat_instance)
+	print("Setting combat as current scene...")
+	get_tree().current_scene = combat_instance
+	
+	# Hide overworld (but don't remove it)
+	print("Hiding overworld...")
+	stored_overworld_scene.visible = false
+	
+	print("=== HERO: Combat transition complete ===")
+	print("Current scene: ", get_tree().current_scene.name)
+	print("Current scene children: ", get_tree().current_scene.get_children())
+
+func stop_overworld_music(scene: Node):
+	"""Find and stop any AudioStreamPlayer in the overworld scene"""
+	if not scene:
+		return
+	
+	# Check for AudioStreamPlayer as direct child
+	for child in scene.get_children():
+		if child is AudioStreamPlayer:
+			stored_music_player = child
+			child.stop()
+			return
+		# Also check TileMapLayer children (where music often is)
+		if child is TileMapLayer or child is Node2D:
+			for subchild in child.get_children():
+				if subchild is AudioStreamPlayer:
+					stored_music_player = subchild
+					subchild.stop()
+					return
+
+func _on_combat_ended(victory: bool):
+	"""Handle end of combat and return to overworld"""
+	print("=== Combat Ended: ", "Victory" if victory else "Defeat", " ===")
+	
+	in_combat = false
+	
+	# Get the combat scene
+	var combat_scene = get_tree().current_scene
+	
+	# Restore overworld scene
+	if stored_overworld_scene:
+		stored_overworld_scene.visible = true
+		get_tree().current_scene = stored_overworld_scene
+		
+		# Restart overworld music
+		if stored_music_player and is_instance_valid(stored_music_player):
+			stored_music_player.play()
+	
+	# Remove combat scene
+	if combat_scene:
+		combat_scene.queue_free()
+	
+	stored_music_player = null
+	
+	if victory:
+		print("You won the battle!")
+		# Combat system already added loot to Global.inventory
+	else:
+		print("You lost the battle!")
+		# Handle defeat (game over, retreat, etc.)

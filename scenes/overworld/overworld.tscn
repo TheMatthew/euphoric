@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://75k4u5aie0cg"]
+[gd_scene load_steps=18 format=4 uid="uid://75k4u5aie0cg"]
 
 [ext_resource type="TileSet" uid="uid://br0h1p1uc07xg" path="res://res/euphoric.tres" id="1_c7s6e"]
 [ext_resource type="Script" uid="uid://dpantfjkxrp6o" path="res://scenes/village_music.gd" id="2_8is1o"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bvw4oi3waigvx" path="res://res/u4graphics-master/32x32x24/shapes-assets/010_town.png" id="12_n1psn"]
 [ext_resource type="Texture2D" uid="uid://crdowkpfp55kx" path="res://res/u4graphics-master/32x32x24/shapes-assets/011_keep.png" id="12_wslke"]
 [ext_resource type="Texture2D" uid="uid://d1cle8ooe7djg" path="res://res/u4graphics-master/32x32x24/shapes-assets/014_castle1.png" id="13_gw3fx"]
+[ext_resource type="Script" uid="uid://d0ua4d5co06x1" path="res://scenes/overworld/fog_manager.gd" id="14_5tehe"]
 [ext_resource type="Script" uid="uid://bm8bq6awoidao" path="res://scenes/dungeon/unjust/dungeon_unjust.gd" id="14_n1psn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_be0no"]
@@ -170,3 +171,6 @@ shape = SubResource("RectangleShape2D_nakos")
 
 [node name="Sprite2D" type="Sprite2D" parent="castle_moonfel"]
 texture = ExtResource("13_gw3fx")
+
+[node name="fog_manager" type="Node2D" parent="."]
+script = ExtResource("14_5tehe")
