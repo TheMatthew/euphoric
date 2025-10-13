@@ -1,3 +1,5 @@
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/EuphoricRPG/euphoric?utm_source=oss&utm_medium=github&utm_campaign=EuphoricRPG%2Feuphoric&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
+
 # 🎮 Project Design Document: *Euphoric* (Ultima IV-Style Game in Godot)
 
 ---
