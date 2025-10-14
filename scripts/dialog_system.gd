@@ -315,7 +315,7 @@ func close_dialog():
 	# Transition back to READY state
 	transition_to_ready_state()
 	# Emit signal for any listeners
-	dialog_closed.emit()
+	dialog_closed.emit("")
 
 # Public getter for current state
 func get_dialog_state() -> DialogState:
@@ -350,7 +350,7 @@ func _on_quick_question(question: String):
 func _on_text_submitted(text: String):
 	if text.is_empty() or not current_npc:
 		close_dialog()
-		dialog_finished.emit()
+		dialog_finished.emit("")
 		return ""
 	
 	var npc_data = current_npc.npc_info
@@ -361,7 +361,7 @@ func _on_text_submitted(text: String):
 	var response_color = "white"
 	if text.to_upper() in ["FAREWELL", "BYE"]:
 		close_dialog()
-		dialog_finished.emit()
+		dialog_finished.emit("")
 		return ""
 	dialog_text_label.text += "\n\n[color=%s]You: %s[/color]\n[color=%s]%s: %s[/color]" % [
 		question_color, text,
