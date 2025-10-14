@@ -349,7 +349,9 @@ func _on_quick_question(question: String):
 
 func _on_text_submitted(text: String):
 	if text.is_empty() or not current_npc:
-		return
+		close_dialog()
+		dialog_finished.emit()
+		return ""
 	
 	var npc_data = current_npc.npc_info
 	var response = get_npc_response(npc_data, text.to_upper().strip_edges())
