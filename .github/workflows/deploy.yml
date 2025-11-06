@@ -1,0 +1,166 @@
+name: "Build Godot Game"
+
+on:
+  release:
+    types: [created]
+
+env:
+  GODOT_VERSION: 4.3
+  EXPORT_NAME: euphoric
+  PROJECT_PATH: .  # Change this if your project.godot is in a subfolder
+
+jobs:
+  export-windows:
+    name: Windows Export
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      
+      - name: Windows Build
+        run: |
+          mkdir -v -p build/windows
+          EXPORT_DIR="$(readlink -f build)"
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Windows Desktop" "$EXPORT_DIR/windows/$EXPORT_NAME.exe"
+      
+      - name: Package Windows Build
+        run: |
+          cd build/windows
+          zip -r ${EXPORT_NAME}-${{ github.event.release.tag_name }}.windows.zip .
+      
+      - name: Upload to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build/windows/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.windows.zip
+          asset_name: ${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.windows.zip
+          asset_content_type: application/zip
+
+  export-linux:
+    name: Linux Export
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      
+      - name: Linux Build
+        run: |
+          mkdir -v -p build/linux
+          EXPORT_DIR="$(readlink -f build)"
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "Linux/X11" "$EXPORT_DIR/linux/$EXPORT_NAME.x86_64"
+      
+      - name: Package Linux Build
+        run: |
+          cd build/linux
+          chmod +x $EXPORT_NAME.x86_64
+          zip -r ${EXPORT_NAME}-${{ github.event.release.tag_name }}.linux.zip .
+      
+      - name: Upload to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build/linux/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.linux.zip
+          asset_name: ${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.linux.zip
+          asset_content_type: application/zip
+
+  export-mac:
+    name: Mac Export
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      
+      - name: Mac Build
+        run: |
+          mkdir -v -p build/mac
+          EXPORT_DIR="$(readlink -f build)"
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-release "macOS" "$EXPORT_DIR/mac/$EXPORT_NAME.zip"
+      
+      - name: Rename Mac Build
+        run: |
+          cd build/mac
+          mv $EXPORT_NAME.zip ${EXPORT_NAME}-${{ github.event.release.tag_name }}.macos.zip
+      
+      - name: Upload to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build/mac/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.macos.zip
+          asset_name: ${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.macos.zip
+          asset_content_type: application/zip
+
+  export-android:
+    name: Android Export
+    runs-on: ubuntu-24.04
+    container:
+      image: barichello/godot-ci:4.3
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
+      
+      - name: Android Build
+        run: |
+          mkdir -v -p build/android
+          EXPORT_DIR="$(readlink -f build)"
+          cd $PROJECT_PATH
+          godot --headless --verbose --export-debug "Android" "$EXPORT_DIR/android/$EXPORT_NAME.apk"
+      
+      - name: Rename Android Build
+        run: |
+          cd build/android
+          mv $EXPORT_NAME.apk ${EXPORT_NAME}-${{ github.event.release.tag_name }}.android.apk
+      
+      - name: Upload to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: build/android/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.android.apk
+          asset_name: ${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.android.apk
+          asset_content_type: application/vnd.android.package-archive
