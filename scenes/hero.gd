@@ -51,6 +51,11 @@ func _ready():
 	
 	camera.target=self
 	setup_dialog_system()
+	
+	# Restore saved position if loading a save
+	if Global.pending_hero_pos != Vector2.ZERO:
+		global_position = Global.pending_hero_pos
+		Global.pending_hero_pos = Vector2.ZERO
 
 func setup_dialog_system():
 	# Create dialog system - it manages its own state
@@ -93,7 +98,13 @@ func _on_dialog_state_changed(new_state):
 
 # Optional: Stop moving when the key is released
 func _input(event):
-		
+	# Ctrl+S to save anywhere
+	if event is InputEventKey and event.pressed and event.keycode == KEY_S and event.ctrl_pressed:
+		var scene_path = get_tree().current_scene.scene_file_path
+		Global.save_game(scene_path, global_position)
+		get_viewport().set_input_as_handled()
+		return
+
 	if in_combat:
 		return
 	if dialog_tree and dialog_tree.is_dialog_active():
