@@ -408,7 +408,7 @@ func find_nearest_player(enemy: CombatUnit) -> CombatUnit:
 	var nearest: CombatUnit = null
 	var min_dist = INF
 	for p in player_units:
-		if p.current_hp <= 0:
+		if not is_instance_valid(p) or p.current_hp <= 0:
 			continue
 		var d = enemy.grid_pos.distance_to(p.grid_pos)
 		if d < min_dist:
@@ -420,13 +420,13 @@ func find_nearest_player(enemy: CombatUnit) -> CombatUnit:
 
 func is_position_occupied(pos: Vector2i) -> bool:
 	for unit in player_units + enemies:
-		if unit.grid_pos == pos and unit.current_hp > 0:
+		if is_instance_valid(unit) and unit.grid_pos == pos and unit.current_hp > 0:
 			return true
 	return false
 
 func get_unit_at_position(pos: Vector2i) -> CombatUnit:
 	for unit in player_units + enemies:
-		if unit.grid_pos == pos and unit.current_hp > 0:
+		if is_instance_valid(unit) and unit.grid_pos == pos and unit.current_hp > 0:
 			return unit
 	return null
 
