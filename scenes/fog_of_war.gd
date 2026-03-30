@@ -115,10 +115,11 @@ func generate_dither_textures():
 # --- Sprite pool ---
 
 func acquire_sprite() -> Sprite2D:
-	if sprite_pool.size() > 0:
+	while sprite_pool.size() > 0:
 		var spr = sprite_pool.pop_back()
-		spr.visible = true
-		return spr
+		if is_instance_valid(spr):
+			spr.visible = true
+			return spr
 	var spr = Sprite2D.new()
 	spr.centered = false
 	spr.z_index = 40
@@ -126,8 +127,10 @@ func acquire_sprite() -> Sprite2D:
 	return spr
 
 func release_sprite(spr: Sprite2D):
-	spr.visible = false
-	sprite_pool.append(spr)
+	if is_instance_valid(spr):
+		spr.visible = false
+		sprite_pool.append(spr)
+	
 
 # --- Fog window management ---
 
@@ -212,7 +215,7 @@ func update_lighting(hero_grid_pos: Vector2i):
 		var spr = fog_sprites[gp]
 		if not is_instance_valid(spr):
 			fog_sprites.erase(gp)
-			continue
+			continue 
 		if level >= DITHER_LEVELS - 1:
 			spr.visible = false
 		else:

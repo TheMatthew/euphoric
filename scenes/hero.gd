@@ -142,13 +142,8 @@ func move(action):
 				em.on_hero_moved(zone_id)
 
 func get_current_tile_type() -> String:
-	tilemap = get_parent().get_node("TileMapLayer")
-
-	# target cell from hero position
 	var target_cell = tilemap.local_to_map(position)
-	# desired neighbor cell
-	
-	return str(tilemap.get_cell_source_id(target_cell)) # 0 = layer index
+	return str(tilemap.get_cell_source_id(target_cell))
 
 # Function to play the step sound based on the current tile type
 func play_step_sound():
@@ -159,20 +154,12 @@ func play_step_sound():
 		sound_player.play()  # Play the sound
 
 func can_move_to(world_pos: Vector2) -> bool:
-	tilemap = get_parent().get_node("TileMapLayer")
-
-	# target cell from hero position
 	var target_cell = tilemap.local_to_map(tilemap.to_local(world_pos))
-	# desired neighbor cell
-
 	if is_npc_at_position(world_pos):
-			return false  # Can't move here, NPC is blocking
-	var tile_id = tilemap.get_cell_source_id(target_cell) # 0 = layer index
-	if str(tile_id) in tile_sounds: # <-- make sure both are strings
-		# Now check for NPC collision at the target position
-		
+		return false
+	var tile_id = tilemap.get_cell_source_id(target_cell)
+	if str(tile_id) in tile_sounds:
 		return true
-	
 	return str(tile_id) not in blocked_tiles
 
 # Check if there's an NPC at the given world position
@@ -257,6 +244,7 @@ func _on_combat_ended(victory: bool):
 		get_tree().current_scene = stored_overworld_scene
 		if stored_music_player and is_instance_valid(stored_music_player):
 			stored_music_player.play()
+		camera.make_current()
 	elif not victory:
 		# Defeat: return to menu
 		if stored_overworld_scene:
