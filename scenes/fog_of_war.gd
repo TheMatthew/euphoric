@@ -210,6 +210,9 @@ func update_lighting(hero_grid_pos: Vector2i):
 
 		level = clampi(level, 0, DITHER_LEVELS - 1)
 		var spr = fog_sprites[gp]
+		if not is_instance_valid(spr):
+			fog_sprites.erase(gp)
+			continue
 		if level >= DITHER_LEVELS - 1:
 			spr.visible = false
 		else:
