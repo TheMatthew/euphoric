@@ -131,6 +131,15 @@ func move(action):
 			global_position = new_pos
 	play_step_sound()
 	moved.emit()
+	
+	# Check for random encounters on overworld
+	if not in_combat:
+		var tile_type = get_current_tile_type()
+		var zone_id = "plains" if tile_type in ["4", "5", "3"] else "mountains" if tile_type in ["7", "8"] else ""
+		if zone_id != "":
+			var em = get_node_or_null("/root/EncounterManager")
+			if em:
+				em.on_hero_moved(zone_id)
 
 func get_current_tile_type() -> String:
 	tilemap = get_parent().get_node("TileMapLayer")
@@ -190,58 +199,35 @@ var in_combat: bool = false
 var stored_overworld_scene: Node = null
 var stored_music_player: AudioStreamPlayer = null
 
-func trigger_combat():
-	"""Start a combat encounter by loading combat scene"""
+func start_combat_encounter(enemy_list: Array[String]):
 	if in_combat:
 		return
-	
 	in_combat = true
 	is_moving = false
 	move_timer.stop()
-	
-	print("=== HERO: Starting Combat ===")
-	
-	# Store reference to current overworld scene
+
 	stored_overworld_scene = get_tree().current_scene
-	print("Stored overworld scene: ", stored_overworld_scene.name)
-	
-	# Find and stop any overworld music
 	stop_overworld_music(stored_overworld_scene)
-	
-	print("Loading combat scene...")
-	# Load the combat scene
+
 	var combat_scene = load("res://scenes/combat.tscn")
 	if not combat_scene:
-		print("ERROR: Could not load combat scene!")
 		in_combat = false
 		return
-	
-	print("Combat scene loaded, instantiating...")
 	var combat_instance = combat_scene.instantiate()
-	print("Combat instance created: ", combat_instance.name)
-	
-	# Connect to combat end signal
+
+	# Find CombatSystem and configure enemies
 	var combat_system = combat_instance.get_node_or_null("CombatSystem")
 	if combat_system:
-		print("Found CombatSystem node")
+		combat_system.encounter_enemies.assign(enemy_list)
 		combat_system.combat_ended.connect(_on_combat_ended)
-	else:
-		print("ERROR: Could not find CombatSystem node!")
-		print("Combat instance children: ", combat_instance.get_children())
-	
-	# Switch to combat scene
-	print("Adding combat to scene tree...")
+
 	get_tree().root.add_child(combat_instance)
-	print("Setting combat as current scene...")
 	get_tree().current_scene = combat_instance
-	
-	# Hide overworld (but don't remove it)
-	print("Hiding overworld...")
 	stored_overworld_scene.visible = false
-	
-	print("=== HERO: Combat transition complete ===")
-	print("Current scene: ", get_tree().current_scene.name)
-	print("Current scene children: ", get_tree().current_scene.get_children())
+
+func trigger_combat():
+	# Manual combat trigger (A key) — default encounter
+	start_combat_encounter(["goblin", "goblin"])
 
 func stop_overworld_music(scene: Node):
 	"""Find and stop any AudioStreamPlayer in the overworld scene"""
@@ -263,32 +249,25 @@ func stop_overworld_music(scene: Node):
 					return
 
 func _on_combat_ended(victory: bool):
-	"""Handle end of combat and return to overworld"""
-	print("=== Combat Ended: ", "Victory" if victory else "Defeat", " ===")
-	
 	in_combat = false
-	
-	# Get the combat scene
 	var combat_scene = get_tree().current_scene
-	
-	# Restore overworld scene
-	if stored_overworld_scene:
+
+	if victory and stored_overworld_scene:
 		stored_overworld_scene.visible = true
 		get_tree().current_scene = stored_overworld_scene
-		
-		# Restart overworld music
 		if stored_music_player and is_instance_valid(stored_music_player):
 			stored_music_player.play()
-	
-	# Remove combat scene
+	elif not victory:
+		# Defeat: return to menu
+		if stored_overworld_scene:
+			stored_overworld_scene.queue_free()
+		stored_overworld_scene = null
+		stored_music_player = null
+		if combat_scene:
+			combat_scene.queue_free()
+		get_tree().change_scene_to_file("res://scenes/menu/menu.tscn")
+		return
+
 	if combat_scene:
 		combat_scene.queue_free()
-	
 	stored_music_player = null
-	
-	if victory:
-		print("You won the battle!")
-		# Combat system already added loot to Global.inventory
-	else:
-		print("You lost the battle!")
-		# Handle defeat (game over, retreat, etc.)

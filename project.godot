@@ -25,6 +25,7 @@ config/windows_native_icon="res://euphoric.ico"
 
 Global="*res://scripts/global.gd"
 DialogManager="*res://scripts/dialog_manager.gd"
+EncounterManager="*res://scripts/EncounterManager.gd"
 
 [display]
 
