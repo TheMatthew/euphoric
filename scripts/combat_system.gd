@@ -45,6 +45,10 @@ func _ready():
 	setup_cursor()
 	spawn_combat_units()
 	initialize_initiative()
+	# Make combat camera current
+	var cam = get_parent().get_node_or_null("Camera2D")
+	if cam:
+		cam.make_current()
 	start_turn()
 
 static func load_enemy_db():
