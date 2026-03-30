@@ -32,6 +32,8 @@ var player_units: Array[CombatUnit] = []
 static var enemy_db: Dictionary = {}
 # Which enemies to spawn (set before adding to tree)
 var encounter_enemies: Array[String] = []
+# Overworld tile type string where encounter happened (set before adding to tree)
+var overworld_tile: String = "4"
 
 signal combat_ended(victory: bool)
 
@@ -65,7 +67,7 @@ func setup_tilemap():
 func create_combat_tileset() -> TileSet:
 	var ts = TileSet.new()
 	ts.tile_size = Vector2i(GRID_SIZE, GRID_SIZE)
-	for i in range(3):
+	for i in range(4):
 		var source = TileSetAtlasSource.new()
 		source.texture = create_terrain_texture(i)
 		source.texture_region_size = Vector2i(GRID_SIZE, GRID_SIZE)
@@ -75,18 +77,42 @@ func create_combat_tileset() -> TileSet:
 func create_terrain_texture(terrain_type: int) -> ImageTexture:
 	var img = Image.create(GRID_SIZE, GRID_SIZE, false, Image.FORMAT_RGB8)
 	match terrain_type:
-		0: img.fill(Color(0.3, 0.6, 0.3))
-		1: img.fill(Color(0.5, 0.5, 0.5))
-		2: img.fill(Color(0.2, 0.4, 0.8))
+		0: img.fill(Color(0.3, 0.6, 0.3))  # Grass
+		1: img.fill(Color(0.5, 0.5, 0.5))  # Stone/rock
+		2: img.fill(Color(0.2, 0.4, 0.8))  # Water
+		3: img.fill(Color(0.2, 0.35, 0.15)) # Dark grass/forest floor
 		_: img.fill(Color(0.3, 0.6, 0.3))
 	return ImageTexture.create_from_image(img)
 
 func get_terrain_for_position(x: int, y: int) -> int:
-	if (x < 2 or x > GRID_WIDTH - 3) and (y > 2 and y < GRID_HEIGHT - 3):
-		return 2
-	elif (x + y) % 7 == 0:
-		return 1
-	return 0
+	# Generate terrain based on overworld tile where encounter happened
+	# 0=grass, 1=stone, 2=water, 3=dark grass
+	match overworld_tile:
+		"3":  # Swamp
+			if randi() % 5 == 0: return 2  # Puddles
+			if randi() % 3 == 0: return 3  # Muck
+			return 0
+		"4":  # Grass
+			if (x + y) % 9 == 0: return 1  # Occasional rock
+			return 0
+		"5":  # Scrub
+			if randi() % 4 == 0: return 1  # Rocky scrub
+			if randi() % 6 == 0: return 3
+			return 0
+		"6":  # Forest
+			if randi() % 3 == 0: return 3  # Dense undergrowth
+			if randi() % 7 == 0: return 1  # Fallen log/rock
+			return 0
+		"7":  # Hill
+			if randi() % 3 == 0: return 1  # Lots of rocks
+			return 0
+		"8":  # Mountain
+			if randi() % 2 == 0: return 1  # Mostly stone
+			if randi() % 5 == 0: return 0  # Patches of grass
+			return 1
+		_:  # Default (grass-like)
+			if (x + y) % 7 == 0: return 1
+			return 0
 
 func setup_cursor():
 	cursor = Sprite2D.new()

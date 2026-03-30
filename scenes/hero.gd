@@ -215,10 +215,10 @@ func start_combat_encounter(enemy_list: Array[String]):
 		return
 	var combat_instance = combat_scene.instantiate()
 
-	# Find CombatSystem and configure enemies
 	var combat_system = combat_instance.get_node_or_null("CombatSystem")
 	if combat_system:
 		combat_system.encounter_enemies.assign(enemy_list)
+		combat_system.overworld_tile = get_current_tile_type()
 		combat_system.combat_ended.connect(_on_combat_ended)
 
 	get_tree().root.add_child(combat_instance)
