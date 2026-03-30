@@ -75,6 +75,7 @@ func create_combat_tileset() -> TileSet:
 		var source = TileSetAtlasSource.new()
 		source.texture = create_terrain_texture(i)
 		source.texture_region_size = Vector2i(GRID_SIZE, GRID_SIZE)
+		source.create_tile(Vector2i(0, 0))
 		ts.add_source(source, i)
 	return ts
 
