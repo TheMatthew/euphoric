@@ -5,8 +5,8 @@
 [node name="CombatRoot" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(240, 176)
-zoom = Vector2(2, 2)
+position = Vector2(240, 196)
+zoom = Vector2(1.5, 1.5)
 
 [node name="CombatSystem" type="Node2D" parent="."]
 script = ExtResource("1")
