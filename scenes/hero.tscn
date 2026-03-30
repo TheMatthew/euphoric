@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://d1x8hdiyf0gh7"]
+[gd_scene load_steps=14 format=3 uid="uid://d1x8hdiyf0gh7"]
 
 [ext_resource type="Script" uid="uid://ltk21sspa4ft" path="res://scenes/FollowingCamera2D.gd" id="1_mo806"]
 [ext_resource type="Script" uid="uid://bohugl1jyx784" path="res://scenes/hero.gd" id="1_w7pyx"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c2k4yxebivld6" path="res://scenes/Textbox.gd" id="4_n40cg"]
 [ext_resource type="FontFile" uid="uid://d2pt750w0nauw" path="res://res/blackchancery.regular.ttf" id="5_txblw"]
 [ext_resource type="Script" uid="uid://csvtayvskx250" path="res://scripts/dialog_system.gd" id="6_y2sko"]
+[ext_resource type="Script" uid="uid://nsawdrfnvcw1" path="res://scenes/fog_of_war.gd" id="7_fog"]
 
 [sub_resource type="Theme" id="Theme_d6xj2"]
 
@@ -35,6 +36,7 @@ zoom = Vector2(2, 2)
 script = ExtResource("1_mo806")
 
 [node name="FogOfWar" type="Node2D" parent="Camera2D"]
+script = ExtResource("7_fog")
 
 [node name="MarginContainer" type="MarginContainer" parent="Camera2D"]
 z_index = 100
