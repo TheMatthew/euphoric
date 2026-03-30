@@ -50,7 +50,7 @@ func create_dialog_ui():
 	
 	dialog_panel.position = camera.position - (dialog_panel.size / 2)
 	dialog_panel.visible = false
-	dialog_panel.z_index = 10
+	dialog_panel.z_index = 100
 	
 	# Style the panel
 	var style_box = StyleBoxFlat.new()
@@ -204,6 +204,7 @@ func show_talk_prompt():
 		return
 		
 	talk_prompt_label = Label.new()
+	talk_prompt_label.z_index = 100
 	talk_prompt_label.add_theme_font_override("", dynamic_font)
 	talk_prompt_label.text = "Choose direction to talk, or ESC to cancel..."
 	talk_prompt_label.position = hero_node.global_position + Vector2(-80, -50)
@@ -225,6 +226,7 @@ func show_cancelled_message():
 		
 	var label = Label.new()
 	label.text = "Cancelled."
+	label.z_index = 100
 	label.position = hero_node.global_position + Vector2(-20, -40)
 	label.add_theme_color_override("font_color", Color.GRAY)
 	label.add_theme_color_override("font_shadow_color", Color.BLACK)
@@ -282,6 +284,7 @@ func show_no_one_message():
 		
 	var label = Label.new()
 	label.text = "No one there."
+	label.z_index = 100
 	label.position = hero_node.global_position + Vector2(-30, -40)
 	label.add_theme_color_override("font_color", Color.LIGHT_GRAY)
 	hero_node.get_parent().add_child(label)

@@ -7,59 +7,13 @@ var bg_music := AudioStreamPlayer.new()
 @export var enable_fog_of_war: bool = true
 @export var fog_sight_range: int = 6
 
-var fog_of_war: Node = null
-var map_width: int = 0
-var map_height: int = 0
-
 func _ready():
-	# Setup music (original functionality)
 	if source:
 		bg_music.stream = source
 		bg_music.autoplay = true
 		source.loop = true
 		add_child(bg_music)
 	
-	# Setup fog of war if enabled
-	if enable_fog_of_war:
-		setup_fog_of_war()
-
-func setup_fog_of_war():
-	"""Initialize fog of war system"""
-	# Calculate map dimensions from used cells
-	var cells = get_used_cells()
-	if cells.size() == 0:
-		print("No cells found, skipping fog of war")
-		return
-	
-	# Find map bounds
-	var min_x = INF
-	var min_y = INF
-	var max_x = -INF
-	var max_y = -INF
-	
-	for cell in cells:
-		min_x = min(min_x, cell.x)
-		min_y = min(min_y, cell.y)
-		max_x = max(max_x, cell.x)
-		max_y = max(max_y, cell.y)
-	
-	map_width = int(max_x - min_x + 1)
-	map_height = int(max_y - min_y + 1)
-	
-	print("Map dimensions: ", map_width, "x", map_height)
-	
-	# Load fog of war script
-	var FogOfWarScript = load("res://scripts/fog_of_war.gd")
-	if not FogOfWarScript:
-		print("ERROR: Could not load fog_of_war.gd")
-		return
-	
-	fog_of_war = FogOfWarScript.new(self, map_width, map_height)
-	add_child(fog_of_war)
-	
-	print("Fog of War initialized for village/area")
-
-func update_fog_for_hero(hero_pos: Vector2i):
-	"""Update fog of war based on hero position"""
-	if fog_of_war and fog_of_war.has_method("update_visibility"):
-		fog_of_war.update_visibility(hero_pos, fog_sight_range)
+	# FogOfWar is managed as a singleton on Camera2D — see scenes/fog_of_war.gd
+	if enable_fog_of_war and FogOfWar.instance:
+		FogOfWar.instance.call_deferred("refresh_for_new_scene")
