@@ -131,8 +131,8 @@ func setup_cursor():
 
 func setup_ui():
 	status_label = Label.new()
-	status_label.position = Vector2(20, GRID_HEIGHT * GRID_SIZE + 20)
-	status_label.custom_minimum_size = Vector2(GRID_WIDTH * GRID_SIZE - 40, 60)
+	status_label.position = Vector2(20, GRID_HEIGHT * GRID_SIZE + 5)
+	status_label.custom_minimum_size = Vector2(GRID_WIDTH * GRID_SIZE - 40, 40)
 	status_label.add_theme_color_override("font_color", Color.WHITE)
 	status_label.add_theme_color_override("font_shadow_color", Color.BLACK)
 	status_label.add_theme_constant_override("shadow_offset_x", 2)
