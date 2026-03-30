@@ -31,7 +31,7 @@ var emissive_tiles: Dictionary = {
 }
 
 # Time of day: 0.0 = noon (no fog), 1.0 = midnight (full falloff)
-var time_falloff: float = 1.0
+var time_falloff: float = 0.0
 
 # --- Internal state ---
 var tilemap: TileMapLayer = null
@@ -158,13 +158,18 @@ func rebuild_fog_window():
 		if not needed.has(gp):
 			to_remove.append(gp)
 	for gp in to_remove:
-		release_sprite(fog_sprites[gp])
+		var spr = fog_sprites[gp]
+		if is_instance_valid(spr):
+			spr.visible = false
+			sprite_pool.append(spr)
 		fog_sprites.erase(gp)
 
 	# Create sprites for new tiles in the window
 	for gp in needed:
 		if not fog_sprites.has(gp):
 			var spr = acquire_sprite()
+			if not spr:
+				continue
 			var level = REMEMBERED_LEVEL if revealed_tiles.has(gp) else 0
 			spr.texture = dither_textures[level]
 			var world_pos = tilemap.map_to_local(gp)
