@@ -226,7 +226,7 @@ func update_initiative_display():
 		child.queue_free()
 	for i in range(initiative_order.size()):
 		var unit = initiative_order[i]
-		if unit.current_hp <= 0:
+		if not is_instance_valid(unit) or unit.current_hp <= 0:
 			continue
 		var label = Label.new()
 		label.text = "%s (%d)" % [unit.unit_name, unit.initiative]
@@ -243,7 +243,7 @@ func start_turn():
 	if current_unit_index >= initiative_order.size():
 		current_unit_index = 0
 	current_unit = initiative_order[current_unit_index]
-	if current_unit.current_hp <= 0:
+	if not is_instance_valid(current_unit) or current_unit.current_hp <= 0:
 		next_turn()
 		return
 	current_unit.has_acted = false
