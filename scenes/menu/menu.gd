@@ -265,7 +265,11 @@ func _on_new_game_pressed():
 
 func _on_continue_pressed():
 	play_tick()
-	show_save_slots()
+	var data = Global.load_game()
+	if data.is_empty():
+		return
+	Global.apply_save(data)
+	get_tree().change_scene_to_file(data.get("scene", ""))
 
 func _on_options_pressed():
 	play_tick()
