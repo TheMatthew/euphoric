@@ -62,62 +62,43 @@ static func load_enemy_db():
 func setup_tilemap():
 	tilemap = TileMapLayer.new()
 	tilemap.name = "CombatGrid"
-	tilemap.tile_set = create_combat_tileset()
+	tilemap.tile_set = load("res://res/euphoric.tres")
 	add_child(tilemap)
 	for y in range(GRID_HEIGHT):
 		for x in range(GRID_WIDTH):
-			tilemap.set_cell(Vector2i(x, y), get_terrain_for_position(x, y), Vector2i(0, 0), 0)
-
-func create_combat_tileset() -> TileSet:
-	var ts = TileSet.new()
-	ts.tile_size = Vector2i(GRID_SIZE, GRID_SIZE)
-	for i in range(4):
-		var source = TileSetAtlasSource.new()
-		source.texture = create_terrain_texture(i)
-		source.texture_region_size = Vector2i(GRID_SIZE, GRID_SIZE)
-		source.create_tile(Vector2i(0, 0))
-		ts.add_source(source, i)
-	return ts
-
-func create_terrain_texture(terrain_type: int) -> ImageTexture:
-	var img = Image.create(GRID_SIZE, GRID_SIZE, false, Image.FORMAT_RGB8)
-	match terrain_type:
-		0: img.fill(Color(0.3, 0.6, 0.3))  # Grass
-		1: img.fill(Color(0.5, 0.5, 0.5))  # Stone/rock
-		2: img.fill(Color(0.2, 0.4, 0.8))  # Water
-		3: img.fill(Color(0.2, 0.35, 0.15)) # Dark grass/forest floor
-		_: img.fill(Color(0.3, 0.6, 0.3))
-	return ImageTexture.create_from_image(img)
+			var tile_id = get_terrain_for_position(x, y)
+			tilemap.set_cell(Vector2i(x, y), tile_id, Vector2i(0, 0), 0)
 
 func get_terrain_for_position(x: int, y: int) -> int:
-	# Generate terrain based on overworld tile where encounter happened
-	# 0=grass, 1=stone, 2=water, 3=dark grass
+	# Returns real tileset source IDs: 0=deep_water, 1=water, 2=shallow, 3=swamp,
+	# 4=grass, 5=scrub, 6=forest, 7=hill, 8=mountain
 	match overworld_tile:
-		"3":  # Swamp
-			if randi() % 5 == 0: return 2  # Puddles
-			if randi() % 3 == 0: return 3  # Muck
-			return 0
-		"4":  # Grass
-			if (x + y) % 9 == 0: return 1  # Occasional rock
-			return 0
-		"5":  # Scrub
-			if randi() % 4 == 0: return 1  # Rocky scrub
-			if randi() % 6 == 0: return 3
-			return 0
-		"6":  # Forest
-			if randi() % 3 == 0: return 3  # Dense undergrowth
-			if randi() % 7 == 0: return 1  # Fallen log/rock
-			return 0
-		"7":  # Hill
-			if randi() % 3 == 0: return 1  # Lots of rocks
-			return 0
-		"8":  # Mountain
-			if randi() % 2 == 0: return 1  # Mostly stone
-			if randi() % 5 == 0: return 0  # Patches of grass
-			return 1
-		_:  # Default (grass-like)
-			if (x + y) % 7 == 0: return 1
-			return 0
+		"3":  # Swamp encounter
+			if randi() % 5 == 0: return 2   # Shallow water puddles
+			if randi() % 3 == 0: return 3   # Swamp
+			return 4                          # Grass
+		"4":  # Grass encounter
+			if (x + y) % 9 == 0: return 5   # Occasional scrub
+			return 4                          # Grass
+		"5":  # Scrub encounter
+			if randi() % 4 == 0: return 7   # Rocky hill
+			if randi() % 3 == 0: return 5   # Scrub
+			return 4                          # Grass
+		"6":  # Forest encounter
+			if randi() % 3 == 0: return 6   # Forest trees
+			if randi() % 5 == 0: return 5   # Scrub undergrowth
+			return 4                          # Grass clearings
+		"7":  # Hill encounter
+			if randi() % 3 == 0: return 7   # Hills
+			if randi() % 5 == 0: return 5   # Scrub
+			return 4                          # Grass
+		"8":  # Mountain encounter
+			if randi() % 3 == 0: return 8   # Mountain
+			if randi() % 2 == 0: return 7   # Hill
+			return 4                          # Grass patches
+		_:  # Default
+			if (x + y) % 7 == 0: return 5
+			return 4
 
 func setup_cursor():
 	cursor = Sprite2D.new()
