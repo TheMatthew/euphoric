@@ -397,6 +397,9 @@ func restart_quiz():
 	# Will advance on Enter key press
 
 func show_shipwreck():
+	# Save character stats to Global
+	Global.stats.set_from_principles(principle_scores)
+	Global.stats.virtue = final_virtue_name
 	current_story_sequence = "ship"
 	show_sprite("ship")
 	show_story(ship_story)
