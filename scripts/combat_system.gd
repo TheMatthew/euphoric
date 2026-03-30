@@ -670,10 +670,11 @@ class CombatUnit extends Node2D:
 				attack_range = 2
 		
 		if is_player:
-			max_hp = 25
-			current_hp = 25
-			attack_power = 6
-			dex_modifier = 2
+			max_hp = Global.stats.max_hp
+			current_hp = Global.stats.current_hp
+			attack_power = Global.stats.attack_power
+			defense = Global.stats.defense
+			dex_modifier = Global.stats.initiative_mod
 		else:
 			max_hp = 15
 			current_hp = 15
