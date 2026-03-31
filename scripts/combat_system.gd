@@ -9,6 +9,7 @@ enum CombatState {
 	WAITING_FOR_ACTION,
 	SELECTING_ATTACK_TARGET,
 	ANIMATING,
+	LOOTING,
 	COMBAT_WON,
 	COMBAT_LOST
 }
@@ -266,6 +267,8 @@ func _input(event):
 			handle_action_input(event)
 		CombatState.SELECTING_ATTACK_TARGET:
 			handle_attack_targeting(event)
+		CombatState.LOOTING:
+			handle_looting_input(event)
 
 func handle_action_input(event):
 	if event.is_action_pressed("move_up"):
@@ -282,6 +285,38 @@ func handle_action_input(event):
 		end_turn()
 
 # --- Movement ---
+
+func handle_looting_input(event):
+	if event.is_action_pressed("ui_accept"):
+		current_state = CombatState.COMBAT_WON
+		combat_ended.emit(true)
+		return
+	if event.is_action_pressed("move_up"):
+		loot_move(Vector2i(0, -1))
+	elif event.is_action_pressed("move_down"):
+		loot_move(Vector2i(0, 1))
+	elif event.is_action_pressed("move_left"):
+		loot_move(Vector2i(-1, 0))
+	elif event.is_action_pressed("move_right"):
+		loot_move(Vector2i(1, 0))
+
+func loot_move(direction: Vector2i):
+	var unit = player_units[0]
+	var new_pos = unit.grid_pos + direction
+	if new_pos.x < 0 or new_pos.x >= GRID_WIDTH or new_pos.y < 0 or new_pos.y >= GRID_HEIGHT:
+		return
+	unit.grid_pos = new_pos
+	unit.position = Vector2(new_pos.x * GRID_SIZE, new_pos.y * GRID_SIZE)
+	if collect_chest_at_position(new_pos):
+		# Check if more loot remains
+		var has_loot = false
+		for child in get_children():
+			if child is LootChest:
+				has_loot = true
+				break
+		if not has_loot:
+			current_state = CombatState.COMBAT_WON
+			update_status("All loot collected! Press Enter to continue.")
 
 func attempt_move(direction: Vector2i):
 	var new_pos = current_unit.grid_pos + direction
@@ -450,11 +485,20 @@ func get_unit_at_position(pos: Vector2i) -> CombatUnit:
 
 func check_victory():
 	if enemies.size() == 0:
-		# Sync HP back to Global
 		if player_units.size() > 0:
 			Global.stats.current_hp = player_units[0].current_hp
-		current_state = CombatState.COMBAT_WON
-		update_status("Victory! Press Enter to continue.")
+		# Check if there are loot chests to collect
+		var has_loot = false
+		for child in get_children():
+			if child is LootChest:
+				has_loot = true
+				break
+		if has_loot:
+			current_state = CombatState.LOOTING
+			update_status("Victory! Collect loot with arrows. Enter to leave.")
+		else:
+			current_state = CombatState.COMBAT_WON
+			update_status("Victory! Press Enter to continue.")
 
 func check_defeat():
 	if player_units.size() == 0:
