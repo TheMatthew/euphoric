@@ -193,22 +193,31 @@ func _process(_delta):
 		rebuild_fog_window()
 
 func update_lighting(hero_grid_pos: Vector2i):
-	var light_map: Dictionary = {}
+	# Two maps: visibility (bool, line-of-sight) and brightness (0-1, distance falloff)
+	var visible_map: Dictionary = {}
+	var brightness_map: Dictionary = {}
 
 	# Hero light
-	cast_light_from(hero_grid_pos, SIGHT_RANGE, 1.0, light_map)
+	cast_light_from(hero_grid_pos, SIGHT_RANGE, 1.0, visible_map, brightness_map)
 
 	# Emissive tiles (only check tiles in our window)
 	for gp in fog_sprites:
 		var tile_id = tilemap.get_cell_source_id(gp)
 		if emissive_tiles.has(tile_id):
 			var info = emissive_tiles[tile_id]
-			cast_light_from(gp, info.get("range", 4), info.get("strength", 0.6), light_map)
+			cast_light_from(gp, info.get("range", 4), info.get("strength", 0.6), visible_map, brightness_map)
 
 	# Apply to sprites
 	for gp in fog_sprites:
-		var raw_brightness: float = light_map.get(gp, 0.0)
-		var effective: float = lerpf(1.0, raw_brightness, time_falloff)
+		var has_los: bool = visible_map.has(gp)
+		var raw_brightness: float = brightness_map.get(gp, 0.0)
+
+		# If no line-of-sight, tile is dark regardless of time
+		# If has LOS, apply time_falloff to distance brightness only
+		var effective: float = 0.0
+		if has_los:
+			effective = lerpf(1.0, raw_brightness, time_falloff)
+
 		var level = int(round(effective * float(DITHER_LEVELS - 1)))
 
 		if effective > 0.05:
@@ -230,9 +239,10 @@ func update_lighting(hero_grid_pos: Vector2i):
 
 # --- Raycasting light ---
 
-func cast_light_from(origin: Vector2i, max_range: int, strength: float, light_map: Dictionary):
-	var current = light_map.get(origin, 0.0)
-	light_map[origin] = maxf(current, strength)
+func cast_light_from(origin: Vector2i, max_range: int, strength: float, visible_map: Dictionary, brightness_map: Dictionary):
+	visible_map[origin] = true
+	var current = brightness_map.get(origin, 0.0)
+	brightness_map[origin] = maxf(current, strength)
 
 	for angle_deg in range(0, 360, 3):
 		var angle_rad = deg_to_rad(angle_deg)
@@ -247,12 +257,13 @@ func cast_light_from(origin: Vector2i, max_range: int, strength: float, light_ma
 			if gp.x < map_min.x or gp.x > map_max.x or gp.y < map_min.y or gp.y > map_max.y:
 				break
 
+			visible_map[gp] = true
 			var falloff_val = 1.0 - (distance / float(max_range))
 			var brightness = strength * maxf(falloff_val, 0.0)
 
-			var prev = light_map.get(gp, 0.0)
+			var prev = brightness_map.get(gp, 0.0)
 			if brightness > prev:
-				light_map[gp] = brightness
+				brightness_map[gp] = brightness
 
 			var tile_id = tilemap.get_cell_source_id(gp)
 			if light_blocking_tiles.has(tile_id):
