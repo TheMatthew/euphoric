@@ -1,0 +1,58 @@
+{
+  "weapons": {
+    "hands": { "name": "Hands", "damage": 0, "range": 1, "slot": "weapon", "price": 0, "two_handed": false },
+    "dagger": { "name": "Dagger", "damage": 6, "range": 3, "slot": "weapon", "price": 10, "two_handed": false },
+    "club": { "name": "Club", "damage": 8, "range": 1, "slot": "weapon", "price": 15, "two_handed": false },
+    "main_gauche": { "name": "Main Gauche", "damage": 8, "range": 1, "slot": "weapon", "price": 20, "defense": 1, "two_handed": false },
+    "spear": { "name": "Spear", "damage": 10, "range": 5, "slot": "weapon", "price": 30, "two_handed": false },
+    "throwing_axe": { "name": "Throwing Axe", "damage": 10, "range": 4, "slot": "weapon", "price": 30, "two_handed": false },
+    "short_sword": { "name": "Short Sword", "damage": 12, "range": 1, "slot": "weapon", "price": 50, "two_handed": false },
+    "silver_sword": { "name": "Silver Sword", "damage": 12, "range": 1, "slot": "weapon", "price": 60, "two_handed": false },
+    "mace": { "name": "Mace", "damage": 15, "range": 1, "slot": "weapon", "price": 50, "two_handed": false },
+    "long_sword": { "name": "Long Sword", "damage": 15, "range": 1, "slot": "weapon", "price": 80, "two_handed": false },
+    "morning_star": { "name": "Morning Star", "damage": 15, "range": 2, "slot": "weapon", "price": 75, "two_handed": false },
+    "two_handed_hammer": { "name": "Two-Handed Hammer", "damage": 20, "range": 1, "slot": "weapon", "price": 120, "two_handed": true },
+    "two_handed_axe": { "name": "Two-Handed Axe", "damage": 20, "range": 1, "slot": "weapon", "price": 120, "two_handed": true },
+    "two_handed_sword": { "name": "Two-Handed Sword", "damage": 20, "range": 1, "slot": "weapon", "price": 120, "two_handed": true },
+    "halberd": { "name": "Halberd", "damage": 30, "range": 2, "slot": "weapon", "price": 200, "two_handed": true },
+    "magic_axe": { "name": "Magic Axe", "damage": 20, "range": 15, "slot": "weapon", "price": 400, "two_handed": false },
+    "magic_bow": { "name": "Magic Bow", "damage": 15, "range": 15, "slot": "weapon", "price": 350, "two_handed": true },
+    "mystic_sword": { "name": "Mystic Sword", "damage": 30, "range": 1, "slot": "weapon", "price": 0, "defense": 1, "two_handed": true },
+    "glass_sword": { "name": "Glass Sword", "damage": 99, "range": 1, "slot": "weapon", "price": 500, "two_handed": false, "consumable": true },
+    "sling": { "name": "Sling", "damage": 6, "range": 4, "slot": "weapon", "price": 15, "two_handed": true },
+    "bow": { "name": "Bow", "damage": 10, "range": 7, "slot": "weapon", "price": 60, "two_handed": true },
+    "crossbow": { "name": "Crossbow", "damage": 12, "range": 8, "slot": "weapon", "price": 90, "two_handed": true },
+    "flaming_oil": { "name": "Flaming Oil", "damage": 8, "range": 4, "slot": "weapon", "price": 5, "two_handed": true, "consumable": true },
+    "staff": { "name": "Staff", "damage": 16, "range": 1, "slot": "weapon", "price": 25, "two_handed": true }
+  },
+  "armor": {
+    "cloth_armour": { "name": "Cloth Armour", "defense": 1, "slot": "armor", "price": 10 },
+    "leather_armour": { "name": "Leather Armour", "defense": 2, "slot": "armor", "price": 30 },
+    "ring_mail": { "name": "Ring Mail", "defense": 3, "slot": "armor", "price": 60 },
+    "scale_mail": { "name": "Scale Mail", "defense": 4, "slot": "armor", "price": 100 },
+    "chain_mail": { "name": "Chain Mail", "defense": 5, "slot": "armor", "price": 150 },
+    "plate_mail": { "name": "Plate Mail", "defense": 7, "slot": "armor", "price": 300 },
+    "mystic_armour": { "name": "Mystic Armour", "defense": 10, "slot": "armor", "price": 0 }
+  },
+  "helms": {
+    "leather_helm": { "name": "Leather Helm", "defense": 1, "slot": "helm", "price": 15 },
+    "chain_coif": { "name": "Chain Coif", "defense": 2, "slot": "helm", "price": 40 },
+    "iron_helm": { "name": "Iron Helm", "defense": 3, "slot": "helm", "price": 80 },
+    "spiked_helm": { "name": "Spiked Helm", "defense": 3, "slot": "helm", "price": 80, "damage": 4 }
+  },
+  "shields": {
+    "small_shield": { "name": "Small Shield", "defense": 2, "slot": "shield", "price": 30 },
+    "large_shield": { "name": "Large Shield", "defense": 3, "slot": "shield", "price": 60 },
+    "spiked_shield": { "name": "Spiked Shield", "defense": 3, "slot": "shield", "price": 70, "damage": 6 },
+    "magic_shield": { "name": "Magic Shield", "defense": 5, "slot": "shield", "price": 250 }
+  },
+  "accessories": {
+    "ring_of_protection": { "name": "Ring of Protection", "defense": 2, "slot": "accessory", "price": 200 },
+    "amulet_of_turning": { "name": "Amulet of Turning", "defense": 1, "slot": "accessory", "price": 150 }
+  },
+  "consumables": {
+    "potion": { "name": "Healing Potion", "effect": "heal", "value": 25, "price": 25 },
+    "arrows": { "name": "Arrows", "price": 5 },
+    "quarrels": { "name": "Quarrels", "price": 8 }
+  }
+}

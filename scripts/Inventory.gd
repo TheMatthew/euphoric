@@ -12,6 +12,7 @@ var gold := 100
 var equipped := {
 	"weapon": "",
 	"armor": "",
+	"helm": "",
 	"shield": "",
 	"accessory": "",
 }

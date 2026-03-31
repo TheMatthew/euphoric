@@ -1,9 +1,28 @@
 {
   "blacksmith": [
-	{"id":"sword", "name":"Short Sword", "price":50},
-	{"id":"shield", "name":"Wooden Shield", "price":30}
+    {"id": "dagger", "price": 10},
+    {"id": "short_sword", "price": 50},
+    {"id": "long_sword", "price": 80},
+    {"id": "mace", "price": 50},
+    {"id": "bow", "price": 60},
+    {"id": "crossbow", "price": 90},
+    {"id": "small_shield", "price": 30},
+    {"id": "large_shield", "price": 60},
+    {"id": "leather_helm", "price": 15},
+    {"id": "iron_helm", "price": 80}
+  ],
+  "armorer": [
+    {"id": "cloth_armour", "price": 10},
+    {"id": "leather_armour", "price": 30},
+    {"id": "ring_mail", "price": 60},
+    {"id": "scale_mail", "price": 100},
+    {"id": "chain_mail", "price": 150},
+    {"id": "plate_mail", "price": 300}
   ],
   "general_store": [
-	{"id":"potion", "name":"Healing Potion", "price":25}
+    {"id": "potion", "price": 25},
+    {"id": "arrows", "price": 5},
+    {"id": "quarrels", "price": 8},
+    {"id": "flaming_oil", "price": 5}
   ]
 }
