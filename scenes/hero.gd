@@ -33,7 +33,12 @@ signal moved
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 @onready var sound_player = get_node("SoundPlayer")
 @onready var camera:FollowingCamera2D = get_parent().get_node("Camera2D")
-@onready var tilemap:TileMapLayer = get_parent().get_node("TileMapLayer")
+var tilemap: TileMapLayer
+
+func get_tilemap() -> TileMapLayer:
+	if not is_instance_valid(tilemap):
+		tilemap = get_parent().get_node_or_null("TileMapLayer")
+	return tilemap
 
 
 @onready var dialog_tree: Node= dialog_system.new()
@@ -142,10 +147,11 @@ func move(action):
 				em.on_hero_moved(zone_id)
 
 func get_current_tile_type() -> String:
-	if not is_instance_valid(tilemap):
+	var tm = get_tilemap()
+	if not tm:
 		return ""
-	var target_cell = tilemap.local_to_map(position)
-	return str(tilemap.get_cell_source_id(target_cell))
+	var target_cell = tm.local_to_map(position)
+	return str(tm.get_cell_source_id(target_cell))
 
 # Function to play the step sound based on the current tile type
 func play_step_sound():
@@ -156,12 +162,13 @@ func play_step_sound():
 		sound_player.play()  # Play the sound
 
 func can_move_to(world_pos: Vector2) -> bool:
-	if not is_instance_valid(tilemap):
+	var tm = get_tilemap()
+	if not tm:
 		return false
-	var target_cell = tilemap.local_to_map(tilemap.to_local(world_pos))
+	var target_cell = tm.local_to_map(tm.to_local(world_pos))
 	if is_npc_at_position(world_pos):
 		return false
-	var tile_id = tilemap.get_cell_source_id(target_cell)
+	var tile_id = tm.get_cell_source_id(target_cell)
 	if str(tile_id) in tile_sounds:
 		return true
 	return str(tile_id) not in blocked_tiles
