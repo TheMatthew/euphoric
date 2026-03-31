@@ -56,6 +56,7 @@ class CharacterStats:
 	var level: int = 1
 	var xp: int = 0
 	var virtue: String = ""
+	var player_name: String = "Hero"
 
 	var max_hp: int = 0
 	var current_hp: int = 0
@@ -92,6 +93,7 @@ class CharacterStats:
 
 	func to_dict() -> Dictionary:
 		return {
+			"player_name": player_name,
 			"str": str_base, "dex": dex_base, "int": int_base,
 			"end": end_base, "wis": wis_base, "cha": cha_base,
 			"level": level, "xp": xp, "virtue": virtue,
@@ -99,6 +101,7 @@ class CharacterStats:
 		}
 
 	func from_dict(d: Dictionary):
+		player_name = d.get("player_name", "Hero")
 		str_base = d.get("str", 10)
 		dex_base = d.get("dex", 10)
 		int_base = d.get("int", 10)
