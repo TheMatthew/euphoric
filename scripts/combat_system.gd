@@ -335,14 +335,26 @@ func update_cursor_position():
 # --- Attack resolution with hit/miss ---
 
 func resolve_attack(attacker: CombatUnit, defender: CombatUnit) -> Dictionary:
-	# Hit roll: attacker.hit_pct vs defender.dodge_pct
 	var hit_roll = randi_range(1, 100)
 	var hit_chance = attacker.hit_pct - defender.dodge_pct
 	if hit_roll > hit_chance:
 		return {"hit": false, "damage": 0}
 	var damage = maxi(1, attacker.attack_power + randi_range(-2, 2) - defender.defense)
 	defender.take_damage(damage)
+	show_hit_flash(defender)
 	return {"hit": true, "damage": damage}
+
+func show_hit_flash(target: CombatUnit):
+	var star = Label.new()
+	star.text = "✦"
+	star.add_theme_font_size_override("font_size", 28)
+	star.add_theme_color_override("font_color", Color.YELLOW)
+	star.position = target.position + Vector2(4, -8)
+	star.z_index = 10
+	add_child(star)
+	var tween = create_tween()
+	tween.tween_property(star, "modulate:a", 0.0, 0.3)
+	tween.tween_callback(star.queue_free)
 
 func execute_attack():
 	var target = get_unit_at_position(attack_cursor_position)
