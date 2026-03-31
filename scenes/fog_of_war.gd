@@ -33,6 +33,7 @@ var emissive_tiles: Dictionary = {
 # Time of day: 0.0 = noon (no fog), 1.0 = midnight (full falloff)
 var time_falloff: float = 0.0
 
+
 # --- Internal state ---
 var tilemap: TileMapLayer = null
 var hero: CharacterBody2D = null

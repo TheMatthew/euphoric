@@ -31,7 +31,7 @@ func pick_enemy(zone: Dictionary) -> String:
 	var total = 0
 	for entry in pool:
 		total += entry.get("weight", 1)
-	var pick = randi() % total
+	var pick = randi() % int(total)
 	var cum = 0
 	for entry in pool:
 		cum += entry.get("weight", 1)
