@@ -91,6 +91,7 @@ var final_virtue_name = ""
 var current_story_sequence = "intro"
 var story_index = 0
 var selected_option = 0
+var name_input: LineEdit = null
 
 # Story sequences
 var intro_story = [
@@ -151,6 +152,8 @@ func _ready():
 	show_story(intro_story)
 
 func _input(event):
+	if current_story_sequence == "name_entry":
+		return  # LineEdit handles input
 	if current_story_sequence == "confirmation":
 		# Handle confirmation input
 		if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_left"):
@@ -216,9 +219,9 @@ func advance_story():
 			if story_index < fortune_story.size():
 				text_box.text = fortune_story[story_index]
 			else:
-				# Start the quiz
-				start_quiz()
-		
+				show_name_entry()
+		"name_done":
+			start_quiz()
 		"prophecy":
 			story_index += 1
 			if story_index < prophecy_story.size():
@@ -244,6 +247,30 @@ func advance_story():
 			else:
 				# Load next scene
 				load_next_scene()
+
+func show_name_entry():
+	current_story_sequence = "name_entry"
+	continue_label.visible = false
+	text_box.text = "'Tell me, child... what is your name?'"
+	name_input = LineEdit.new()
+	name_input.placeholder_text = "Enter your name..."
+	name_input.custom_minimum_size = Vector2(400, 40)
+	name_input.position = Vector2(340, 610)
+	name_input.add_theme_font_size_override("font_size", 20)
+	name_input.text_submitted.connect(_on_name_submitted)
+	add_child(name_input)
+	name_input.grab_focus()
+
+func _on_name_submitted(text: String):
+	var pname = text.strip_edges()
+	if pname.is_empty():
+		return
+	Global.stats.player_name = pname
+	name_input.queue_free()
+	name_input = null
+	text_box.text = "'%s... yes, I see it now. Let us begin.'" % pname
+	continue_label.visible = true
+	current_story_sequence = "name_done"
 
 func start_quiz():
 	quiz_started = true

@@ -101,6 +101,141 @@ func _on_dialog_state_changed(new_state):
 		dialog_system.DialogState.DIALOG:
 			print("Hero: In dialog mode")
 
+# --- Inventory/Stats Panel ---
+var inventory_panel: Panel = null
+var inv_selected: int = 0
+var inv_item_keys: Array = []
+
+func open_inventory():
+	if inventory_panel and inventory_panel.visible:
+		close_inventory()
+		return
+	if inventory_panel:
+		inventory_panel.queue_free()
+
+	inv_item_keys = Global.inventory.list_items().keys()
+	inv_selected = 0
+	build_inventory_panel()
+
+func build_inventory_panel():
+	if inventory_panel:
+		inventory_panel.queue_free()
+
+	var s = Global.stats
+	var inv = Global.inventory
+
+	inventory_panel = Panel.new()
+	inventory_panel.z_index = 100
+	inventory_panel.size = Vector2(420, 400)
+	inventory_panel.position = camera.position - inventory_panel.size / 2
+
+	var style = StyleBoxFlat.new()
+	style.bg_color = Color(0.1, 0.1, 0.2, 0.95)
+	style.border_width_left = 2; style.border_width_right = 2
+	style.border_width_top = 2; style.border_width_bottom = 2
+	style.border_color = Color(0.6, 0.6, 0.8)
+	inventory_panel.add_theme_stylebox_override("panel", style)
+
+	var vbox = VBoxContainer.new()
+	vbox.position = Vector2(12, 8)
+	vbox.custom_minimum_size = Vector2(396, 380)
+	inventory_panel.add_child(vbox)
+
+	# Name + stats header
+	var header = Label.new()
+	header.text = "%s  Lv %d  XP %d  (%s)" % [s.player_name, s.level, s.xp, s.virtue if s.virtue else "—"]
+	header.add_theme_color_override("font_color", Color.YELLOW)
+	header.add_theme_font_size_override("font_size", 16)
+	vbox.add_child(header)
+	vbox.add_child(HSeparator.new())
+
+	# Base stats
+	_add_label(vbox, "STR %d  DEX %d  INT %d  END %d  WIS %d  CHA %d" % [
+		s.str_base, s.dex_base, s.int_base, s.end_base, s.wis_base, s.cha_base], 12, Color.WHITE)
+
+	# Derived stats
+	_add_label(vbox, "HP %d/%d  MP %d/%d  ATK %d  DEF %d  HIT %d%%  DODGE %d%%" % [
+		s.current_hp, s.max_hp, s.current_mp, s.max_mp,
+		s.attack_power, s.defense, s.hit_pct, s.dodge_pct], 12, Color.LIGHT_BLUE)
+
+	vbox.add_child(HSeparator.new())
+
+	# Equipment
+	_add_label(vbox, "Equipment", 14, Color.YELLOW)
+	for slot in inv.equipped:
+		var item = inv.equipped[slot]
+		_add_label(vbox, "  %s: %s" % [slot.capitalize(), item if item else "—"], 12, Color.WHITE)
+
+	vbox.add_child(HSeparator.new())
+
+	# Inventory with selection
+	_add_label(vbox, "Inventory  (Gold: %d)" % inv.gold, 14, Color.YELLOW)
+	inv_item_keys = inv.list_items().keys()
+	if inv_item_keys.is_empty():
+		_add_label(vbox, "  (empty)", 12, Color.GRAY)
+	else:
+		for i in range(inv_item_keys.size()):
+			var item_id = inv_item_keys[i]
+			var count = inv.items[item_id]
+			var prefix = "► " if i == inv_selected else "  "
+			var color = Color.YELLOW if i == inv_selected else Color.WHITE
+			_add_label(vbox, "%s%s x%d" % [prefix, item_id, count], 12, color)
+
+	# Footer
+	_add_label(vbox, "↑↓ select  Enter=equip  I/ESC=close", 10, Color.GRAY)
+
+	get_parent().add_child(inventory_panel)
+
+func _add_label(parent: Node, text: String, size: int, color: Color):
+	var l = Label.new()
+	l.text = text
+	l.add_theme_font_size_override("font_size", size)
+	l.add_theme_color_override("font_color", color)
+	parent.add_child(l)
+
+func handle_inventory_input(event: InputEvent):
+	if event.is_action_pressed("ui_inventory") or event.is_action_pressed("ui_cancel"):
+		close_inventory()
+		return
+	if inv_item_keys.is_empty():
+		return
+	if event.is_action_pressed("ui_up") or event.is_action_pressed("move_up"):
+		inv_selected = (inv_selected - 1) % inv_item_keys.size()
+		build_inventory_panel()
+	elif event.is_action_pressed("ui_down") or event.is_action_pressed("move_down"):
+		inv_selected = (inv_selected + 1) % inv_item_keys.size()
+		build_inventory_panel()
+	elif event.is_action_pressed("ui_accept"):
+		equip_selected_item()
+
+func equip_selected_item():
+	if inv_selected >= inv_item_keys.size():
+		return
+	var item_id = inv_item_keys[inv_selected]
+	# Determine slot based on item type
+	var slot = guess_equip_slot(item_id)
+	if slot != "":
+		Global.inventory.equip(slot, item_id)
+		inv_item_keys = Global.inventory.list_items().keys()
+		inv_selected = mini(inv_selected, inv_item_keys.size() - 1)
+		build_inventory_panel()
+
+func guess_equip_slot(item_id: String) -> String:
+	if item_id in ["sword", "dagger", "bow", "spear", "staff"]:
+		return "weapon"
+	if item_id in ["shield"]:
+		return "shield"
+	if item_id in ["armor", "chainmail", "leather", "robe"]:
+		return "armor"
+	if item_id in ["ring", "amulet"]:
+		return "accessory"
+	return ""
+
+func close_inventory():
+	if inventory_panel:
+		inventory_panel.queue_free()
+		inventory_panel = null
+
 # Optional: Stop moving when the key is released
 func _input(event):
 	# Ctrl+S to save anywhere
@@ -112,12 +247,18 @@ func _input(event):
 
 	if in_combat:
 		return
+	if inventory_panel and inventory_panel.visible:
+		handle_inventory_input(event)
+		return
 	if dialog_tree and dialog_tree.is_dialog_active():
 		return
 	
 	# Test combat trigger - press 'C' key
 	if event.is_action_pressed("ui_combat"):
 		trigger_combat()
+		return
+	if event.is_action_pressed("ui_inventory"):
+		open_inventory()
 		return
 	if event.is_action_released("move_right") or event.is_action_released("move_left") or event.is_action_released("move_up") or event.is_action_released("move_down"):
 		is_moving = false
