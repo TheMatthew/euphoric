@@ -76,6 +76,8 @@ func setup_dialog_system():
 func _unhandled_input(event):
 	if dialog_tree and dialog_tree.is_dialog_active():
 		return
+	if inventory_panel:
+		return
 	for action in inputs.keys():
 		if event.is_action_pressed(action) and not is_moving:
 			is_moving = true
