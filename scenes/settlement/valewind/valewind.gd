@@ -4,6 +4,6 @@ extends TileMapLayer
 var bg_music := AudioStreamPlayer.new()
 
 func _ready():
-	bg_music.stream = load("res://res/valewind.ogg")
+	bg_music.stream = load("res://res/music/valewind.ogg")
 	bg_music.autoplay = true
 	add_child(bg_music)
