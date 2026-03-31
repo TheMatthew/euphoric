@@ -13,6 +13,8 @@ jobs:
   export-windows:
     name: Windows Export
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     container:
       image: barichello/godot-ci:4.3
     steps:
@@ -41,18 +43,15 @@ jobs:
           zip -r ${EXPORT_NAME}-${{ github.event.release.tag_name }}.windows.zip .
       
       - name: Upload to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: build/windows/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.windows.zip
-          asset_name: ${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.windows.zip
-          asset_content_type: application/zip
+          files: build/windows/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.windows.zip
 
   export-linux:
     name: Linux Export
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     container:
       image: barichello/godot-ci:4.3
     steps:
@@ -80,18 +79,15 @@ jobs:
           zip -r ${EXPORT_NAME}-${{ github.event.release.tag_name }}.linux.zip .
       
       - name: Upload to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: build/linux/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.linux.zip
-          asset_name: ${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.linux.zip
-          asset_content_type: application/zip
+          files: build/linux/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.linux.zip
 
   export-mac:
     name: Mac Export
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     container:
       image: barichello/godot-ci:4.3
     steps:
@@ -118,18 +114,15 @@ jobs:
           mv $EXPORT_NAME.zip ${EXPORT_NAME}-${{ github.event.release.tag_name }}.macos.zip
       
       - name: Upload to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: build/mac/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.macos.zip
-          asset_name: ${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.macos.zip
-          asset_content_type: application/zip
+          files: build/mac/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.macos.zip
 
   export-android:
     name: Android Export
     runs-on: ubuntu-24.04
+    permissions:
+      contents: write
     container:
       image: barichello/godot-ci:4.3
     steps:
@@ -156,11 +149,6 @@ jobs:
           mv $EXPORT_NAME.apk ${EXPORT_NAME}-${{ github.event.release.tag_name }}.android.apk
       
       - name: Upload to Release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: build/android/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.android.apk
-          asset_name: ${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.android.apk
-          asset_content_type: application/vnd.android.package-archive
+          files: build/android/${{ env.EXPORT_NAME }}-${{ github.event.release.tag_name }}.android.apk
