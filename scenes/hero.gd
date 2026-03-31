@@ -286,8 +286,8 @@ func move(action):
 	play_step_sound()
 	moved.emit()
 	
-	# Check for random encounters on overworld
-	if not in_combat:
+	# Check for random encounters on overworld only
+	if not in_combat and "overworld" in get_tree().current_scene.scene_file_path:
 		var tile_type = get_current_tile_type()
 		var zone_id = "plains" if tile_type in ["4", "5", "3"] else "mountains" if tile_type in ["7", "8"] else ""
 		if zone_id != "":
