@@ -6,7 +6,7 @@ on:
 
 env:
   GODOT_VERSION: 4.6
-  EXPORT_NAME: euphoric
+  EXPORT_NAME: com.euphoricrpg.game
   PROJECT_PATH: .  # Change this if your project.godot is in a subfolder
 
 jobs:
