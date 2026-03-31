@@ -84,8 +84,8 @@ func _on_move_timer_timeout():
 			move(action)
 			
 # Optional callback handlers
-func _on_dialog_closed():
-	print("Hero: Dialog closed, back to normal gameplay")
+func _on_dialog_closed(_arg = null):
+	pass
 
 func _on_dialog_state_changed(new_state):
 	match new_state:
@@ -142,6 +142,8 @@ func move(action):
 				em.on_hero_moved(zone_id)
 
 func get_current_tile_type() -> String:
+	if not is_instance_valid(tilemap):
+		return ""
 	var target_cell = tilemap.local_to_map(position)
 	return str(tilemap.get_cell_source_id(target_cell))
 
@@ -154,6 +156,8 @@ func play_step_sound():
 		sound_player.play()  # Play the sound
 
 func can_move_to(world_pos: Vector2) -> bool:
+	if not is_instance_valid(tilemap):
+		return false
 	var target_cell = tilemap.local_to_map(tilemap.to_local(world_pos))
 	if is_npc_at_position(world_pos):
 		return false
