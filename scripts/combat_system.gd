@@ -257,7 +257,7 @@ func end_turn():
 
 func _input(event):
 	if current_state == CombatState.COMBAT_WON or current_state == CombatState.COMBAT_LOST:
-		if event.is_action_pressed("ui_accept"):
+		if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel"):
 			combat_ended.emit(current_state == CombatState.COMBAT_WON)
 		return
 	if not current_unit or not current_unit.is_player:
@@ -287,8 +287,7 @@ func handle_action_input(event):
 # --- Movement ---
 
 func handle_looting_input(event):
-	if event.is_action_pressed("ui_accept"):
-		current_state = CombatState.COMBAT_WON
+	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_cancel"):
 		combat_ended.emit(true)
 		return
 	if event.is_action_pressed("move_up"):
