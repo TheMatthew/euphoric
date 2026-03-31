@@ -40,74 +40,83 @@ func spawn_village_npcs(village_name: String, parent: Node) -> void:
 		push_error("TileMapLayer not found as sibling of parent")
 		return
 	
-	# Valid tile IDs for NPC spawning
+	# Valid tile IDs for NPC spawning (walkable tiles)
 	var valid_tiles = [4, 5, 22, 24]
 	
-	# Track occupied positions to avoid overlapping NPCs
-	var occupied_positions = []
-	var dims = get_viewport().get_visible_rect().size/grid_size
+	# Track occupied tile positions
+	var occupied_tiles: Array[Vector2i] = []
+	var dims = get_viewport().get_visible_rect().size / grid_size
 	if npc_spawn_area:
 		dims = npc_spawn_area.shape.size / grid_size
-	var num_x:int = int(dims.x)
-	var num_y:int = int(dims.y)
-	var offset_x:int = int(float(num_x) / 2)
-	var offset_y:int = int(float(num_y) / 2)
+	var num_x: int = int(dims.x)
+	var num_y: int = int(dims.y)
+	var offset_x: int = int(float(num_x) / 2)
+	var offset_y: int = int(float(num_y) / 2)
 	
 	for npc_info in npc_data[village_name]:
 		var npc = npc_node.new(npc_info)
-		var spawn_pos: Vector2
-		var attempts = 0
-		var max_attempts = 100  # Prevent infinite loops
+		var target_tile := Vector2i.ZERO
+		var valid := false
 		
-		# Try to find a valid spawn position
 		if npc_info.has("location") and npc_info["location"].has("x") and npc_info["location"].has("y"):
-			spawn_pos = Vector2(
-					(npc_info["location"]["x"] - offset_x) * grid_size - half_grid_size,
-					(npc_info["location"]["y"] - offset_y) * grid_size - half_grid_size
-				)
+			# Fixed position — convert grid coords to tile coords
+			var gx: int = int(npc_info["location"]["x"])
+			var gy: int = int(npc_info["location"]["y"])
+			var world_pos = Vector2(
+				(gx - offset_x) * grid_size - half_grid_size,
+				(gy - offset_y) * grid_size - half_grid_size
+			)
+			var global_pos = npc_spawn_area.to_global(world_pos)
+			target_tile = tilemap.local_to_map(tilemap.to_local(global_pos))
+			
+			# Validate, search nearby if invalid
+			if is_valid_npc_tile(tilemap, target_tile, valid_tiles, occupied_tiles):
+				valid = true
+			else:
+				for dy in range(-3, 4):
+					for dx in range(-3, 4):
+						var alt = target_tile + Vector2i(dx, dy)
+						if is_valid_npc_tile(tilemap, alt, valid_tiles, occupied_tiles):
+							target_tile = alt
+							valid = true
+							break
+					if valid:
+						break
 		else:
-			while attempts < max_attempts:
-				var x: int
-				var y: int
-				
-				# Set position based on "location" or random
-				if npc_info.has("location"):
-					x = int(npc_info["location"].get("x", randi() % num_x))
-					y = int(npc_info["location"].get("y", randi() % num_y))
-				else:
-					x = randi() % num_x
-					y = randi() % num_y
-				
-				# Calculate world position
-				spawn_pos = Vector2(
+			# Random position
+			for attempt in range(100):
+				var x = randi() % num_x
+				var y = randi() % num_y
+				var world_pos = Vector2(
 					(x - offset_x) * grid_size - half_grid_size,
 					(y - offset_y) * grid_size - half_grid_size
 				)
-				
-				# Convert world position to tile coordinates
-				var tile_pos:Vector2i = tilemap.local_to_map(npc_spawn_area.to_global(spawn_pos))
-				var tile_id = tilemap.get_cell_source_id(tile_pos)
-				
-				# Check if tile is valid and position is not occupied
-				if tile_id in valid_tiles and not is_position_occupied(spawn_pos, occupied_positions):
-					occupied_positions.append(spawn_pos)
+				var global_pos = npc_spawn_area.to_global(world_pos)
+				target_tile = tilemap.local_to_map(tilemap.to_local(global_pos))
+				if is_valid_npc_tile(tilemap, target_tile, valid_tiles, occupied_tiles):
+					valid = true
 					break
-				
-				attempts += 1
-			
-		# Only add NPC if we found a valid position
-		if attempts < max_attempts:
+		
+		if valid:
+			occupied_tiles.append(target_tile)
+			# Convert tile back to spawn_area local position
+			var tile_world = tilemap.to_global(tilemap.map_to_local(target_tile))
+			npc.position = parent.to_local(tile_world)
 			parent.add_child(npc)
-			npc.position = spawn_pos
-			
-			print("NPC created ", npc, " at ", npc.position, " on tile ID: ", tilemap.get_cell_source_id(tilemap.local_to_map(tilemap.to_local(spawn_pos))))
 		else:
-			print("Could not find valid spawn position for NPC, skipping")
 			npc.queue_free()
 
-# Check if a position is already occupied by another NPC
-func is_position_occupied(pos: Vector2, occupied_list: Array) -> bool:
-	for occupied_pos in occupied_list:
-		if pos.distance_to(occupied_pos) < 16:  # Within half a tile
-			return true
-	return false
+# Check if a tile is valid for NPC placement
+func is_valid_npc_tile(tm: TileMapLayer, tile_pos: Vector2i, valid_tiles: Array, occupied: Array[Vector2i]) -> bool:
+	if tile_pos in occupied:
+		return false
+	var tile_id = tm.get_cell_source_id(tile_pos)
+	if tile_id not in valid_tiles:
+		return false
+	# Must have at least 3 free cardinal neighbors (don't block passageways)
+	var free = 0
+	for dir in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+		var neighbor = tile_pos + dir
+		if tm.get_cell_source_id(neighbor) in valid_tiles and neighbor not in occupied:
+			free += 1
+	return free >= 3
