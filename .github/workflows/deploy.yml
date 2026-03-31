@@ -5,7 +5,7 @@ on:
     types: [created]
 
 env:
-  GODOT_VERSION: 4.3
+  GODOT_VERSION: 4.6
   EXPORT_NAME: euphoric
   PROJECT_PATH: .  # Change this if your project.godot is in a subfolder
 
@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: write
     container:
-      image: barichello/godot-ci:4.3
+      image: barichello/godot-ci:4.6
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -53,7 +53,7 @@ jobs:
     permissions:
       contents: write
     container:
-      image: barichello/godot-ci:4.3
+      image: barichello/godot-ci:4.6
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -89,7 +89,7 @@ jobs:
     permissions:
       contents: write
     container:
-      image: barichello/godot-ci:4.3
+      image: barichello/godot-ci:4.6
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -124,7 +124,7 @@ jobs:
     permissions:
       contents: write
     container:
-      image: barichello/godot-ci:4.3
+      image: barichello/godot-ci:4.6
     steps:
       - name: Checkout
         uses: actions/checkout@v4
