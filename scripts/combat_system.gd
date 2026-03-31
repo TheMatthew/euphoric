@@ -153,14 +153,17 @@ func setup_ui():
 
 func spawn_combat_units():
 	# Single hero unit
-	var hero_unit = CombatUnit.new("Hero", true, Global.inventory.equipped.get("weapon", "sword"))
+	var weapon_id = Global.inventory.equipped.get("weapon", "")
+	var weapon_data = Global.get_item_data(weapon_id)
+	var hero_unit = CombatUnit.new(Global.stats.player_name, true, weapon_id)
 	hero_unit.max_hp = Global.stats.max_hp
 	hero_unit.current_hp = Global.stats.current_hp
-	hero_unit.attack_power = Global.stats.attack_power
-	hero_unit.defense = Global.stats.defense
+	hero_unit.attack_power = Global.stats.attack_power + weapon_data.get("damage", 0)
+	hero_unit.defense = Global.stats.defense + Global.get_equip_bonus("defense")
 	hero_unit.dex_modifier = Global.stats.initiative_mod
 	hero_unit.hit_pct = Global.stats.hit_pct
 	hero_unit.dodge_pct = Global.stats.dodge_pct
+	hero_unit.attack_range = weapon_data.get("range", 1)
 	hero_unit.grid_pos = Vector2i(3, 5)
 	hero_unit.position = Vector2(3 * GRID_SIZE, 5 * GRID_SIZE)
 	add_child(hero_unit)
@@ -179,13 +182,16 @@ func spawn_combat_units():
 		if data.is_empty():
 			continue
 		var pos = enemy_positions[i % enemy_positions.size()]
-		var unit = CombatUnit.new(data.get("name", enemy_id), false, data.get("weapon", "sword"))
+		var enemy_weapon = data.get("weapon", "sword")
+		var enemy_weapon_data = Global.get_item_data(enemy_weapon)
+		var unit = CombatUnit.new(data.get("name", enemy_id), false, enemy_weapon)
 		unit.max_hp = data.get("hp", 15)
 		unit.current_hp = unit.max_hp
 		unit.attack_power = data.get("attack", 4)
 		unit.defense = data.get("defense", 0)
 		unit.dex_modifier = data.get("dex", 0)
 		unit.xp_value = data.get("xp", 5)
+		unit.attack_range = enemy_weapon_data.get("range", 1)
 		unit.grid_pos = pos
 		unit.position = Vector2(pos.x * GRID_SIZE, pos.y * GRID_SIZE)
 		add_child(unit)
@@ -517,10 +523,6 @@ class CombatUnit extends Node2D:
 		unit_name = p_name
 		is_player = player
 		weapon_type = weapon
-		match weapon_type:
-			"bow": attack_range = 4
-			"spear": attack_range = 2
-			_: attack_range = 1
 
 	func _ready():
 		var sprite = Sprite2D.new()

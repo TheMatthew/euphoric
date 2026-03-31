@@ -23,6 +23,22 @@ func get_item_name(item_id: String) -> String:
 			return item_db[category][item_id].get("name", item_id)
 	return item_id
 
+func get_item_data(item_id: String) -> Dictionary:
+	for category in item_db:
+		if item_db[category].has(item_id):
+			return item_db[category][item_id]
+	return {}
+
+func get_equip_bonus(stat: String) -> int:
+	var total = 0
+	for slot in inventory.equipped:
+		var item_id = inventory.equipped[slot]
+		if item_id == "":
+			continue
+		var data = get_item_data(item_id)
+		total += data.get(stat, 0)
+	return total
+
 func save_game(scene_path: String, hero_pos: Vector2):
 	var data = {
 		"scene": scene_path,
