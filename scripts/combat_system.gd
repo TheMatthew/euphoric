@@ -423,8 +423,9 @@ func execute_attack():
 			check_victory()
 
 	await get_tree().create_timer(0.8).timeout
-	if current_state != CombatState.COMBAT_WON:
-		end_turn()
+	if current_state == CombatState.COMBAT_WON or current_state == CombatState.LOOTING:
+		return
+	end_turn()
 
 # --- Enemy AI ---
 
