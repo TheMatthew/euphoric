@@ -164,7 +164,8 @@ func build_inventory_panel():
 	_add_label(vbox, "Equipment", 14, Color.YELLOW)
 	for slot in inv.equipped:
 		var item = inv.equipped[slot]
-		_add_label(vbox, "  %s: %s" % [slot.capitalize(), item if item else "—"], 12, Color.WHITE)
+		var display = Global.get_item_name(item) if item else "—"
+		_add_label(vbox, "  %s: %s" % [slot.capitalize(), display], 12, Color.WHITE)
 
 	vbox.add_child(HSeparator.new())
 
@@ -177,9 +178,10 @@ func build_inventory_panel():
 		for i in range(inv_item_keys.size()):
 			var item_id = inv_item_keys[i]
 			var count = inv.items[item_id]
+			var display = Global.get_item_name(item_id)
 			var prefix = "► " if i == inv_selected else "  "
 			var color = Color.YELLOW if i == inv_selected else Color.WHITE
-			_add_label(vbox, "%s%s x%d" % [prefix, item_id, count], 12, color)
+			_add_label(vbox, "%s%s x%d" % [prefix, display, count], 12, color)
 
 	# Footer
 	_add_label(vbox, "↑↓ select  Enter=equip  I/ESC=close", 10, Color.GRAY)
@@ -221,13 +223,19 @@ func equip_selected_item():
 		build_inventory_panel()
 
 func guess_equip_slot(item_id: String) -> String:
-	if item_id in ["sword", "dagger", "bow", "spear", "staff"]:
+	# Look up item in items.json categories
+	if not Global.item_db.is_empty():
+		for category in Global.item_db:
+			if Global.item_db[category].has(item_id):
+				return Global.item_db[category][item_id].get("slot", "")
+	# Fallback
+	if item_id in ["sword", "dagger", "bow", "spear", "staff", "short_sword", "long_sword", "mace", "crossbow", "halberd", "sling", "club"]:
 		return "weapon"
-	if item_id in ["shield"]:
+	if item_id in ["small_shield", "large_shield", "magic_shield", "spiked_shield", "shield"]:
 		return "shield"
-	if item_id in ["armor", "chainmail", "leather", "robe"]:
+	if item_id in ["cloth_armour", "leather_armour", "chain_mail", "plate_mail", "ring_mail", "scale_mail", "armor"]:
 		return "armor"
-	if item_id in ["ring", "amulet"]:
+	if item_id in ["ring_of_protection", "amulet_of_turning", "ring", "amulet"]:
 		return "accessory"
 	return ""
 

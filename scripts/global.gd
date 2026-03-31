@@ -4,8 +4,24 @@ extends Node
 @export var player_in_scene: bool = false
 @onready var inventory: player_inventory = player_inventory.new()
 @onready var stats: CharacterStats = CharacterStats.new()
+var item_db: Dictionary = {}
 
 const SAVE_PATH = "user://savegame.dat"
+
+func _ready():
+	load_item_db()
+
+func load_item_db():
+	var file = FileAccess.open("res://data/items.json", FileAccess.READ)
+	if file:
+		item_db = JSON.parse_string(file.get_as_text())
+		file.close()
+
+func get_item_name(item_id: String) -> String:
+	for category in item_db:
+		if item_db[category].has(item_id):
+			return item_db[category][item_id].get("name", item_id)
+	return item_id
 
 func save_game(scene_path: String, hero_pos: Vector2):
 	var data = {
