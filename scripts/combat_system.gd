@@ -156,7 +156,7 @@ func spawn_combat_units():
 	# Single hero unit
 	var weapon_id = Global.inventory.equipped.get("weapon", "")
 	var weapon_data = Global.get_item_data(weapon_id)
-	var hero_unit = CombatUnit.new(Global.stats.player_name, true, weapon_id)
+	var hero_unit = CombatUnit.new(Global.stats.player_name, true, weapon_id, "res://res/sprites/avatar.png")
 	hero_unit.max_hp = Global.stats.max_hp
 	hero_unit.current_hp = Global.stats.current_hp
 	hero_unit.attack_power = Global.stats.attack_power + weapon_data.get("damage", 0)
@@ -185,7 +185,7 @@ func spawn_combat_units():
 		var pos = enemy_positions[i % enemy_positions.size()]
 		var enemy_weapon = data.get("weapon", "sword")
 		var enemy_weapon_data = Global.get_item_data(enemy_weapon)
-		var unit = CombatUnit.new(data.get("name", enemy_id), false, enemy_weapon)
+		var unit = CombatUnit.new(data.get("name", enemy_id), false, enemy_weapon, data.get("image", ""))
 		unit.max_hp = data.get("hp", 15)
 		unit.current_hp = unit.max_hp
 		unit.attack_power = data.get("attack", 4)
@@ -572,19 +572,30 @@ class CombatUnit extends Node2D:
 	var weapon_type: String = "sword"
 	var attack_range: int = 1
 	var xp_value: int = 0
+	var sprite_path: String = ""
 
 	var hp_bar: ColorRect
 
-	func _init(p_name: String, player: bool, weapon: String = "sword"):
+	func _init(p_name: String, player: bool, weapon: String = "sword", p_sprite: String = ""):
 		unit_name = p_name
 		is_player = player
 		weapon_type = weapon
+		sprite_path = p_sprite
 
 	func _ready():
 		var sprite = Sprite2D.new()
-		var img = Image.create(24, 24, false, Image.FORMAT_RGB8)
-		img.fill(Color.BLUE if is_player else Color.RED)
-		sprite.texture = ImageTexture.create_from_image(img)
+		if sprite_path != "" and ResourceLoader.exists(sprite_path):
+			sprite.texture = load(sprite_path)
+			# Standard sprites are 32x32 or 24x24, grid is 32. Scale to fit nicely.
+			var tex_size = sprite.texture.get_size()
+			if tex_size.x > 0 and tex_size.y > 0:
+				var scale_factor = 28.0 / max(tex_size.x, tex_size.y)
+				sprite.scale = Vector2(scale_factor, scale_factor)
+		else:
+			var img = Image.create(24, 24, false, Image.FORMAT_RGB8)
+			img.fill(Color.BLUE if is_player else Color.RED)
+			sprite.texture = ImageTexture.create_from_image(img)
+		
 		sprite.position = Vector2(16, 16)
 		add_child(sprite)
 
