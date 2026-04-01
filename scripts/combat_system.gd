@@ -36,6 +36,10 @@ var encounter_enemies: Array[String] = []
 # Overworld tile type string where encounter happened (set before adding to tree)
 var overworld_tile: String = "4"
 
+var hit_sfx = preload("res://res/The Essential Retro Video Game Sound Effects Collection [512 sounds] By Juhani Junkala/Weapons/Single Shot Sounds/sfx_weapon_singleshot1.wav")
+var death_sfx = preload("res://res/The Essential Retro Video Game Sound Effects Collection [512 sounds] By Juhani Junkala/Death Screams/Human/sfx_deathscream_human5.wav")
+var miss_sfx = preload("res://res/The Essential Retro Video Game Sound Effects Collection [512 sounds] By Juhani Junkala/Weapons/Melee/sfx_wpn_dagger.wav")
+
 signal combat_ended(victory: bool)
 
 func _ready():
@@ -386,9 +390,30 @@ func show_hit_flash(target: CombatUnit):
 	star.position = target.position + Vector2(4, -8)
 	star.z_index = 10
 	add_child(star)
+
+	var sfx = AudioStreamPlayer.new()
+	sfx.stream = hit_sfx
+	add_child(sfx)
+	sfx.play()
+	sfx.finished.connect(sfx.queue_free)
+
 	var tween = create_tween()
 	tween.tween_property(star, "modulate:a", 0.0, 0.3)
 	tween.tween_callback(star.queue_free)
+
+func show_death_effect():
+	var sfx = AudioStreamPlayer.new()
+	sfx.stream = death_sfx
+	add_child(sfx)
+	sfx.play()
+	sfx.finished.connect(sfx.queue_free)
+
+func show_miss_effect():
+	var sfx = AudioStreamPlayer.new()
+	sfx.stream = miss_sfx
+	add_child(sfx)
+	sfx.play()
+	sfx.finished.connect(sfx.queue_free)
 
 func execute_attack():
 	var target = get_unit_at_position(attack_cursor_position)
@@ -408,10 +433,12 @@ func execute_attack():
 
 	var result = resolve_attack(current_unit, target)
 	if not result.hit:
+		show_miss_effect()
 		update_status("%s attacks %s — Miss!" % [current_unit.unit_name, target.unit_name])
 	else:
 		update_status("%s hits %s for %d damage!" % [current_unit.unit_name, target.unit_name, result.damage])
 		if target.current_hp <= 0:
+			show_death_effect()
 			var target_name = target.unit_name
 			var target_pos = target.grid_pos
 			var target_xp = target.xp_value
@@ -439,10 +466,12 @@ func execute_enemy_ai():
 	if distance <= current_unit.attack_range:
 		var result = resolve_attack(current_unit, nearest)
 		if not result.hit:
+			show_miss_effect()
 			update_status("%s attacks %s — Miss!" % [current_unit.unit_name, nearest.unit_name])
 		else:
 			update_status("%s hits %s for %d!" % [current_unit.unit_name, nearest.unit_name, result.damage])
 			if nearest.current_hp <= 0:
+				show_death_effect()
 				player_units.erase(nearest)
 				nearest.queue_free()
 				check_defeat()
