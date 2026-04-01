@@ -1,56 +1,61 @@
 {
   "goblin": {
-    "name": "Goblin",
-    "hp": 12,
-    "attack": 3,
-    "defense": 1,
-    "dex": 1,
-    "weapon": "sword",
-    "xp": 5
+	"name": "Goblin",
+	"hp": 12,
+	"attack": 3,
+	"defense": 1,
+	"dex": 1,
+	"weapon": "sword",
+	"xp": 5,
+	"image": "res://res/sprites/goblin.png"
   },
   "wolf": {
-    "name": "Wolf",
-    "hp": 10,
-    "attack": 4,
-    "defense": 0,
-    "dex": 3,
-    "weapon": "sword",
-    "xp": 4
+	"name": "Wolf",
+	"hp": 10,
+	"attack": 4,
+	"defense": 0,
+	"dex": 3,
+	"weapon": "sword",
+	"xp": 4,
+	"image": "res://res/sprites/wolf.png"
   },
   "orc": {
-    "name": "Orc",
-    "hp": 20,
-    "attack": 5,
-    "defense": 2,
-    "dex": 0,
-    "weapon": "sword",
-    "xp": 8
+	"name": "Orc",
+	"hp": 20,
+	"attack": 5,
+	"defense": 2,
+	"dex": 0,
+	"weapon": "sword",
+	"xp": 8,
+	"image": "res://res/sprites/orc.png"
   },
   "young_dragon": {
-    "name": "Young Dragon",
-    "hp": 35,
-    "attack": 8,
-    "defense": 4,
-    "dex": 2,
-    "weapon": "spear",
-    "xp": 20
+	"name": "Young Dragon",
+	"hp": 35,
+	"attack": 8,
+	"defense": 4,
+	"dex": 2,
+	"weapon": "spear",
+	"xp": 20
   },
   "skeleton": {
-    "name": "Skeleton",
-    "hp": 14,
-    "attack": 4,
-    "defense": 2,
-    "dex": 1,
-    "weapon": "sword",
-    "xp": 6
+	"name": "Skeleton",
+	"hp": 14,
+	"attack": 4,
+	"defense": 2,
+	"dex": 1,
+	"weapon": "sword",
+	"xp": 6,
+	"image": "res://res/sprites/skeleton0.png"
   },
   "bandit": {
-    "name": "Bandit",
-    "hp": 16,
-    "attack": 5,
-    "defense": 1,
-    "dex": 2,
-    "weapon": "bow",
-    "xp": 7
+	"name": "Bandit",
+	"hp": 16,
+	"attack": 5,
+	"defense": 1,
+	"dex": 2,
+	"weapon": "bow",
+	"xp": 7,
+		"image": "res://res/u4graphics-master/32x32x24/shapes-assets/200_rogue0.png"
   }
 }
