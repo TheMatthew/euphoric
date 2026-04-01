@@ -18,7 +18,7 @@ config/name="Euphoric"
 config/description="An Ultima 4 inspired game"
 run/main_scene="uid://bwsyvx4jsxsaq"
 config/features=PackedStringArray("4.6", "Mobile")
-config/icon="uid://4aoyr27m3x7t"
+config/icon="res://euphoric.png"
 config/windows_native_icon="res://euphoric.ico"
 
 [autoload]

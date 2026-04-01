@@ -31,7 +31,7 @@ var emissive_tiles: Dictionary = {
 }
 
 # Time of day: 0.0 = noon (no fog), 1.0 = midnight (full falloff)
-var time_falloff: float = 0.0
+@export var time_falloff: float = 0.0
 
 
 # --- Internal state ---
@@ -184,6 +184,12 @@ func rebuild_fog_window():
 	update_lighting(center)
 
 # --- Main update loop ---
+
+func _input(event):
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_H:
+			time_falloff = 1.0 if time_falloff == 0.0 else 0.0
+			rebuild_fog_window()
 
 func _process(_delta):
 	if not is_instance_valid(hero) or not is_instance_valid(tilemap):

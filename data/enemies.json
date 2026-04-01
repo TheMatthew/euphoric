@@ -36,7 +36,18 @@
 	"defense": 4,
 	"dex": 2,
 	"weapon": "spear",
-	"xp": 20
+	"xp": 20,
+	"image": "res://res/sprites/dragon.png"
+  },
+  "dragon": {
+	"name": "Dragon",
+	"hp": 80,
+	"attack": 15,
+	"defense": 8,
+	"dex": 4,
+	"weapon": "spear",
+	"xp": 100,
+	"image": "res://res/sprites/dragon.png"
   },
   "skeleton": {
 	"name": "Skeleton",
